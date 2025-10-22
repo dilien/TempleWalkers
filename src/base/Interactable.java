@@ -1,3 +1,5 @@
+package base;
+
 public interface Interactable {
 
     String getName();

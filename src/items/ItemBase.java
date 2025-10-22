@@ -1,9 +1,13 @@
-public class ItemBase implements Interactable{
+package items;
+
+import base.Interactable;
+
+public class ItemBase implements Interactable {
     public ItemBase(){
 
     }
     public String getName(){
-        return "ItemBase";
+        return "items.ItemBase";
     }
 
     public String getDescription() {
