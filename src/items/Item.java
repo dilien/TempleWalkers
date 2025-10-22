@@ -2,10 +2,8 @@ package items;
 
 import base.Interactable;
 
-public class ItemBase implements Interactable {
-    public ItemBase(){
+public abstract class Item implements Interactable {
 
-    }
     public String getName(){
         return "ItemBase";
     }

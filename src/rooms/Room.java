@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 //you cannot interact with the rooms themselves,
 //you can only interact with the things in them.
-public class BaseRoom {
+public abstract class Room {
     public ArrayList<Interactable> items = new ArrayList<>();
 
     public void render(){

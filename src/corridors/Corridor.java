@@ -1,4 +1,30 @@
 package corridors;
 
-public class Corridor {
+import base.Interactable;
+import base.Player;
+import rooms.Room;
+
+public abstract class Corridor implements Interactable {
+    Room roomA;
+    Room roomB;
+
+    public String getName(){
+        return "CorridorBase";
+    }
+
+    public String getDescription() {
+        return "This is the base corridor. You should not be seeing this. Oops.";
+    }
+
+    public boolean interact(Interactable other){
+        Player player = Player.getInstance();
+        if(player.room == roomA){
+            //move to roomB
+        } else if (player.room == roomB) {
+            //move to roomA
+        }else{
+            //raise error
+        }
+        return true;
+    }
 }
