@@ -19,9 +19,9 @@ public abstract class Corridor implements Interactable {
     public boolean interact(Interactable other){
         Player player = Player.getInstance();
         if(player.room == roomA){
-            //move to roomB
+            player.enterRoom(roomA);
         } else if (player.room == roomB) {
-            //move to roomA
+            player.enterRoom(roomB);
         }else{
             //raise error
         }

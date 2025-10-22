@@ -1,6 +1,6 @@
 package items;
 
-public class Gold extends ItemBase {
+public class Gold extends Item {
     int coins = 0;
 
     public String getName() {

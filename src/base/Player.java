@@ -15,9 +15,11 @@ public class Player {
     }
 
     public Room room;
+    Inventory inventory;
     Scanner scanner;
     public void start(){
         scanner = new Scanner(System.in);
+        inventory = new Inventory(5);
 
         while(true){
             dashboard();
@@ -25,8 +27,15 @@ public class Player {
         }
     }
 
+    public void enterRoom(Room room){
+        this.room = room;
+        //trigger any room-specific effects
+        room.enterRoom();
+    }
+
     void dashboard(){
-        System.out.println("hello!");
+        int index = this.room.render();
+        this.inventory.render(index);
     }
 
     void command(){

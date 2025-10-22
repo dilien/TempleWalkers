@@ -1,17 +1,17 @@
 package base;
 
 import items.Gold;
-import items.ItemBase;
+import items.Item;
 
 public class Inventory {
     public Gold gold;
-    ItemBase[] items;
+    Item[] items;
     public Inventory(int size){
         gold = new Gold();
-        items = new ItemBase[size];
+        items = new Item[size];
     }
 
-    public boolean addItem(ItemBase item){
+    public boolean addItem(Item item){
         for(int i = 0; i<items.length; i++){
             if(items[i] == null){
                 items[i] = item;
@@ -19,6 +19,14 @@ public class Inventory {
             }
         }
         return false;
+    }
+
+    public void render(int startIndex){
+        for (int i = 0; i < items.length; i++) {
+            Interactable item = items[i];
+            if(item == null){return;}
+            System.out.println(startIndex + ":" + item.getName());
+        }
     }
 
 }
