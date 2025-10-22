@@ -4,9 +4,10 @@ import items.Gold;
 import items.ItemBase;
 
 public class Inventory {
-    Gold gold;
+    public Gold gold;
     ItemBase[] items;
     public Inventory(int size){
+        gold = new Gold();
         items = new ItemBase[size];
     }
 
@@ -20,7 +21,4 @@ public class Inventory {
         return false;
     }
 
-    public void addGold(int goldCount){
-        gold.addGold(goldCount);
-    }
 }

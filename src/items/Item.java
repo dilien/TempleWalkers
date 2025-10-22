@@ -7,7 +7,7 @@ public class ItemBase implements Interactable {
 
     }
     public String getName(){
-        return "items.ItemBase";
+        return "ItemBase";
     }
 
     public String getDescription() {
