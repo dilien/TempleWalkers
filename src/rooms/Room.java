@@ -17,7 +17,7 @@ public abstract class Room implements Interactable{
     public ArrayList<Interactable> items = new ArrayList<>();
 
     public int render(){
-        System.out.println("You are in a room.");
+        System.out.println("You are in a " + this.getName());
         for (int i = 0; i < corridors.length; i++) {
             Interactable item = corridors[i];
             System.out.println(i + ":" + item.getName());
