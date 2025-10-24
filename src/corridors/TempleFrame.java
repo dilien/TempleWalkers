@@ -1,5 +1,7 @@
 package corridors;
 
+import items.Item;
+
 public class TempleFrame extends Corridor{
 
     public String getName() {

@@ -1,6 +1,7 @@
 package structures;
 
 import base.Interactable;
+import items.Item;
 
 public class Brazier extends Structure{
     boolean onfire = false;
@@ -15,9 +16,5 @@ public class Brazier extends Structure{
         }else{
             return "This metal brazer lays dormant. It has oil if you had the tools to re-light it.";
         }
-    }
-
-    public boolean interact(Interactable other) {
-        return false;
     }
 }

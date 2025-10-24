@@ -13,10 +13,6 @@ public class Gold extends Item {
         return "The gold coins glisten in your hand. They are unfortunately not made of chocolate.";
     }
 
-    public boolean interact(Interactable other) {
-        return false;
-    }
-
     public void addGold(int gold){
         coins += gold;
     }

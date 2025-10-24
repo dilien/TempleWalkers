@@ -30,10 +30,10 @@ public abstract class Room implements Interactable{
         return offset + items.size();
     }
 
-    public boolean interact(Interactable other){
+    public boolean interact(Item other){
         Player player = Player.getInstance();
         if(other != null){
-            if(player.inventory.removeItem((Item) other)){
+            if(player.inventory.removeItem(other)){
                 items.add(other);
                 return true;
             }
