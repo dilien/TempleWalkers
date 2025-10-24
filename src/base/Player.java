@@ -5,7 +5,10 @@ import rooms.Room;
 import java.util.Scanner;
 
 public class Player {
-    private Player(){};
+    private Player(){
+        scanner = new Scanner(System.in);
+        inventory = new Inventory(5);
+    };
     private static Player instance;
     public static Player getInstance(){
         if(instance == null){
@@ -18,14 +21,22 @@ public class Player {
     public Inventory inventory;
     Scanner scanner;
     public void start(){
-        scanner = new Scanner(System.in);
-        inventory = new Inventory(5);
 
         while(true){
             dashboard();
             command();
             tick();
         }
+    }
+
+    String output = "";
+
+    /**
+     * Adds text to the output that will be displayed in the next display tick.
+     * @param text
+     */
+    public void displayText(String text){
+        output += "\n" + text;
     }
 
     public void tick(){
@@ -41,6 +52,9 @@ public class Player {
     void dashboard(){
         int index = this.room.render(1);
         this.inventory.render(index);
+
+        System.out.println(output );
+        output = "";
     }
 
     void command(){

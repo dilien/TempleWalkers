@@ -17,8 +17,8 @@ public abstract class Room implements Interactable{
     public ArrayList<Interactable> items = new ArrayList<>();
 
     public int render(int start){
-        System.out.println("You are in a " + this.getName());
-        int offset = start;
+        System.out.println(start + ":You are in a " + this.getName());
+        start += 1;
         for (int i = 0; i < corridors.length; i++) {
             Interactable item = corridors[i];
             System.out.println(i + start + ":" + item.getName());
@@ -38,9 +38,12 @@ public abstract class Room implements Interactable{
         if(other != null){
             if(player.inventory.removeItem(other)){
                 items.add(other);
+
+                player.displayText("You drop the " + other.getName() + " on the ground.");
                 return true;
             }
         }
+        player.displayText("You cannot interact with the " + this.getName());
         return false;
     }
 

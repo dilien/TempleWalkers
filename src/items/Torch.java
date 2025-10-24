@@ -34,6 +34,7 @@ public class Torch extends Item{
         if(turnsLeft == 0){
             Player player = Player.getInstance();
             player.inventory.removeItem(this);
+            player.displayText("Your torch has finally extinguished, and the entire stick has been burnt.");
         }
     }
 }

@@ -35,7 +35,7 @@ public class Inventory {
         for (int i = 0; i < items.length; i++) {
             Interactable item = items[i];
             if(item == null){return;}
-            System.out.println(startIndex + ":" + item.getName());
+            System.out.println(startIndex + i + ":" + item.getName());
         }
     }
 
