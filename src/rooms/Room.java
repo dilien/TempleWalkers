@@ -10,8 +10,10 @@ import java.util.ArrayList;
 //you cannot interact with the rooms themselves,
 //you can only interact with the things in them.
 public abstract class Room implements Interactable{
+    //corridors are fixed. New ones cannot be added mid-game
     public Corridor[] corridors;
 
+    //items can be added as the player interacts with them, it is dynamic length.
     public ArrayList<Interactable> items = new ArrayList<>();
 
     public int render(){

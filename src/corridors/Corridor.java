@@ -8,6 +8,10 @@ import rooms.Room;
 public abstract class Corridor implements Interactable {
     Room roomA;
     Room roomB;
+    Corridor(Room roomA, Room roomB){
+        this.roomA = roomA;
+        this.roomB = roomB;
+    }
 
     public boolean interact(Item other){
         Player player = Player.getInstance();

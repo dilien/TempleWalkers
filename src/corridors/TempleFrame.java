@@ -1,8 +1,13 @@
 package corridors;
 
 import items.Item;
+import rooms.Room;
 
 public class TempleFrame extends Corridor{
+
+    public TempleFrame(Room roomA, Room roomB) {
+        super(roomA, roomB);
+    }
 
     public String getName() {
         return "temple frame";
