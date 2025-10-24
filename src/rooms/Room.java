@@ -1,13 +1,15 @@
 package rooms;
 
 import base.Interactable;
+import base.Player;
 import corridors.Corridor;
+import items.Item;
 
 import java.util.ArrayList;
 
 //you cannot interact with the rooms themselves,
 //you can only interact with the things in them.
-public abstract class Room {
+public abstract class Room implements Interactable{
     public Corridor[] corridors;
 
     public ArrayList<Interactable> items = new ArrayList<>();
@@ -26,6 +28,17 @@ public abstract class Room {
         }
 
         return offset + items.size();
+    }
+
+    public boolean Interact(Interactable other){
+        Player player = Player.getInstance();
+        if(other != null){
+            if(player.inventory.removeItem((Item) other)){
+                items.add(other);
+                return true;
+            }
+        }
+        return false;
     }
 
     public abstract void enterRoom();

@@ -15,7 +15,7 @@ public class Player {
     }
 
     public Room room;
-    Inventory inventory;
+    public Inventory inventory;
     Scanner scanner;
     public void start(){
         scanner = new Scanner(System.in);
