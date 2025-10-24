@@ -1,7 +1,10 @@
 package structures;
 
 import base.Interactable;
+import base.Player;
 import items.Item;
+import items.Stick;
+import items.Torch;
 
 public class Brazier extends Structure{
     boolean onfire = false;
@@ -16,5 +19,17 @@ public class Brazier extends Structure{
         }else{
             return "This metal brazer lays dormant. It has oil if you had the tools to re-light it.";
         }
+    }
+
+    public boolean interact(Item other) {
+        Player player = Player.getInstance();
+        if(onfire && other instanceof Stick){
+            player.inventory.removeItem(other);
+            player.inventory.addItem(new Torch());
+        }
+        if(!onfire && other instanceof Torch){
+            onfire = true;
+        }
+        return false;
     }
 }
