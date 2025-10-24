@@ -5,7 +5,7 @@ public interface Interactable {
 
     String getName();
 
-    String getDescription();
+    String describe();
 
 
     /**

@@ -1,5 +1,7 @@
 package items;
 
+import base.Interactable;
+
 public class Gold extends Item {
     int coins = 0;
 
@@ -9,6 +11,10 @@ public class Gold extends Item {
 
     public String describe(){
         return "The gold coins glisten in your hand. They are unfortunately not made of chocolate.";
+    }
+
+    public boolean interact(Interactable other) {
+        return false;
     }
 
     public void addGold(int gold){
