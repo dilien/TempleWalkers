@@ -24,7 +24,12 @@ public class Player {
         while(true){
             dashboard();
             command();
+            tick();
         }
+    }
+
+    public void tick(){
+        inventory.tick();
     }
 
     public void enterRoom(Room room){

@@ -1,5 +1,7 @@
 package items;
 
+import base.Player;
+
 public class Torch extends Item{
     public int turnsLeft;
 
@@ -25,5 +27,13 @@ public class Torch extends Item{
             text = "It is almost extinguished.";
         }
         return "This improvised torch burns quickly. " + text;
+    }
+
+    public void tick(){
+        turnsLeft -= 1;
+        if(turnsLeft == 0){
+            Player player = Player.getInstance();
+            player.inventory.removeItem(this);
+        }
     }
 }
