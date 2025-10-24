@@ -39,7 +39,7 @@ public class Player {
     }
 
     void dashboard(){
-        int index = this.room.render();
+        int index = this.room.render(1);
         this.inventory.render(index);
     }
 

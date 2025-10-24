@@ -16,20 +16,21 @@ public abstract class Room implements Interactable{
     //items can be added as the player interacts with them, it is dynamic length.
     public ArrayList<Interactable> items = new ArrayList<>();
 
-    public int render(){
+    public int render(int start){
         System.out.println("You are in a " + this.getName());
+        int offset = start;
         for (int i = 0; i < corridors.length; i++) {
             Interactable item = corridors[i];
-            System.out.println(i + ":" + item.getName());
+            System.out.println(i + start + ":" + item.getName());
         }
-        int offset = corridors.length;
+        start += corridors.length;
 
         for (int i = 0; i < items.size(); i++) {
             Interactable item = items.get(i);
-            System.out.println(i + offset + ":" + item.getName());
+            System.out.println(i + start + ":" + item.getName());
         }
 
-        return offset + items.size();
+        return start + items.size();
     }
 
     public boolean interact(Item other){
