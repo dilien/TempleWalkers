@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Inventory implements Renderable {
     public Gold gold;
-    public int maxSize = 10;
+    public int maxSize = 0;
     ArrayList<Item> items;
     public Inventory(int size){
         gold = new Gold();
@@ -16,7 +16,7 @@ public class Inventory implements Renderable {
     }
 
     public void addItem(Item item){
-        if(items.size() >= maxSize){
+        if(maxSize != 0 && items.size() >= maxSize){
             Player player = Player.getInstance();
             player.room.items.add(item);
         }else{
@@ -36,7 +36,9 @@ public class Inventory implements Renderable {
 
     public Interactable[] render(int index, boolean display) {
         Interactable[] arr = items.toArray(new Item[0]);
+        if(!display){return arr;}
 
+        System.out.println("Inventory contents (" + items.size() + "/" + maxSize + "): ");
         for (int i = 0; i<items.size(); i++){
             Item item = items.get(i);
             System.out.println(index + i + 1 + ":" + item.getName());

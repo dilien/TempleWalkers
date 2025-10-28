@@ -47,6 +47,7 @@ public class Player {
 
     public void enterRoom(Room room){
         this.room = room;
+        displayText("entering a " + room.getName());
         //trigger any room-specific effects
         room.enterRoom();
     }
@@ -70,6 +71,8 @@ public class Player {
         int array1Start = index;
         Interactable[] array1 = this.room.render(index, true);
         index += array1.length;
+
+        System.out.println("----------------------------------------------------------------------------------");
 
         int array2Start = index;
         Interactable[] array2 = this.inventory.render(index, true);
@@ -119,7 +122,9 @@ public class Player {
             }
 
             boolean success = obj1.interact(obj2);
-
+            if(!success){
+                displayText("You cannot interact with " + obj1.getName() + " in this way.");
+            }
         }
     }
 }

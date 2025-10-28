@@ -50,7 +50,7 @@ public abstract class Room implements Interactable, Renderable {
                 return true;
             }
         }
-        player.displayText("You cannot interact with the " + this.getName());
+        //player.displayText("You cannot interact with the " + this.getName());
         return false;
     }
 
