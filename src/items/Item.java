@@ -1,12 +1,11 @@
 package items;
 
-import base.Console;
-import base.Interactable;
-import base.Inventory;
-import base.Player;
-
-public abstract class Item implements Interactable {
+import base.*;
+public abstract class Item implements Interactable, Tickable {
     public Inventory parent;
+    public Item() {
+        Temple.getInstance().listenTick(this);
+    }
     public boolean interact(Player player, Item other) {
         //we should make them pick up the item before any other checks can be made
         if(parent != player.inventory){

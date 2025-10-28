@@ -1,4 +1,5 @@
-import base.Player;
+package base;
+
 import corridors.Corridor;
 import corridors.TempleFrame;
 import items.Stick;
@@ -6,6 +7,9 @@ import items.Torch;
 import rooms.Chamber;
 import rooms.Room;
 import structures.Brazier;
+
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 
 public class Temple {
 
@@ -35,8 +39,20 @@ public class Temple {
         player.inventory.addItem(new Torch());
     }
 
+    //this is a weak reference, because if the object is destroyed (i.e. a item with no parent) then we want the garbage collector to clean it up still.
+    ArrayList<WeakReference<Tickable>> tickables = new ArrayList<>();
     public void tick(){
-        //todo loop through everything and step
+        for(WeakReference<Tickable> tickable : tickables){
+            if(tickable.get() == null){
+                tickables.remove(tickable);
+            }else{
+                tickable.get().tick();
+            }
+        }
+    }
+
+    public void listenTick(Tickable self){
+        tickables.add(new WeakReference<>(self));
     }
 
     static void generateRooms(){
