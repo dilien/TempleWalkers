@@ -27,14 +27,14 @@ public abstract class Room implements Interactable, Renderable {
         for (int i = 0; i < corridors.length; i++) {
             Interactable item = corridors[i];
             arr[i+1] = item;
-            System.out.println(i + start + ":" + item.getName());
+            System.out.println(i + start + 1 + ":" + item.getName());
         }
         start += corridors.length;
 
         for (int i = 0; i < items.size(); i++) {
             Interactable item = items.get(i);
             arr[i+1+corridors.length] = item;
-            System.out.println(i + start + ":" + item.getName());
+            System.out.println(i + start + 1 + ":" + item.getName());
         }
 
         return arr;

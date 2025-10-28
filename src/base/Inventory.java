@@ -39,7 +39,7 @@ public class Inventory implements Renderable {
 
         for (int i = 0; i<items.size(); i++){
             Item item = items.get(i);
-            System.out.println(index + i + ":" + item.getName());
+            System.out.println(index + i + 1 + ":" + item.getName());
         }
 
         return arr;
