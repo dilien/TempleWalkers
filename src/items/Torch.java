@@ -6,6 +6,7 @@ public class Torch extends Item{
     public int turnsLeft;
 
     public Torch(){
+        super();
         turnsLeft = 50;
     }
 

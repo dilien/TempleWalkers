@@ -1,10 +1,14 @@
 package items;
 
 import base.*;
-public abstract class Item implements Interactable, Tickable {
+
+//TODO: Item is not being deleted when it is removed from its inventory
+//I am not sure if this is to do with the event listener, or if it is happening anyway
+//The Intellij debugger isn't working so I cannot check individual objects for now. Waiting on that to be fixed, so I can find the root issue.
+public abstract class Item implements Interactable {
     public Inventory parent;
     public Item() {
-        Temple.getInstance().listenTick(this);
+        Temple.getInstance().tickEvent.listen((_void)->tick());
     }
     public boolean interact(Player player, Item other) {
         //we should make them pick up the item before any other checks can be made
@@ -22,7 +26,7 @@ public abstract class Item implements Interactable, Tickable {
         return false;
     }
     public void tick(){
-
+        System.out.println(this.getName());
     };
 }
 

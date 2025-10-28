@@ -10,6 +10,7 @@ import structures.Brazier;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.function.Consumer;
 
 public class Temple {
 
@@ -39,20 +40,9 @@ public class Temple {
         player.inventory.addItem(new Torch());
     }
 
-    //this is a weak reference, because if the object is destroyed (i.e. a item with no parent) then we want the garbage collector to clean it up still.
-    ArrayList<WeakReference<Tickable>> tickables = new ArrayList<>();
+    public Event<Void> tickEvent = new Event<>();
     public void tick(){
-        for(WeakReference<Tickable> tickable : tickables){
-            if(tickable.get() == null){
-                tickables.remove(tickable);
-            }else{
-                tickable.get().tick();
-            }
-        }
-    }
-
-    public void listenTick(Tickable self){
-        tickables.add(new WeakReference<>(self));
+        tickEvent.send(null);
     }
 
     static void generateRooms(){
