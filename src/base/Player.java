@@ -2,6 +2,7 @@ package base;
 
 import rooms.Room;
 
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Player {
@@ -24,7 +25,6 @@ public class Player {
 
         while(true){
             dashboard();
-            command();
             tick();
         }
     }
@@ -50,16 +50,28 @@ public class Player {
     }
 
     void dashboard(){
-        int index = this.room.render(1);
-        this.inventory.render(index);
+        int index = 1;
+        Interactable[][] array = new Interactable[2][];
+
+        array[0] = this.room.render(index, true);
+        index += array[0].length;
+        array[1] = this.inventory.render(index, true);
+        index += array[1].length;
 
         System.out.println(output );
         output = "";
-    }
 
-    void command(){
+        Interactable[] interactables = new Interactable[index];
+        interactables[0] = room;
+
+
+
         String input = scanner.nextLine();
         String[] arr = input.split(" ");
 
+        if(arr.length < 2){return;}
+        if(Objects.equals(arr[0], "d")){
+
+        }
     }
 }
