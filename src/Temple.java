@@ -17,11 +17,15 @@ public class Temple {
         room.corridors = corridors;
         room2.corridors = corridors;
 
-        player.room = room;
+        player.enterRoom(room);
 
         room2.structs.add(new Brazier());
         player.inventory.addItem(new Stick());
         player.inventory.addItem(new Torch());
+    }
+
+    public void tick(){
+        //todo loop through everything and step
     }
 
     static void generateRooms(){

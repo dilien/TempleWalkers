@@ -24,7 +24,7 @@ public abstract class Corridor implements Interactable {
     }
 
     public boolean interact(Player player, Item other){
-        player.enterRoom(other(player.room));
+        player.enterRoom(other(player.getRoom()));
         return true;
     }
 }

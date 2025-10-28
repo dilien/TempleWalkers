@@ -1,9 +1,6 @@
 package rooms;
 
-import base.Interactable;
-import base.Inventory;
-import base.Player;
-import base.Renderable;
+import base.*;
 import corridors.Corridor;
 import items.Item;
 import structures.Structure;
@@ -61,6 +58,8 @@ public abstract class Room implements Interactable, Renderable {
             Corridor item = corridors[i];
             arr[i+start] = item;
             int plr_index = i + start + 1;
+            //"A {item-name} that leads to a {other-item-name}"
+            //"Je {other-item-name} est led to by {item-name}"
             String text = plr_index + " : A " + item.getName() + " that leads to a " + item.other(this).getName();
             write(output[1 + i], text, sectionLeft);
         }
@@ -93,7 +92,7 @@ public abstract class Room implements Interactable, Renderable {
             if(player.inventory.removeItem(other)){
                 inventory.addItem(other);
 
-                player.displayText("You drop the " + other.getName() + " on the ground.");
+                Console.getInstance().displayText("You drop the " + other.getName() + " on the ground.");
                 return true;
             }
         }

@@ -1,3 +1,4 @@
+import base.Console;
 import base.Player;
 
 public class Main {
@@ -6,6 +7,9 @@ public class Main {
         Player main = new Player();
         Temple temple = new Temple(main);
 
-        main.start();
+        while(true){
+            Console.getInstance().dashboard(main);
+            temple.tick();
+        }
     }
 }

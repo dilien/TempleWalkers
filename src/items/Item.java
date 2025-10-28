@@ -1,5 +1,6 @@
 package items;
 
+import base.Console;
 import base.Interactable;
 import base.Inventory;
 import base.Player;
@@ -12,10 +13,10 @@ public abstract class Item implements Interactable {
             Inventory parent = this.parent;
             if(player.inventory.addItem(this)){
                 parent.removeItem(this);
-                player.displayText("You pick up the " + this.getName());
+                Console.getInstance().displayText("You pick up the " + this.getName());
                 return true;
             }else{
-                player.displayText("You cannot use this until you pick it up, but your hands are full at the moment.");
+                Console.getInstance().displayText("You cannot use this until you pick it up, but your hands are full at the moment.");
                 return false;
             }
         }
