@@ -31,7 +31,7 @@ public class Console {
         }
     }
 
-    public void dashboard(Player player){
+    public boolean dashboard(Player player){
         for(int i = 0; i<100; i++){
             System.out.println();
         }
@@ -60,14 +60,14 @@ public class Console {
         String[] arr = input.split(" ");
         if(arr.length < 2){
             displayText("not enough arguments, only one command detected.");
-            return;
+            return false;
         }
 
         int obj1index = parseIntOrNull(arr[1]);
         Interactable obj1;
         if(obj1index < 1 || obj1index > interactables.length){
             displayText("'" + obj1index + "' is not a valid index.");
-            return;
+            return false;
         }else{
             obj1 = interactables[obj1index-1];
         }
@@ -81,7 +81,7 @@ public class Console {
                 int obj2index = parseIntOrNull(arr[2]);
                 if(obj2index < 1 || obj2index > interactables.length){
                     displayText("'" + obj2index + "' is not a valid index.");
-                    return;
+                    return false;
                 }else{
                     Interactable inter = interactables[obj2index-1];
                     if(inter instanceof Item){
@@ -98,7 +98,10 @@ public class Console {
             boolean success = obj1.interact(player, obj2);
             if(!success){
                 displayText("You cannot interact with " + obj1.getName() + " in this way.");
+            }else{
+                return true;
             }
         }
+        return false;
     }
 }

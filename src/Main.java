@@ -5,11 +5,14 @@ public class Main {
     public static void main(String[] args) {
 
         Player main = new Player();
-        Temple temple = new Temple(main);
+        Temple temple = Temple.getInstance();
+        temple.testInit(main);
 
         while(true){
-            Console.getInstance().dashboard(main);
-            temple.tick();
+            boolean timeTaken = Console.getInstance().dashboard(main);
+            if(timeTaken){
+                temple.tick();
+            }
         }
     }
 }

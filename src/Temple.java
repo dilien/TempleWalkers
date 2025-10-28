@@ -8,8 +8,19 @@ import rooms.Room;
 import structures.Brazier;
 
 public class Temple {
-    public Temple(Player player){
 
+    private Temple(){
+
+    }
+    private static Temple temple;
+    public static Temple getInstance(){
+        if(temple == null){
+            temple = new Temple();
+        }
+        return temple;
+    }
+
+    public void testInit(Player player){
         Room room = new Chamber();
         Room room2 = new Chamber();
         Corridor[] corridors = new Corridor[1];
