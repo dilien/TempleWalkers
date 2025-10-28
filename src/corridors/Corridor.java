@@ -13,15 +13,19 @@ public abstract class Corridor implements Interactable {
         this.roomB = roomB;
     }
 
+    public Room other(Room a){
+        if(a == roomA){
+            return roomB;
+        }else if(a == roomB){
+            return roomA;
+        }else{
+            throw new java.lang.RuntimeException("other being called on corridor with neither room.");
+        }
+    }
+
     public boolean interact(Item other){
         Player player = Player.getInstance();
-        if(player.room == roomA){
-            player.enterRoom(roomB);
-        } else if (player.room == roomB) {
-            player.enterRoom(roomA);
-        }else{
-            throw new java.lang.RuntimeException("A corridor that should not be accessed is being interacted with!");
-        }
+        player.enterRoom(other(player.room));
         return true;
     }
 }
