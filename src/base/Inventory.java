@@ -15,13 +15,13 @@ public class Inventory implements Renderable {
         maxSize = size;
     }
 
-    public void addItem(Item item){
+    public boolean addItem(Item item){
         if(maxSize != 0 && items.size() >= maxSize){
-            Player player = Player.getInstance();
-            player.room.items.add(item);
-        }else{
-            items.add(item);
+            return false;
         }
+        items.add(item);
+        item.parent = this;
+        return true;
     }
 
     public boolean removeItem(Item item){

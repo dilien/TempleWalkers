@@ -1,10 +1,12 @@
 package rooms;
 
 import base.Interactable;
+import base.Inventory;
 import base.Player;
 import base.Renderable;
 import corridors.Corridor;
 import items.Item;
+import structures.Structure;
 
 import java.util.ArrayList;
 
@@ -14,28 +16,45 @@ public abstract class Room implements Interactable, Renderable {
     //corridors are fixed. New ones cannot be added mid-game
     public Corridor[] corridors;
 
-    //items can be added as the player interacts with them, it is dynamic length.
-    public ArrayList<Interactable> items = new ArrayList<>();
+    public ArrayList<Structure> structs = new ArrayList<>();
+
+    public Inventory inventory;
+
+    public Room(){
+        inventory = new Inventory(0);
+    }
 
     public Interactable[] render(int start, boolean render){
-        int length = 1 + corridors.length + items.size();
-        Interactable[] arr = new Interactable[length];
-        arr[0] = this;
 
+        Interactable[] items = inventory.render(0, false);
+
+        int length = 1 + corridors.length + structs.size() + items.length;
+        Interactable[] arr = new Interactable[length];
+
+        arr[0] = this;
         System.out.println(start + 1 + ":You are in a " + this.getName());
         start += 1;
+
         for (int i = 0; i < corridors.length; i++) {
             Interactable item = corridors[i];
-            arr[i+1] = item;
+            arr[i+start] = item;
             System.out.println(i + start + 1 + ":" + item.getName());
         }
         start += corridors.length;
 
-        for (int i = 0; i < items.size(); i++) {
-            Interactable item = items.get(i);
-            arr[i+1+corridors.length] = item;
+        for (int i = 0; i < structs.size(); i++) {
+            Interactable struct = structs.get(i);
+            arr[i+start] = struct;
+            System.out.println(i + start + 1 + ":" + struct.getName());
+        }
+        start += structs.size();
+
+        for (int i = 0; i < items.length; i++) {
+            Interactable item = items[i];
+            arr[i+start] = item;
             System.out.println(i + start + 1 + ":" + item.getName());
         }
+        start += structs.size();
 
         return arr;
     }
@@ -44,7 +63,7 @@ public abstract class Room implements Interactable, Renderable {
         Player player = Player.getInstance();
         if(other != null){
             if(player.inventory.removeItem(other)){
-                items.add(other);
+                inventory.addItem(other);
 
                 player.displayText("You drop the " + other.getName() + " on the ground.");
                 return true;

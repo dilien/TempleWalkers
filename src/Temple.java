@@ -19,7 +19,7 @@ public class Temple {
         Player player = Player.getInstance();
         player.room = room;
 
-        room2.items.add(new Brazier());
+        room2.structs.add(new Brazier());
         player.inventory.addItem(new Stick());
         player.inventory.addItem(new Torch());
     }

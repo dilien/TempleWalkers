@@ -60,6 +60,13 @@ public class Player {
         }
     }
 
+    public void addItem(Item item){
+        if(! inventory.addItem(item)){
+            room.inventory.addItem(item);
+            //the above statement could fail, but all rooms do not have a max size, so it shouldn't.
+        }
+    }
+
     void dashboard(){
         for(int i = 0; i<100; i++){
             System.out.println();

@@ -1,9 +1,25 @@
 package items;
 
 import base.Interactable;
+import base.Inventory;
+import base.Player;
 
 public abstract class Item implements Interactable {
+    public Inventory parent;
     public boolean interact(Item other) {
+        Player player = Player.getInstance();
+        //we should make them pick up the item before any other checks can be made
+        if(parent != player.inventory){
+            Inventory parent = this.parent;
+            if(player.inventory.addItem(this)){
+                parent.removeItem(this);
+                player.displayText("You pick up the " + this.getName());
+                return true;
+            }else{
+                player.displayText("You cannot use this until you pick it up, but your hands are full at the moment.");
+                return false;
+            }
+        }
         return false;
     }
     public void tick(){
