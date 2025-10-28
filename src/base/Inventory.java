@@ -3,50 +3,42 @@ package base;
 import items.Gold;
 import items.Item;
 
+import java.util.ArrayList;
+
 public class Inventory implements Renderable {
     public Gold gold;
-    Item[] items;
+    public int maxSize = 10;
+    ArrayList<Item> items;
     public Inventory(int size){
         gold = new Gold();
-        items = new Item[size];
+        items = new ArrayList<>();
+        maxSize = size;
     }
 
-    public boolean addItem(Item item){
-        for(int i = 0; i<items.length; i++){
-            if(items[i] == null){
-                items[i] = item;
-                return true;
-            }
+    public void addItem(Item item){
+        if(items.size() >= maxSize){
+            Player player = Player.getInstance();
+            player.room.items.add(item);
+        }else{
+            items.add(item);
         }
-        return false;
     }
 
     public boolean removeItem(Item item){
-        for(int i = 0; i<items.length; i++){
-            if(items[i] == item){
-                items[i] = null;
-                return true;
-            }
-        }
-        return false;
+        return items.remove(item);
     }
 
     public void tick(){
-        for(int i = 0; i<items.length; i++){
-            if(items[i] != null){
-                items[i].tick();
-            }
+        for(Item item : items){
+            item.tick();
         }
     }
 
     public Interactable[] render(int index, boolean display) {
+        Interactable[] arr = items.toArray(new Item[0]);
 
-        //todo: have array be length of items, rather than length of whole inventory
-        Interactable[] arr = new Interactable[items.length];
-
-        for (int i = 0; i < items.length; i++) {
-            Interactable item = items[i];
-            if(item == null){break;}
+        for (int i = 0; i<items.size(); i++){
+            Item item = items.get(i);
             System.out.println(index + i + ":" + item.getName());
         }
 
