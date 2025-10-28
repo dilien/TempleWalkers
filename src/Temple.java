@@ -8,7 +8,7 @@ import rooms.Room;
 import structures.Brazier;
 
 public class Temple {
-    public Temple(){
+    public Temple(Player player){
 
         Room room = new Chamber();
         Room room2 = new Chamber();
@@ -16,11 +16,15 @@ public class Temple {
         corridors[0] = new TempleFrame(room, room2);
         room.corridors = corridors;
         room2.corridors = corridors;
-        Player player = Player.getInstance();
+
         player.room = room;
 
         room2.structs.add(new Brazier());
         player.inventory.addItem(new Stick());
         player.inventory.addItem(new Torch());
+    }
+
+    static void generateRooms(){
+
     }
 }

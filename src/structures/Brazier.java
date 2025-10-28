@@ -21,8 +21,7 @@ public class Brazier extends Structure{
         }
     }
 
-    public boolean interact(Item other) {
-        Player player = Player.getInstance();
+    public boolean interact(Player player, Item other) {
         if(onfire && other instanceof Stick){
             player.displayText("You dip the stick into the oil and it becomes a torch.");
             player.inventory.removeItem(other);

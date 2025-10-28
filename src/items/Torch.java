@@ -32,9 +32,9 @@ public class Torch extends Item{
     public void tick(){
         turnsLeft -= 1;
         if(turnsLeft == 0){
-            Player player = Player.getInstance();
-            player.inventory.removeItem(this);
-            player.displayText("Your torch has finally extinguished, and the entire stick has been burnt.");
+            this.parent.removeItem(this);
+            //todo: re-implement this player log
+            //player.displayText("Your torch has finally extinguished, and the entire stick has been burnt.");
         }
     }
 }

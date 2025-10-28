@@ -14,6 +14,9 @@ import java.util.Arrays;
 //you cannot interact with the rooms themselves,
 //you can only interact with the things in them.
 public abstract class Room implements Interactable, Renderable {
+    public int sizeX;
+    public int sizeY;
+
     //corridors are fixed. New ones cannot be added mid-game
     public Corridor[] corridors;
 
@@ -51,7 +54,7 @@ public abstract class Room implements Interactable, Renderable {
 
         arr[0] = this;
         //System.out.println(start + 1 + ":You are in a " + this.getName());
-        write(output[0], start + 2 + " : You are in a " + this.getName(), sectionLeft);
+        write(output[0], start + 1 + " : You are in a " + this.getName(), sectionLeft);
         start += 1;
 
         for (int i = 0; i < corridors.length; i++) {
@@ -85,8 +88,7 @@ public abstract class Room implements Interactable, Renderable {
         return arr;
     }
 
-    public boolean interact(Item other){
-        Player player = Player.getInstance();
+    public boolean interact(Player player, Item other){
         if(other != null){
             if(player.inventory.removeItem(other)){
                 inventory.addItem(other);

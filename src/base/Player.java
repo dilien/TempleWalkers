@@ -8,17 +8,10 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Player {
-    private Player(){
+    public Player(){
         scanner = new Scanner(System.in);
         inventory = new Inventory(5);
     };
-    private static Player instance;
-    public static Player getInstance(){
-        if(instance == null){
-            instance = new Player();
-        }
-        return instance;
-    }
 
     public Room room;
     public Inventory inventory;
@@ -128,7 +121,10 @@ public class Player {
                 }
             }
 
-            boolean success = obj1.interact(obj2);
+            if(obj2 != null){
+                displayText("Using " + obj1.getName() + " with " + obj2.getName());
+            }
+            boolean success = obj1.interact(this, obj2);
             if(!success){
                 displayText("You cannot interact with " + obj1.getName() + " in this way.");
             }

@@ -3,9 +3,9 @@ import base.Player;
 public class Main {
     public static void main(String[] args) {
 
-        Player main = Player.getInstance();
+        Player main = new Player();
+        Temple temple = new Temple(main);
 
-        Temple temple = new Temple();
         main.start();
     }
 }

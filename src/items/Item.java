@@ -6,8 +6,7 @@ import base.Player;
 
 public abstract class Item implements Interactable {
     public Inventory parent;
-    public boolean interact(Item other) {
-        Player player = Player.getInstance();
+    public boolean interact(Player player, Item other) {
         //we should make them pick up the item before any other checks can be made
         if(parent != player.inventory){
             Inventory parent = this.parent;

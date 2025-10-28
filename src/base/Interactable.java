@@ -14,5 +14,5 @@ public interface Interactable {
      * @param other - optional other interactable object that is used as a tool
      * @return - returns if the interaction is valid
      */
-    boolean interact(Item other);
+    boolean interact(Player player, Item other);
 }
