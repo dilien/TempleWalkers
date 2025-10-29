@@ -7,10 +7,7 @@ import items.Torch;
 import rooms.Chamber;
 import rooms.Room;
 import structures.Brazier;
-
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.function.Consumer;
+import utility.Event;
 
 public class Temple {
 
