@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Inventory implements Renderable {
     public Gold gold;
     public int maxSize = 0;
-    ArrayList<Item> items;
+    public ArrayList<Item> items;
     public Inventory(int size){
         gold = new Gold();
         items = new ArrayList<>();
