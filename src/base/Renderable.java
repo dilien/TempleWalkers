@@ -1,5 +1,7 @@
 package base;
 
+//used for the inventory and the room, which both display something on different sections
+//could be improved by having it specify a dimension size on the screen to print to, as well as estimating the size needed.
 public interface Renderable {
 
     /**

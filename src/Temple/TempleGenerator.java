@@ -8,6 +8,7 @@ import testing.GeneratorTests;
 
 import java.util.Random;
 
+//This is class is used once to generate the map.
 public class TempleGenerator {
     boolean checkFree(int x, int y, int sizeX, int sizeY, Room[][] grid){
         for(int x2 = x; x2 < x+sizeX; x2++){

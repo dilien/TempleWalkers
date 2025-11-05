@@ -34,7 +34,7 @@ public class Torch extends Item{
         turnsLeft -= 1;
         if(turnsLeft == 0){
             this.parent.removeItem(this);
-            //todo: re-implement this player log
+            //todo: re-implement this player log (though it is made more difficult by player not being a singleton)
             //player.displayText("Your torch has finally extinguished, and the entire stick has been burnt.");
         }
     }

@@ -7,6 +7,8 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
 
+//represents the player object
+//Not a singleton, although there is never multiple players
 public class Player{
     public Player(){
         inventory = new Inventory(5);

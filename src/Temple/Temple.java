@@ -10,6 +10,7 @@ import rooms.Room;
 import structures.Brazier;
 import utility.Event;
 
+//This holds all the rooms and is responsible for gameticks. It is a singleton.
 public class Temple {
 
     private Temple(){

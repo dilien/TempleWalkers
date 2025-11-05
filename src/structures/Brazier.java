@@ -7,6 +7,7 @@ import items.Item;
 import items.Stick;
 import items.Torch;
 
+//The brazier starts not on fire, but can be lit with a torch. Once it is lit, the fire can be used to turn sticks into torches.
 public class Brazier extends Structure{
     boolean onfire = false;
 

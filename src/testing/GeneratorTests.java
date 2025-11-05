@@ -7,6 +7,8 @@ import rooms.Room;
 
 import java.util.Arrays;
 
+//This class allows you to display the map
+//normally this would not be a feature as the fun is in the mapping, but it is here for debug purposes.
 public class GeneratorTests {
     public void displayMap(Room[][] grid, Room[] rooms){
         final int templeSize = grid.length;
@@ -43,6 +45,9 @@ public class GeneratorTests {
                 addCorridor(room, corridor, output);
             }
         }
+
+        Room start = rooms[0];
+        output[start.x*2 - 1 + start.sizeX][start.y*2 - 1 + start.sizeY] = '@';
 
         for(char[] str : output){
             System.out.println(str);

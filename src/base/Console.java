@@ -5,6 +5,8 @@ import items.Item;
 import java.util.Objects;
 import java.util.Scanner;
 
+//This class represents the console and handles taking user input, as well as directing the other classes to display information when needed.
+//it is a singleton.
 public class Console {
     Scanner scanner;
     private Console(){

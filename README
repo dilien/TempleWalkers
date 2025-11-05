@@ -9,6 +9,13 @@ You can use a tool/other item in your interaction by chaining them together
 i.e) "i 4 6" will interact with item 4, using item 6. For example, interacting with a brazier, using a torch.
 Each item has different actions so discover and experiment with what they do.
 
-get the most gold and win
+Currently the game is not finished yet. There are rooms though, and each one has a brazier.
+Map generation is complete, and you will get a map printed to your console (with the @ representing you)
 
-Its in java. It is spelt 'J-a-v-a'. I use intellij ide, and no build system (other than intellij default)
+things to implement:
+map generation - done
+random structure + item generation
+vault room (ie lever in one room interacts with a door, opening a vault)
+exit strategy
+polish
+proper testing

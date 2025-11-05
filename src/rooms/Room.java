@@ -10,8 +10,9 @@ import structures.Structure;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-//you cannot interact with the rooms themselves,
-//you can only interact with the things in them.
+//The level is made up of rooms
+//Each room contains corridors, structures and items.
+//Rooms themselves can be interacted with, to drop/pickup items.
 public abstract class Room implements Interactable, Renderable {
     public int x = -100;
     public int y = -100;
@@ -81,7 +82,6 @@ public abstract class Room implements Interactable, Renderable {
         Interactable[] arr = new Interactable[length];
 
         arr[0] = this;
-        //System.out.println(start + 1 + ":You are in a " + this.getName());
         write(output[0], start + 1 + " : You are in a " + this.getName(), sectionLeft);
         start += 1;
 
@@ -91,7 +91,7 @@ public abstract class Room implements Interactable, Renderable {
             int plr_index = i + start + 1;
             //"A {item-name} that leads to a {other-item-name}"
             //"Je {other-item-name} est led to by {item-name}"
-            String text = plr_index + " : A " + item.getName() + " that leads to a " + item.other(this).getName() + item.getSide(this).side();
+            String text = plr_index + " : A " + item.getName() + " that leads to a " + item.other(this).getName();
             write(output[1 + i], text, sectionLeft);
 
             addCorridor(output, item.getSide(this), String.valueOf(plr_index).charAt(0));

@@ -6,6 +6,7 @@ import base.Player;
 import items.Item;
 import rooms.Room;
 
+//This represents a corridor between to rooms, A and B.
 public abstract class Corridor implements Interactable {
     CorridorSide sideA;
     CorridorSide sideB;
