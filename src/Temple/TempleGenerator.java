@@ -11,6 +11,7 @@ import java.util.Random;
 
 //This is class is used once to generate the map.
 public class TempleGenerator {
+    //checks to see if a rectangle area free on the grid.
     boolean checkFree(int x, int y, int sizeX, int sizeY, Room[][] grid){
         for(int x2 = x; x2 < x+sizeX; x2++){
             for(int y2 = y; y2 < y+sizeY; y2++){
@@ -22,6 +23,7 @@ public class TempleGenerator {
         return true;
     }
 
+    //Lists the sides on a corridor. See corridorSide for more info.
     CorridorSide[] generateSides(Room room){
         int maxHalf = (room.getSizeX() + room.getSizeY());
         CorridorSide[] arr = new CorridorSide[maxHalf * 2];
@@ -38,6 +40,7 @@ public class TempleGenerator {
         return arr;
     }
 
+    //gets a room on the other side of a corridor.
     Room getOtherRoom(Room room, CorridorSide side, Room[][] grid){
         int x = room.x;
         int y = room.y;
@@ -59,6 +62,7 @@ public class TempleGenerator {
         return null;
     }
 
+    //Adds a corridor on a given side. needs the grid so it knows what the room on the other side of the corridor is.
     void addCorridorFromSide(Room room, CorridorSide side, Room[][] grid){
         Room other = getOtherRoom(room, side, grid);
 
@@ -66,6 +70,7 @@ public class TempleGenerator {
         Corridor corridor = new TempleFrame(room, other, side, sideB);
     }
 
+    //Checks if a corridor already exists on that side, so we know it is not valid for new corridors
     boolean isExistingCorridor(Room room, CorridorSide side){
         for(Corridor a : room.corridorsTemp){
             CorridorSide side2 = a.getSide(room);
@@ -76,6 +81,7 @@ public class TempleGenerator {
         return  false;
     }
 
+    //this function is used when another room is trying to create a corridor, and we know side A, but need to find sideB.
     CorridorSide getSideFromPosition(Room room, Room other, CorridorSide side){
 
         int x = other.x;
