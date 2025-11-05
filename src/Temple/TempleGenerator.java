@@ -2,6 +2,7 @@ package Temple;
 
 import corridors.Corridor;
 import corridors.TempleFrame;
+import rooms.BigRoom;
 import rooms.Chamber;
 import rooms.Room;
 import testing.GeneratorTests;
@@ -22,15 +23,15 @@ public class TempleGenerator {
     }
 
     CorridorSide[] generateSides(Room room){
-        int maxHalf = (room.sizeX + room.sizeY);
+        int maxHalf = (room.getSizeX() + room.getSizeY());
         CorridorSide[] arr = new CorridorSide[maxHalf * 2];
 
         for(int i = 0; i<2; i++){
-            for(int x = 0;x<room.sizeX;x++){
+            for(int x = 0;x<room.getSizeX();x++){
                 arr[i * maxHalf + x] = new CorridorSide(x, Side.North.increment(i * 2));
             }
-            for(int y = 0;y<room.sizeY;y++){
-                arr[i * maxHalf + y + room.sizeX] = new CorridorSide(y, Side.East.increment(i * 2));
+            for(int y = 0;y<room.getSizeY();y++){
+                arr[i * maxHalf + y + room.getSizeX()] = new CorridorSide(y, Side.East.increment(i * 2));
             }
         }
 
@@ -48,8 +49,8 @@ public class TempleGenerator {
 
         switch (side.side()){
             case North -> y-=1;
-            case East -> x+=room.sizeX;
-            case South -> y+=room.sizeY;
+            case East -> x+=room.getSizeX();
+            case South -> y+=room.getSizeY();
             case West -> x-=1;
         }
         if (x >= 0 && x < grid.length && y >= 0 && y < grid.length) {
@@ -87,20 +88,18 @@ public class TempleGenerator {
 
         switch (side.side()){
             case North -> y-=0;
-            case East -> x+=other.sizeX-1;
-            case South -> y+=other.sizeY-1;
+            case East -> x+=other.getSizeX()-1;
+            case South -> y+=other.getSizeY()-1;
             case West -> x-=0;
         }
 
-        System.out.println(x + " " + y + " " + room.x + " " + room.y);
-
         if(y < room.y){
             return new CorridorSide(x - room.x, Side.North);
-        }else if(y >= room.y + room.sizeY){
+        }else if(y >= room.y + room.getSizeY()){
             return new CorridorSide(x - room.x, Side.South);
         }else if(x < room.x){
             return new CorridorSide(y - room.y, Side.West);
-        }else if(x >= room.x + room.sizeX){
+        }else if(x >= room.x + room.getSizeX()){
             return new CorridorSide(y - room.y, Side.East);
         }
 
@@ -112,13 +111,16 @@ public class TempleGenerator {
     Room generateRooms(){
 
         //A list of rooms we would like to add (although not guaranteed they will all be added)
-        Room[] rooms = new Room[49];
-        for(int i = 0; i<49; i++){
+        Room[] rooms = new Room[40];
+        for(int i = 0; i<5; i++){
+            rooms[i] = new BigRoom();
+        }
+        for(int i = 5; i<40; i++){
             rooms[i] = new Chamber();
         }
 
 
-        final int templeSize = 7;
+        final int templeSize = 10;
         //holds references to a room, ie, multiple blocks can hold the same reference for big rooms
         Room[][] grid = new Room[templeSize][templeSize];
 
@@ -126,13 +128,13 @@ public class TempleGenerator {
 
         //give each room a position
         for(Room room : rooms){
-            int sizeX = room.sizeX;
-            int sizeY = room.sizeY;
+            int sizeX = room.getSizeX();
+            int sizeY = room.getSizeY();
+            System.out.println(sizeX + " " + sizeY);
             //pick 10 random positions and hope they are valid
             for(int i = 0; i<100; i++){
                 int x = random.nextInt(1+templeSize-sizeX);
                 int y = random.nextInt(1+templeSize-sizeY);
-                //System.out.println(x + " " + y + " " + sizeX + " " + sizeY);
                 if(checkFree(x, y, sizeX, sizeY, grid)){
                     //If valid, assign the room to its position
                     for(int x2 = x; x2 < x+sizeX; x2++){
@@ -159,7 +161,6 @@ public class TempleGenerator {
             int max = 0;
             CorridorSide[] sides = generateSides(room);
             boolean[] valid = new boolean[sides.length];
-            System.out.println(" ");
             for(int i = 0; i<sides.length; i++) {
                 if(getOtherRoom(room, sides[i], grid) != null && ! isExistingCorridor(room, sides[i])){
                     max += 1;
@@ -172,7 +173,6 @@ public class TempleGenerator {
             for(int i = 0; i<sides.length; i++){
                 CorridorSide side = sides[i];
                 if(!valid[i]){
-                    System.out.println("skip");
                     continue;
                 }
                 if(random.nextDouble() <= (double) (target - current) / max){
@@ -182,7 +182,6 @@ public class TempleGenerator {
                     current += 1;
                 }
                 max -= 1;
-                System.out.println(current + "," + max);
             }
             if(room.corridorsTemp.size() < target){
                 System.out.println("couldnt reach target!");

@@ -16,8 +16,12 @@ import java.util.Arrays;
 public abstract class Room implements Interactable, Renderable {
     public int x = -100;
     public int y = -100;
-    public int sizeX = 1;
-    public int sizeY = 1;
+    public int getSizeX(){
+        return 1;
+    }
+    public int getSizeY(){
+        return 1;
+    }
 
     public ArrayList<Corridor> corridorsTemp;
     public Corridor[] corridors;
@@ -47,9 +51,9 @@ public abstract class Room implements Interactable, Renderable {
         //System.out.println(corridor.other(room).x + " " + corridor.other(room).y);
         switch (side.side()){
             case Side.North -> output[(x + side.x()) * 2][(y) * 2 - 2] = character;
-            case Side.South -> output[(x + side.x()) * 2][(y + this.sizeY - 1) * 2 + 2] = character;
+            case Side.South -> output[(x + side.x()) * 2][(y + this.getSizeY() - 1) * 2 + 2] = character;
             case Side.West -> output[(x) * 2 - 2][(y + side.x()) * 2] = character;
-            case Side.East -> output[(x + this.sizeX - 1) * 2 + 2][(y + side.x()) * 2] = character;
+            case Side.East -> output[(x + this.getSizeX() - 1) * 2 + 2][(y + side.x()) * 2] = character;
         }
     }
 
@@ -60,16 +64,16 @@ public abstract class Room implements Interactable, Renderable {
 
         int sectionLeft = 20;
         int rightHeight = 4 + items.length + corridors.length + structs.size();
-        int leftHeight = 3 + this.sizeX * 2;
+        int leftHeight = 3 + this.getSizeX() * 2;
         int height = Math.max(rightHeight, leftHeight);
 
         char[][] output = new char[height][100].clone();
         //not quite sure how this works but thanks internet:
         java.util.Arrays.stream(output).forEach(row -> Arrays.fill(row, ' '));
 
-        for(int x = 1; x<this.sizeX*2+2; x++){
-            for(int y = 1; y<this.sizeY*2+2; y++){
-                if(x == 1 || y == 1 || x == this.sizeX*2 + 1 || y == this.sizeY*2 + 1){
+        for(int x = 1; x<this.getSizeX()*2+2; x++){
+            for(int y = 1; y<this.getSizeY()*2+2; y++){
+                if(x == 1 || y == 1 || x == this.getSizeX()*2 + 1 || y == this.getSizeY()*2 + 1){
                     output[x][y] = '#';
                 }
             }
@@ -135,6 +139,7 @@ public abstract class Room implements Interactable, Renderable {
 
     public abstract void enterRoom();
 
+    //really less of a target and more of a minimum
     public int getTargetCorridors(){
         return 2;
     }

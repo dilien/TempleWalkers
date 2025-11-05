@@ -16,6 +16,7 @@ things to implement:
 map generation - done
 random structure + item generation
 vault room (ie lever in one room interacts with a door, opening a vault)
+map generation wrapping corridors
 exit strategy
 polish
 proper testing
