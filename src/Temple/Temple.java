@@ -1,5 +1,6 @@
-package base;
+package Temple;
 
+import base.Player;
 import corridors.Corridor;
 import corridors.TempleFrame;
 import items.Stick;
@@ -23,16 +24,10 @@ public class Temple {
     }
 
     public void testInit(Player player){
-        Room room = new Chamber();
-        Room room2 = new Chamber();
-        Corridor[] corridors = new Corridor[1];
-        corridors[0] = new TempleFrame(room, room2);
-        room.corridors = corridors;
-        room2.corridors = corridors;
+        TempleGenerator generator = new TempleGenerator();
+        Room start = generator.generateRooms();
 
-        player.enterRoom(room);
-
-        room2.structs.add(new Brazier());
+        player.enterRoom(start);
         player.inventory.addItem(new Stick());
         player.inventory.addItem(new Torch());
     }
@@ -40,9 +35,5 @@ public class Temple {
     public Event<Void> tickEvent = new Event<>();
     public void tick(){
         tickEvent.send(null);
-    }
-
-    static void generateRooms(){
-
     }
 }

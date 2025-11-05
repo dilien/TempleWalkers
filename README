@@ -1,0 +1,14 @@
+This is my awesome game about exploring a temple
+
+Commands are entered using the command, and then the index of the item you want to interact with.
+i.e) "d 3" describes the third item in more detail.
+The spaces are required
+use "i" to interact with an item.
+i.e) "i 2" to interact with item 2, which if it is a corridor will walk through it.
+You can use a tool/other item in your interaction by chaining them together
+i.e) "i 4 6" will interact with item 4, using item 6. For example, interacting with a brazier, using a torch.
+Each item has different actions so discover and experiment with what they do.
+
+get the most gold and win
+
+Its in java. It is spelt 'J-a-v-a'. I use intellij ide, and no build system (other than intellij default)

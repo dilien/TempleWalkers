@@ -1,6 +1,6 @@
 import base.Console;
 import base.Player;
-import base.Temple;
+import Temple.Temple;
 
 public class Main {
     public static void main(String[] args) {

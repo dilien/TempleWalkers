@@ -1,5 +1,6 @@
 package items;
 
+import Temple.Temple;
 import base.*;
 
 //TODO: Item is not being deleted when it is removed from its inventory
@@ -26,7 +27,6 @@ public abstract class Item implements Interactable {
         return false;
     }
     public void tick(){
-        System.out.println(this.getName());
     };
 }
 
