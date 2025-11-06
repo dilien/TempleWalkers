@@ -12,7 +12,7 @@ import java.util.Arrays;
 public class GeneratorTests {
     public void displayMap(Room[][] grid, Room[] rooms){
         final int templeSize = grid.length;
-        char[][] output = new char[templeSize*2][templeSize*2].clone();
+        char[][] output = new char[templeSize*2][templeSize*3].clone();
         //not quite sure how this works but thanks internet:
         java.util.Arrays.stream(output).forEach(row -> Arrays.fill(row, ' '));
 
@@ -41,13 +41,13 @@ public class GeneratorTests {
         for(Room room : rooms) {
             if(room.x < 0){continue;}
             int startX = room.x * 2;
-            int startY = room.y * 2;
+            int startY = room.y * 3;
             int endX = startX + room.getSizeX() * 2 - 1;
-            int endY = startY + room.getSizeY() * 2 - 1;
+            int endY = startY + room.getSizeY() * 3 - 1;
             for(int x = startX; x<endX; x++){
                 for(int y = startY; y<endY; y++){
                     if(x == startX || y == startY || x == endX-1 || y == endY-1){
-                        output[x][y] = '#';
+                        output[x][y] = '█';
                     }else{
                         output[x][y] = '.';
                     }
@@ -64,7 +64,7 @@ public class GeneratorTests {
         }
 
         Room start = rooms[0];
-        output[start.x*2 - 1 + start.getSizeX()][start.y*2 - 1 + start.getSizeY()] = '@';
+        output[start.x*2 - 1 + start.getSizeX()][start.y*3 - 1 + start.getSizeY()] = '@';
 
         for(char[] str : output){
             System.out.println(str);
@@ -81,10 +81,10 @@ public class GeneratorTests {
         //System.out.println(room.x + " " + room.y);
         //System.out.println(corridor.other(room).x + " " + corridor.other(room).y);
         switch (side.side()){
-            case Side.North -> output[(x + side.x()) * 2][(y) * 2 - 1] = '-';
-            case Side.South -> output[(x + side.x()) * 2][(y + room.getSizeY() - 1) * 2 + 1] = '-';
-            case Side.West -> output[(x) * 2 - 1][(y + side.x()) * 2] = '|';
-            case Side.East -> output[(x + room.getSizeX() - 1) * 2 + 1][(y + side.x()) * 2] = '|';
+            case Side.North -> output[(x + side.x()) * 2][(y) * 3 - 1] = '-';
+            case Side.South -> output[(x + side.x()) * 2][(y + room.getSizeY() - 1) * 3 + 2] = '-';
+            case Side.West -> output[(x) * 2 - 1][(y + side.x()) * 3] = '|';
+            case Side.East -> output[(x + room.getSizeX() - 1) * 2 + 1][(y + side.x()) * 3] = '|';
         }
     }
 }

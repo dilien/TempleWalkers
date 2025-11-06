@@ -10,10 +10,14 @@ import structures.Structure;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-//The level is made up of rooms
-//Each room contains corridors, structures and items.
-//Rooms themselves can be interacted with, to drop/pickup items.
+
+/**
+ * The level is made up of rooms
+ * Each room contains corridors, structures and items.
+ * Rooms themselves can be interacted with, to drop/pickup items.
+ */
 public abstract class Room implements Interactable, Renderable {
+    //represents position on the map grid
     public int x = -100;
     public int y = -100;
     public int getSizeX(){
@@ -23,6 +27,7 @@ public abstract class Room implements Interactable, Renderable {
         return 1;
     }
 
+    //corridors temp is used during generation, and is converted to an array after.
     public ArrayList<Corridor> corridorsTemp;
     public Corridor[] corridors;
 
@@ -31,57 +36,75 @@ public abstract class Room implements Interactable, Renderable {
     public Inventory inventory;
 
     public Room(){
-
         inventory = new Inventory(0);
         corridorsTemp = new ArrayList<Corridor>();
     }
 
+    /**
+     * A utility function to write text in a string array
+     * @param output - string array to write to
+     * @param text - text to write
+     * @param start - index to start writing at
+     */
     public static void write(char[] output, String text, int start){
         System.arraycopy(text.toCharArray(), 0, output, start, text.length());
     }
 
+    /**
+     * A function to add a corridor to the top left display (the room top-down view)
+     * @param output - grid of characters to write to
+     * @param side - CorridorSide that represents the corridor location
+     * @param character - character to write (usually a number for the corridor index)
+     */
     public void addCorridor(char[][] output, CorridorSide side, char character){
         int x = 1;
         int y = 1;
         if(side == null){
             return;
         }
-        //System.out.println("corridor:" + side.side());
-        //System.out.println(room.x + " " + room.y);
-        //System.out.println(corridor.other(room).x + " " + corridor.other(room).y);
         switch (side.side()){
-            case Side.North -> output[(x + side.x()) * 2][(y) * 2 - 2] = character;
-            case Side.South -> output[(x + side.x()) * 2][(y + this.getSizeY() - 1) * 2 + 2] = character;
-            case Side.West -> output[(x) * 2 - 2][(y + side.x()) * 2] = character;
-            case Side.East -> output[(x + this.getSizeX() - 1) * 2 + 2][(y + side.x()) * 2] = character;
+            case Side.North -> output[(x + side.x()) * 2][(y) * 3 - 2] = character;
+            case Side.South -> output[(x + side.x()) * 2][(y + this.getSizeY() - 1) * 3 + 1] = character;
+            case Side.West -> output[(x) * 2 - 2][(y + side.x()) * 3] = character;
+            case Side.East -> output[(x + this.getSizeX() - 1) * 2 + 1][(y + side.x()) * 3] = character;
         }
     }
 
+    /**
+     * Generates a list of items that can be interacted with, which are all things in the room.
+     * It also displays the info nicely.
+     *
+     * @param start - index to start with when displaying the interactables
+     * @param render - should the items be printed to the console?
+     * @return - A list of items that can be interacted with.
+     */
     public Interactable[] render(int start, boolean render){
         Interactable[] items = inventory.render(0, false);
 
         int length = 1 + corridors.length + structs.size() + items.length;
 
-        int sectionLeft = 20;
-        int rightHeight = 4 + items.length + corridors.length + structs.size();
-        int leftHeight = 3 + this.getSizeX() * 2;
+        int sectionLeft = this.getSizeY()*3+4;
+        int rightHeight = items.length + corridors.length + structs.size();
+        int leftHeight = 2 + this.getSizeX() * 2;
         int height = Math.max(rightHeight, leftHeight);
 
         char[][] output = new char[height][100].clone();
         //not quite sure how this works but thanks internet:
         java.util.Arrays.stream(output).forEach(row -> Arrays.fill(row, ' '));
 
-        for(int x = 1; x<this.getSizeX()*2+2; x++){
-            for(int y = 1; y<this.getSizeY()*2+2; y++){
-                if(x == 1 || y == 1 || x == this.getSizeX()*2 + 1 || y == this.getSizeY()*2 + 1){
-                    output[x][y] = '#';
+        for(int x = 0; x<this.getSizeX()*2+2; x++){
+            for(int y = 1; y<this.getSizeY()*3+2; y++){
+                if(x == 0 || y == 1 || x == this.getSizeX()*2 +1 || y == this.getSizeY()*3 + 1){
+                    output[x][y] = '█';
+                }else{
+                    output[x][y] = '.';
                 }
             }
         }
 
-        for(int y = 0; y<height; y++){
-            output[y][sectionLeft-1] = '|';
-        }
+//        for(int y = 0; y<height; y++){
+//            output[y][sectionLeft-1] = '|';
+//        }
 
         Interactable[] arr = new Interactable[length];
 
@@ -117,8 +140,10 @@ public abstract class Room implements Interactable, Renderable {
         }
         start += structs.size();
 
-        for(char[] str : output){
-            System.out.println(str);
+        if(render){
+            for(char[] str : output){
+                System.out.println(str);
+            }
         }
 
         return arr;
@@ -126,7 +151,7 @@ public abstract class Room implements Interactable, Renderable {
 
     public boolean interact(Player player, Item other){
         if(other != null){
-            if(player.inventory.removeItem(other)){
+            if(player.getInventory().removeItem(other)){
                 inventory.addItem(other);
 
                 Console.getInstance().displayText("You drop the " + other.getName() + " on the ground.");
