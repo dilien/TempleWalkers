@@ -14,15 +14,7 @@ This class is used to generate the map, once the map is generated, the class is 
 It should really only be called once, but I haven't implemented it as a singleton yet.
  */
 public class TempleGenerator {
-    /**
-     *
-     * @param x
-     * @param y
-     * @param sizeX
-     * @param sizeY
-     * @param grid
-     * @return
-     */
+
     boolean checkFree(int x, int y, int sizeX, int sizeY, Room[][] grid){
         for(int x2 = x; x2 < x+sizeX; x2++){
             for(int y2 = y; y2 < y+sizeY; y2++){
@@ -73,7 +65,12 @@ public class TempleGenerator {
         return null;
     }
 
-    //Adds a corridor on a given side. needs the grid so it knows what the room on the other side of the corridor is.
+    /**
+     * Adds a corridor on a given side. needs the grid so it knows what the room on the other side of the corridor is.
+     * @param room - which room the side is relative to
+     * @param side - the side of the room
+     * @param grid - the grid to find the other corridor
+     */
     void addCorridorFromSide(Room room, CorridorSide side, Room[][] grid){
         Room other = getOtherRoom(room, side, grid);
 
@@ -81,7 +78,12 @@ public class TempleGenerator {
         Corridor corridor = new TempleFrame(room, other, side, sideB);
     }
 
-    //Checks if a corridor already exists on that side, so we know it is not valid for new corridors
+    /**Checks if a corridor already exists on that side, so we know it is not valid for new corridors
+     *
+     * @param room - room to check for corridors
+     * @param side - side to check for corridors
+     * @return - true/false depending on if other corridor exists
+     */
     boolean isExistingCorridor(Room room, CorridorSide side){
         for(Corridor a : room.corridorsTemp){
             CorridorSide side2 = a.getSide(room);
@@ -92,7 +94,13 @@ public class TempleGenerator {
         return  false;
     }
 
-    //this function is used when another room is trying to create a corridor, and we know side A, but need to find sideB.
+    /**
+     * Used to determine the side, given the room and the other room, as well as the side of the other room
+     * @param room - room to get side
+     * @param other - room with existing side
+     * @param side - side of other room
+     * @return - side of first room
+     */
     CorridorSide getSideFromPosition(Room room, Room other, CorridorSide side){
 
         int x = other.x;
@@ -124,7 +132,10 @@ public class TempleGenerator {
         //xy is in room
     }
 
-    //Returns the starting room, the rest is sort of left in memory somewhere...
+    /**
+     * Generates a room. Duh.
+     * @return - the starting room
+     */
     Room generateRooms(){
 
         //A list of rooms we would like to add (although not guaranteed they will all be added)
