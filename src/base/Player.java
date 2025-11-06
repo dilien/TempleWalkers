@@ -3,10 +3,6 @@ package base;
 import items.Item;
 import rooms.Room;
 
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.Scanner;
-
 //represents the player object
 //Not a singleton, although there is never multiple players
 public class Player{
@@ -15,15 +11,7 @@ public class Player{
     };
 
     Room room;
-    public Inventory inventory;
-
-    public void start(){
-
-    }
-
-    public void tick(){
-        inventory.tick();
-    }
+    Inventory inventory;
 
     public void enterRoom(Room room){
         this.room = room;
@@ -32,13 +20,7 @@ public class Player{
         room.enterRoom();
     }
 
-    public void addItem(Item item){
-        if(! inventory.addItem(item)){
-            room.inventory.addItem(item);
-            //the above statement could fail, but all rooms do not have a max size, so it shouldn't.
-        }
-    }
-
+    //get functions to prevent setting the inventory and the room.
     public Inventory getInventory() {
         return inventory;
     }

@@ -5,8 +5,10 @@ import items.Item;
 import java.util.Objects;
 import java.util.Scanner;
 
-//This class represents the console and handles taking user input, as well as directing the other classes to display information when needed.
-//it is a singleton.
+/**
+ This class represents the console and handles taking user input, as well as directing the other classes to display information when needed.
+ It is a singleton.
+ */
 public class Console {
     Scanner scanner;
     private Console(){
@@ -21,19 +23,30 @@ public class Console {
     }
 
     String output = "";
+    //Display text to the user on the next dashboard step
     public void displayText(String text){
         output += "\n" + text;
     }
 
+    /**
+     * This function prevents full on crashes when a non-int is parsed.
+     * @param value - string to parse
+     * @return integer or null
+     */
     public static Integer parseIntOrNull(String value) {
         try {
             return Integer.parseInt(value);
         } catch (NumberFormatException e) {
-            return 0;
+            return null;
         }
     }
 
-    public boolean dashboard(Player player){
+    /**
+     * This function prints out the 'view' of the player, including the room and their inventory
+     * It yields until the player chooses an action
+     * @param player - the player to generate the dashboard for
+     */
+    public void dashboard(Player player){
         for(int i = 0; i<5; i++){
             System.out.println();
         }
@@ -51,6 +64,8 @@ public class Console {
         Interactable[] array2 = player.getInventory().render(index, true);
         index += array2.length;
 
+        //interactables is the list of things the player can interact with
+        //when 2:corridor is printed, at the index 1 is the corridor instance
         Interactable[] interactables = new Interactable[index];
         System.arraycopy(array1, 0, interactables, array1Start, array1.length);
         System.arraycopy(array2, 0, interactables, array2Start, array2.length);
@@ -58,18 +73,20 @@ public class Console {
         System.out.println(output );
         output = "";
 
+        //rest of the function is parsing user commands
+        //if it is incorrect, we re-print the entire dashboard
         String input = scanner.nextLine().strip();
         String[] arr = input.split(" ");
         if(arr.length < 2){
             displayText("not enough arguments, only one command detected.");
-            return false;
+            return;
         }
 
         int obj1index = parseIntOrNull(arr[1]);
         Interactable obj1;
         if(obj1index < 1 || obj1index > interactables.length){
             displayText("'" + obj1index + "' is not a valid index.");
-            return false;
+            return;
         }else{
             obj1 = interactables[obj1index-1];
         }
@@ -83,7 +100,7 @@ public class Console {
                 int obj2index = parseIntOrNull(arr[2]);
                 if(obj2index < 1 || obj2index > interactables.length){
                     displayText("'" + obj2index + "' is not a valid index.");
-                    return false;
+                    return;
                 }else{
                     Interactable inter = interactables[obj2index-1];
                     if(inter instanceof Item){
@@ -100,10 +117,7 @@ public class Console {
             boolean success = obj1.interact(player, obj2);
             if(!success){
                 displayText("You cannot interact with " + obj1.getName() + " in this way.");
-            }else{
-                return true;
             }
         }
-        return false;
     }
 }

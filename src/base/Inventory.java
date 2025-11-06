@@ -5,7 +5,9 @@ import items.Item;
 
 import java.util.ArrayList;
 
-//Represents a container of items, and the player and each room has one.
+/**
+Represents a container of items, and is used by the player and every room.
+ */
 public class Inventory implements Renderable {
     //TODO: Not every inventory needs gold, only the player one. Maybe it should be an item in the items instead.
     public Gold gold;

@@ -9,9 +9,20 @@ import testing.GeneratorTests;
 
 import java.util.Random;
 
-//This is class is used once to generate the map.
+/**
+This class is used to generate the map, once the map is generated, the class is done.
+It should really only be called once, but I haven't implemented it as a singleton yet.
+ */
 public class TempleGenerator {
-    //checks to see if a rectangle area free on the grid.
+    /**
+     *
+     * @param x
+     * @param y
+     * @param sizeX
+     * @param sizeY
+     * @param grid
+     * @return
+     */
     boolean checkFree(int x, int y, int sizeX, int sizeY, Room[][] grid){
         for(int x2 = x; x2 < x+sizeX; x2++){
             for(int y2 = y; y2 < y+sizeY; y2++){
@@ -190,7 +201,7 @@ public class TempleGenerator {
                 max -= 1;
             }
             if(room.corridorsTemp.size() < target){
-                System.out.println("couldnt reach target!");
+                System.out.println("couldn't reach target!");
             }
         }
 
@@ -199,7 +210,7 @@ public class TempleGenerator {
         }
 
         GeneratorTests test = new GeneratorTests();
-        test.displayMap(grid, rooms);
+        test.displayMap(templeSize, rooms);
 
         return rooms[0];
     }

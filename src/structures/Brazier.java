@@ -1,5 +1,6 @@
 package structures;
 
+import Temple.Temple;
 import base.Console;
 import base.Interactable;
 import base.Player;
@@ -24,15 +25,19 @@ public class Brazier extends Structure{
     }
 
     public boolean interact(Player player, Item other) {
+        Temple temple = Temple.getInstance();
+
         if(onfire && other instanceof Stick){
             Console.getInstance().displayText("You dip the stick into the oil and it becomes a torch.");
-            player.inventory.removeItem(other);
-            player.inventory.addItem(new Torch());
+            player.getInventory().removeItem(other);
+            player.getInventory().addItem(new Torch());
+            temple.tick();
             return true;
         }
         if(!onfire && other instanceof Torch){
             Console.getInstance().displayText("You use a torch to light the brazier.");
             onfire = true;
+            temple.tick();
             return true;
         }
         return false;

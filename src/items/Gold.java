@@ -2,6 +2,10 @@ package items;
 
 import base.Interactable;
 
+
+/**
+ * An item for gold coins, where they can stack multiple coins into the same item.
+ */
 public class Gold extends Item {
     int coins = 0;
 

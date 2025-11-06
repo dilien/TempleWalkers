@@ -4,6 +4,11 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
+/**
+ Represents an event that has argument T
+ events can be called using "send" and listened using "listen"
+ for no argument, use void
+ */
 public class Event<T> {
     //Each consumer represents a function that can be called, with T as the argument.
     //It is like using Function<T, void>, except that doesn't work.

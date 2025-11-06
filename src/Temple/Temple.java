@@ -29,8 +29,8 @@ public class Temple {
         Room start = generator.generateRooms();
 
         player.enterRoom(start);
-        player.inventory.addItem(new Stick());
-        player.inventory.addItem(new Torch());
+        player.getInventory().addItem(new Stick());
+        player.getInventory().addItem(new Torch());
     }
 
     public Event<Void> tickEvent = new Event<>();

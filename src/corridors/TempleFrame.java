@@ -4,6 +4,9 @@ import Temple.CorridorSide;
 import items.Item;
 import rooms.Room;
 
+/**
+ * Is a super simple corridor without any additional functionality.
+ */
 public class TempleFrame extends Corridor{
 
     public TempleFrame(Room roomA, Room roomB, CorridorSide sideA, CorridorSide sideB) {

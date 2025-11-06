@@ -102,10 +102,6 @@ public abstract class Room implements Interactable, Renderable {
             }
         }
 
-//        for(int y = 0; y<height; y++){
-//            output[y][sectionLeft-1] = '|';
-//        }
-
         Interactable[] arr = new Interactable[length];
 
         arr[0] = this;
@@ -165,10 +161,14 @@ public abstract class Room implements Interactable, Renderable {
     public abstract void enterRoom();
 
     //really less of a target and more of a minimum
+    //Some rooms, especially bigger rooms with a lot of neighbours will typically have more.
     public int getTargetCorridors(){
         return 2;
     }
 
+    /**
+     * Converts the temporary corridor list into the final corridor array.
+     */
     public void finalise(){
         corridors = corridorsTemp.toArray(new Corridor[0]);
         corridorsTemp = null;

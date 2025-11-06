@@ -2,6 +2,7 @@ import base.Console;
 import base.Player;
 import Temple.Temple;
 
+//Run this code to run the program
 public class Main {
     public static void main(String[] args) {
 
@@ -10,10 +11,8 @@ public class Main {
         temple.testInit(main);
 
         while(true){
-            boolean timeTaken = Console.getInstance().dashboard(main);
-            if(timeTaken){
-                temple.tick();
-            }
+            Console.getInstance().dashboard(main);
+            //temple.tick();
         }
     }
 }

@@ -7,17 +7,20 @@ import base.*;
 //I am not sure if this is to do with the event listener, or if it is happening anyway
 //The Intellij debugger isn't working so I cannot check individual objects for now. Waiting on that to be fixed, so I can find the root issue.
 
-//This represents an item contained in an inventory.
+/**
+ * This represents an item contained in an inventory.
+ */
 public abstract class Item implements Interactable {
     public Inventory parent;
     public Item() {
         Temple.getInstance().tickEvent.listen((_void)->tick());
     }
+
     public boolean interact(Player player, Item other) {
         //we should make them pick up the item before any other checks can be made
-        if(parent != player.inventory){
+        if(parent != player.getInventory()){
             Inventory parent = this.parent;
-            if(player.inventory.addItem(this)){
+            if(player.getInventory().addItem(this)){
                 parent.removeItem(this);
                 Console.getInstance().displayText("You pick up the " + this.getName());
                 return true;
@@ -28,7 +31,9 @@ public abstract class Item implements Interactable {
         }
         return false;
     }
+
     public void tick(){
+
     };
 }
 

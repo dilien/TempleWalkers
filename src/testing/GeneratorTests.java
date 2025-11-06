@@ -7,37 +7,24 @@ import rooms.Room;
 
 import java.util.Arrays;
 
-//This class allows you to display the map
 //normally this would not be a feature as the fun is in the mapping, but it is here for debug purposes.
+/**
+ * This has a single function for displaying the map.
+ * It is not a game feature, but a debug system.
+ */
 public class GeneratorTests {
-    public void displayMap(Room[][] grid, Room[] rooms){
-        final int templeSize = grid.length;
+    /**
+     * Displays the map straight to the console. Intended for debugging
+     * Note that it is rotated by 90 degrees clockwise, so north is right
+     * Theoretically, this could be used to only show discovered rooms
+     * @param templeSize - size of grid, the grid itself is not needed
+     * @param rooms - list of rooms to draw
+     */
+    public void displayMap(int templeSize, Room[] rooms){
         char[][] output = new char[templeSize*2][templeSize*3].clone();
         //not quite sure how this works but thanks internet:
         java.util.Arrays.stream(output).forEach(row -> Arrays.fill(row, ' '));
 
-//        for(int x = 0; x<templeSize;x++){
-//            for(int y = 0; y<templeSize;y++){
-//                Room room = grid[x][y];
-//                if(room == null) {
-//                    continue;
-//                }
-//                output[x * 2][y * 2] = '#';
-//
-//                if(x > 0 && grid[x-1][y] == room){
-//                    output[x * 2-1][y * 2] = '#';
-//                }
-//                if(y > 0 && grid[x][y-1] == room){
-//                    output[x * 2][y * 2-1] = '#';
-//                }
-//                if(x < templeSize-1 && grid[x+1][y] == room){
-//                    output[x * 2 + 1][y * 2] = '#';
-//                }
-//                if(y < templeSize-1 && grid[x][y+1] == room){
-//                    output[x * 2][y * 2 + 1] = '#';
-//                }
-//            }
-//        }
         for(Room room : rooms) {
             if(room.x < 0){continue;}
             int startX = room.x * 2;
@@ -63,6 +50,7 @@ public class GeneratorTests {
             }
         }
 
+        //assumes the player is in room 0
         Room start = rooms[0];
         output[start.x*2 - 1 + start.getSizeX()][start.y*3 - 1 + start.getSizeY()] = '@';
 
@@ -70,6 +58,14 @@ public class GeneratorTests {
             System.out.println(str);
         }
     }
+
+    /**
+     * Adds a corridor to the map
+     * note: each corridor has two rooms, and this means each corridor is drawn twice in the same place
+     * @param room - room that has teh corridor
+     * @param corridor - the side to add the corridor to
+     * @param output - the char grid to write to
+     */
     public void addCorridor(Room room, Corridor corridor, char[][] output){
         int x = room.x;
         int y = room.y;

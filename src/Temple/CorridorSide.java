@@ -9,6 +9,7 @@ represents a side of a room. Example:
     #####
      5 6
 
+? - x, side
 1 - 0, west
 2 - 1, west
 3 - 0, south
