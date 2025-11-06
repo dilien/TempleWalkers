@@ -1,32 +1,42 @@
-quickstart instructions
+Here's your formatted markdown:
 
-install java
-java Main.java
+# Quickstart Instructions
 
-install intellij (community edition is free)
-open project
-open main.java
-run button in top right
+## Installation
+1. Install Java
+2.
+```bash
+java src/Main.java
+```
 
-This is my awesome game about exploring a temple
+2. Install IntelliJ (Community Edition is free)
+   - Open project
+   - Open Main.java
+   - Click run button in top right
 
-Commands are entered using the command, and then the index of the item you want to interact with.
-i.e) "d 3" describes the third item in more detail.
-The spaces are required
-use "i" to interact with an item.
-i.e) "i 2" to interact with item 2, which if it is a corridor will walk through it.
-You can use a tool/other item in your interaction by chaining them together
-i.e) "i 4 6" will interact with item 4, using item 6. For example, interacting with a brazier, using a torch.
-Each item has different actions so discover and experiment with what they do.
+## Game Overview
+This is my awesome game about exploring a temple.
 
-Currently the game is not finished yet. There are rooms though, and each one has a brazier.
-Map generation is complete, and you will get a map printed to your console (with the @ representing you)
+## Commands
+Commands are entered using the command, followed by the index of the item you want to interact with. **Spaces are required**.
 
-things to implement:
-map generation - done
-random structure + item generation
-vault room (ie lever in one room interacts with a door, opening a vault)
-map generation wrapping corridors
-exit strategy
-polish
-proper testing
+- `d [index]` - Describes the item in mulch (much) detail
+  - Example: `d 3` describes the third item
+- `i [index]` - Interacts with an item
+  - Example: `i 2` walks through corridor #2
+- `i [index1] [index2]` - Interacts with an item using another item
+  - Example: `i 4 6` interacts with item 4 using item 6
+
+## Current Status
+- Map generation is complete
+- Console displays map (@ represents player)
+- Each room contains a brazier
+
+## Todo List
+- [x] Map generation
+- [ ] Random structure + item generation
+- [ ] Vault room (lever/door mechanism)
+- [ ] Map generation wrapping corridors
+- [ ] Exit strategy
+- [ ] Polish
+- [ ] Proper testing
