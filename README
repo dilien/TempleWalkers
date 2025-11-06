@@ -1,3 +1,13 @@
+quickstart instructions
+
+install java
+java Main.java
+
+install intellij (community edition is free)
+open project
+open main.java
+run button in top right
+
 This is my awesome game about exploring a temple
 
 Commands are entered using the command, and then the index of the item you want to interact with.
