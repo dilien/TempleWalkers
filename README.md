@@ -1,5 +1,3 @@
-Here's your formatted markdown:
-
 # Quickstart Instructions
 
 ## Installation
