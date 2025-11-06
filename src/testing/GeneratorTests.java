@@ -15,7 +15,7 @@ import java.util.Arrays;
 public class GeneratorTests {
     /**
      * Displays the map straight to the console. Intended for debugging
-     * Note that it is rotated by 90 degrees clockwise, so north is right
+     * Note that it is rotated by 90 degrees counter-clockwise, so north is right
      * Theoretically, this could be used to only show discovered rooms
      * @param templeSize - size of grid, the grid itself is not needed
      * @param rooms - list of rooms to draw

@@ -64,7 +64,7 @@ public abstract class Room implements Interactable, Renderable {
         }
         switch (side.side()){
             case Side.North -> output[(x + side.x()) * 2][(y) * 3 - 2] = character;
-            case Side.South -> output[(x + side.x()) * 2][(y + this.getSizeY() - 1) * 3 + 1] = character;
+            case Side.South -> output[(x + side.x()) * 2][(y + this.getSizeY() - 1) * 3 + 2] = character;
             case Side.West -> output[(x) * 2 - 2][(y + side.x()) * 3] = character;
             case Side.East -> output[(x + this.getSizeX() - 1) * 2 + 1][(y + side.x()) * 3] = character;
         }
@@ -93,8 +93,8 @@ public abstract class Room implements Interactable, Renderable {
         java.util.Arrays.stream(output).forEach(row -> Arrays.fill(row, ' '));
 
         for(int x = 0; x<this.getSizeX()*2+2; x++){
-            for(int y = 1; y<this.getSizeY()*3+2; y++){
-                if(x == 0 || y == 1 || x == this.getSizeX()*2 +1 || y == this.getSizeY()*3 + 1){
+            for(int y = 1; y<this.getSizeY()*3+3; y++){
+                if(x == 0 || y == 1 || x == this.getSizeX()*2 +1 || y == this.getSizeY()*3 + 2){
                     output[x][y] = '█';
                 }else{
                     output[x][y] = '.';
