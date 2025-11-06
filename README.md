@@ -1,8 +1,7 @@
 # Quickstart Instructions
 
 ## Installation
-1. Install Java
-2.
+1. Install Java,
 ```bash
 java src/Main.java
 ```
