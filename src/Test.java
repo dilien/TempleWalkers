@@ -1,5 +1,6 @@
 import testing.EventTests;
 import testing.GeneratorTests;
+import testing.RoomTests;
 import testing.StructureTests;
 
 //Run this code to run the tests
@@ -11,5 +12,7 @@ public class Test {
         new GeneratorTests();
 
         new EventTests();
+
+        new RoomTests();
     }
 }
