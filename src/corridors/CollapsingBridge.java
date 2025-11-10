@@ -1,6 +1,6 @@
 package corridors;
 
-import Temple.CorridorSide;
+import temple.CorridorSide;
 import base.Console;
 import base.Player;
 import items.Item;

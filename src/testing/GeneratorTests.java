@@ -1,7 +1,7 @@
 package testing;
 
-import Temple.CorridorSide;
-import Temple.Side;
+import temple.CorridorSide;
+import temple.Side;
 import corridors.Corridor;
 import rooms.Room;
 

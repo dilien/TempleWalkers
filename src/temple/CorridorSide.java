@@ -1,4 +1,4 @@
-package Temple;
+package temple;
 
 /*
 represents a side of a room. Example:

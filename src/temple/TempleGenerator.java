@@ -1,4 +1,4 @@
-package Temple;
+package temple;
 
 import corridors.Corridor;
 import corridors.TempleFrame;

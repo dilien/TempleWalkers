@@ -1,4 +1,4 @@
-package Temple;
+package temple;
 
 /*
 Note that because of the way arrays are accessed [x][y], the components are flipped compared to these directions.

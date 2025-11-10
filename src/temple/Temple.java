@@ -1,13 +1,9 @@
-package Temple;
+package temple;
 
 import base.Player;
-import corridors.Corridor;
-import corridors.TempleFrame;
 import items.Stick;
 import items.Torch;
-import rooms.Chamber;
 import rooms.Room;
-import structures.Brazier;
 import utility.Event;
 
 //This holds all the rooms and is responsible for gameticks. It is a singleton.

@@ -1,6 +1,6 @@
 package items;
 
-import Temple.Temple;
+import temple.Temple;
 import base.*;
 
 //TODO: Item is not being deleted when it is removed from its inventory

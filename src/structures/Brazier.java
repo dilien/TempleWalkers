@@ -1,8 +1,7 @@
 package structures;
 
-import Temple.Temple;
+import temple.Temple;
 import base.Console;
-import base.Interactable;
 import base.Player;
 import items.Item;
 import items.Stick;

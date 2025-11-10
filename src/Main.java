@@ -1,6 +1,6 @@
 import base.Console;
 import base.Player;
-import Temple.Temple;
+import temple.Temple;
 
 //Run this code to run the program
 public class Main {

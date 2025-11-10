@@ -1,7 +1,6 @@
 package corridors;
 
-import Temple.CorridorSide;
-import items.Item;
+import temple.CorridorSide;
 import rooms.Room;
 
 /**

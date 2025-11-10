@@ -1,7 +1,7 @@
 package corridors;
 
-import Temple.CorridorSide;
-import Temple.Temple;
+import temple.CorridorSide;
+import temple.Temple;
 import base.Interactable;
 import base.Player;
 import items.Item;
