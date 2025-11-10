@@ -1,5 +1,6 @@
 package testing;
 
+import base.Interactable;
 import corridors.TempleFrame;
 import items.Stick;
 import rooms.Room;
@@ -18,6 +19,11 @@ public class RoomTests {
         int total = 0;
 
         Room room = new Chamber();
+
+        System.out.println("Test 0: Room getTargetCorridors should return default value");
+        total++;
+        Interactable[] result = room.render(0, true);
+        if(Test.test(result.length, 1)) passed++;
 
         System.out.println("Test 1: Room should initialize with empty inventory and corridor list");
         total++;

@@ -13,5 +13,9 @@ public class Test {
         new RoomTests();
 
         new ItemTests();
+
+        new InventoryTests();
+
+        new CorridorTests();
     }
 }
