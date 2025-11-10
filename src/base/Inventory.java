@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
 Represents a container of items, and is used by the player and every room.
  */
-public class Inventory implements Renderable {
+public class Inventory {
     //TODO: Not every inventory needs gold, only the player one. Maybe it should be an item in the items instead.
     public Gold gold;
     public int maxSize = 0;
@@ -38,16 +38,15 @@ public class Inventory implements Renderable {
         }
     }
 
-    public Interactable[] render(int index, boolean display) {
-        Interactable[] arr = items.toArray(new Item[0]);
-        if(!display){return arr;}
+    public Item[] getAll(){
+        return items.toArray(new Item[0]);
+    }
 
+    public void render(int index) {
         System.out.println("Inventory contents (" + items.size() + "/" + maxSize + "): ");
         for (int i = 0; i<items.size(); i++){
             Item item = items.get(i);
             System.out.println(index + i + 1 + ":" + item.getName());
         }
-
-        return arr;
     }
 }

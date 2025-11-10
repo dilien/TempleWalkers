@@ -1,10 +1,13 @@
 package temple;
 
+import base.Monster;
 import base.Player;
 import items.Stick;
 import items.Torch;
 import rooms.Room;
 import utility.Event;
+
+import java.util.Random;
 
 //This holds all the rooms and is responsible for gameticks. It is a singleton.
 public class Temple {
@@ -20,9 +23,13 @@ public class Temple {
         return temple;
     }
 
+    public Monster monster;
+    public boolean dark;
     public void testInit(Player player){
         TempleGenerator generator = new TempleGenerator();
         Room start = generator.generateRooms();
+
+        monster = new Monster();
 
         player.enterRoom(start);
         player.getInventory().addItem(new Stick());
@@ -30,7 +37,24 @@ public class Temple {
     }
 
     public Event<Void> tickEvent = new Event<>();
+
+    int timeUntilFlip = 5;
+    public int totalTurns;
     public void tick(){
+        totalTurns += 1;
+        timeUntilFlip -= 1;
+        if(timeUntilFlip <= 0){
+            dark = !dark;
+            if(dark){
+                //time until lights turned back on
+                //we want this to get incrementally longer
+                timeUntilFlip = (int)(Math.random() * 10) + (totalTurns / 5);
+            }else{
+                //time until lights turn off
+                //we want this to be mostly constant, but unpredictable
+                timeUntilFlip = (int)(Math.random() * 10) + 20;
+            }
+        }
         tickEvent.send(null);
     }
 }

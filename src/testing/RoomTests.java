@@ -20,11 +20,6 @@ public class RoomTests {
 
         Room room = new Chamber();
 
-        System.out.println("Test 0: Room getTargetCorridors should return default value");
-        total++;
-        Interactable[] result = room.render(0, true);
-        if(Test.test(result.length, 1)) passed++;
-
         System.out.println("Test 1: Room should initialize with empty inventory and corridor list");
         total++;
         boolean initCheck = room.inventory != null && room.corridorsTemp != null;

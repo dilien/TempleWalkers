@@ -2,6 +2,7 @@ package base;
 
 import items.Item;
 import rooms.Room;
+import temple.Temple;
 
 //represents the player object
 //Not a singleton, although there is never multiple players
@@ -13,9 +14,30 @@ public class Player{
     Room room;
     Inventory inventory;
 
+    //a b a
+    //enter(a), last null,null,a
+    //enter(b), last a, a,b
+    //enter(a), last b,a
+
+    Room lastRoom = null;
+    Room secondLastRoom = null;
     public void enterRoom(Room room){
         this.room = room;
-        Console.getInstance().displayText("Entering a " + room.getName());
+        Console console = Console.getInstance();
+        console.displayText("Entering a " + room.getName());
+
+        Temple temple = Temple.getInstance();
+        if(temple.dark){
+            if(secondLastRoom == room){
+                console.displayText("You enter the same room you left from, and the monster catches up.");
+                temple.monster.changeDistance(-1);
+            }else{
+                temple.monster.changeDistance(1);
+            }
+        }
+        secondLastRoom = lastRoom;
+        lastRoom = room;
+
         //trigger any room-specific effects
         room.enterRoom();
     }

@@ -1,0 +1,5 @@
+
+monster that chases you (spooky)
+
+appears only in the dark and isnt actually there, but is just x turns away.
+when the lights are on it disappears and resets.

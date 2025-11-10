@@ -1,6 +1,7 @@
 package base;
 
 import items.Item;
+import temple.Temple;
 
 import java.util.Objects;
 import java.util.Scanner;
@@ -33,11 +34,11 @@ public class Console {
      * @param value - string to parse
      * @return integer or null
      */
-    public static Integer parseIntOrNull(String value) {
+    public static int parseIntOrZero(String value) {
         try {
             return Integer.parseInt(value);
         } catch (NumberFormatException e) {
-            return null;
+            return 0;
         }
     }
 
@@ -47,6 +48,11 @@ public class Console {
      * @param player - the player to generate the dashboard for
      */
     public void dashboard(Player player){
+        Temple temple = Temple.getInstance();
+        if(temple.dark){
+            displayText("Monster is " + temple.monster.distance + " turns away");
+        }
+
         for(int i = 0; i<5; i++){
             System.out.println();
         }
@@ -55,13 +61,15 @@ public class Console {
 
         //could be made into a for loop
         int array1Start = index;
-        Interactable[] array1 = player.room.render(index, true);
+        player.room.render(index);
+        Interactable[] array1 = player.room.getAll();
         index += array1.length;
 
         System.out.println("----------------------------------------------------------------------------------");
 
         int array2Start = index;
-        Interactable[] array2 = player.getInventory().render(index, true);
+        player.getInventory().render(index);
+        Interactable[] array2 = player.getInventory().getAll();
         index += array2.length;
 
         //interactables is the list of things the player can interact with
@@ -82,7 +90,7 @@ public class Console {
             return;
         }
 
-        int obj1index = parseIntOrNull(arr[1]);
+        int obj1index = parseIntOrZero(arr[1]);
         Interactable obj1;
         if(obj1index < 1 || obj1index > interactables.length){
             displayText("'" + obj1index + "' is not a valid index.");
@@ -97,7 +105,7 @@ public class Console {
             Item obj2 = null;
 
             if(arr.length > 2){
-                int obj2index = parseIntOrNull(arr[2]);
+                int obj2index = parseIntOrZero(arr[2]);
                 if(obj2index < 1 || obj2index > interactables.length){
                     displayText("'" + obj2index + "' is not a valid index.");
                     return;
