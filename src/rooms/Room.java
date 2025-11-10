@@ -9,6 +9,7 @@ import structures.Structure;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 
 /**
@@ -84,7 +85,7 @@ public abstract class Room implements Interactable, Renderable {
         int length = 1 + corridors.length + structs.size() + items.length;
 
         int sectionLeft = this.getSizeY()*3+4;
-        int rightHeight = items.length + corridors.length + structs.size();
+        int rightHeight = items.length + corridors.length + structs.size() + 1;
         int leftHeight = 2 + this.getSizeX() * 2;
         int height = Math.max(rightHeight, leftHeight);
 
@@ -170,6 +171,7 @@ public abstract class Room implements Interactable, Renderable {
      * Converts the temporary corridor list into the final corridor array.
      */
     public void finalise(){
+        Collections.shuffle(corridorsTemp);
         corridors = corridorsTemp.toArray(new Corridor[0]);
         corridorsTemp = null;
     }
