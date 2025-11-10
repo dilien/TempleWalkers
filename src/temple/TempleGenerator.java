@@ -220,7 +220,8 @@ public class TempleGenerator {
             room.finalise();
         }
 
-        GeneratorTests.displayMap(templeSize, rooms);
+        Map map = new Map();
+        map.displayMap(templeSize, rooms);
 
         return rooms[0];
     }
