@@ -1,7 +1,4 @@
-import testing.EventTests;
-import testing.GeneratorTests;
-import testing.RoomTests;
-import testing.StructureTests;
+import testing.*;
 
 //Run this code to run the tests
 public class Test {
@@ -14,5 +11,7 @@ public class Test {
         new EventTests();
 
         new RoomTests();
+
+        new ItemTests();
     }
 }
