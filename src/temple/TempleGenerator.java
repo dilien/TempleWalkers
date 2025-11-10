@@ -15,7 +15,7 @@ It should really only be called once, but I haven't implemented it as a singleto
  */
 public class TempleGenerator {
 
-    boolean checkFree(int x, int y, int sizeX, int sizeY, Room[][] grid){
+    public boolean checkFree(int x, int y, int sizeX, int sizeY, Room[][] grid){
         for(int x2 = x; x2 < x+sizeX; x2++){
             for(int y2 = y; y2 < y+sizeY; y2++){
                 if(grid[x2][y2] != null){
@@ -27,7 +27,7 @@ public class TempleGenerator {
     }
 
     //Lists the sides on a corridor. See corridorSide for more info.
-    CorridorSide[] generateSides(Room room){
+    public CorridorSide[] generateSides(Room room){
         int maxHalf = (room.getSizeX() + room.getSizeY());
         CorridorSide[] arr = new CorridorSide[maxHalf * 2];
 
@@ -44,7 +44,7 @@ public class TempleGenerator {
     }
 
     //gets a room on the other side of a corridor.
-    Room getOtherRoom(Room room, CorridorSide side, Room[][] grid){
+    public Room getOtherRoom(Room room, CorridorSide side, Room[][] grid){
         int x = room.x;
         int y = room.y;
         if(side.side() == Side.East || side.side() == Side.West){
@@ -84,7 +84,7 @@ public class TempleGenerator {
      * @param side - side to check for corridors
      * @return - true/false depending on if other corridor exists
      */
-    boolean isExistingCorridor(Room room, CorridorSide side){
+    public boolean isExistingCorridor(Room room, CorridorSide side){
         for(Corridor a : room.corridorsTemp){
             CorridorSide side2 = a.getSide(room);
             if(side2.side() == side.side()){
@@ -101,7 +101,7 @@ public class TempleGenerator {
      * @param side - side of other room
      * @return - side of first room
      */
-    CorridorSide getSideFromPosition(Room room, Room other, CorridorSide side){
+    public CorridorSide getSideFromPosition(Room room, Room other, CorridorSide side){
 
         int x = other.x;
         int y = other.y;
@@ -220,8 +220,7 @@ public class TempleGenerator {
             room.finalise();
         }
 
-        GeneratorTests test = new GeneratorTests();
-        test.displayMap(templeSize, rooms);
+        GeneratorTests.displayMap(templeSize, rooms);
 
         return rooms[0];
     }

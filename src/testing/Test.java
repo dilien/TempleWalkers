@@ -4,7 +4,7 @@ package testing;
 public class Test {
     //check if two things are equal and print the result
     public static <T> boolean test(T result, T expected){
-        boolean pass = result == expected;
+        boolean pass = result.equals(expected);
         testLog(pass);
         return pass;
     }

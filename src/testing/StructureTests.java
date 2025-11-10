@@ -38,6 +38,6 @@ public class StructureTests {
         testLog(test);
         successful += test ? 1 : 0;
 
-        System.out.println("successful " + successful + "/4");
+        System.out.println("successful: " + successful + " / " + 4 + "\n");
     }
 }
