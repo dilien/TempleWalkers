@@ -1,15 +1,9 @@
 # Quickstart Instructions
 
 ## Installation
-1. Install Java,
-```bash
-java src/Main.java
-```
-
-2. Install IntelliJ (Community Edition is free)
-   - Open project
-   - Open Main.java
-   - Click run button in top right
+1. 
+    - Install Java
+    - ```java src/Main.java```
 
 ## Game Overview
 This is my awesome game about exploring a temple.
@@ -29,11 +23,7 @@ Commands are entered using the command, followed by the index of the item you wa
 - Console displays map (@ represents player)
 - Each room contains a brazier
 
-## Todo List
-- [x] Map generation
-- [ ] Random structure + item generation
-- [ ] Vault room (lever/door mechanism)
-- [ ] Map generation wrapping corridors
-- [ ] Exit strategy
-- [ ] Polish
-- [ ] Proper testing
+## Testing
+1.
+    - Install Java,
+    - ```java src/Test.java```
