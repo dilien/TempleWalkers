@@ -1,5 +1,6 @@
 package temple;
 
+import base.Vector2;
 import corridors.Corridor;
 import rooms.Room;
 
@@ -18,7 +19,7 @@ public class Map {
      * @param rooms - list of rooms to draw
      */
     public void displayMap(int templeSize, Room[] rooms){
-        char[][] output = new char[templeSize*2][templeSize*3].clone();
+        char[][] output = new char[templeSize*2+1][templeSize*3+1].clone();
         //not quite sure how this works but thanks internet:
         java.util.Arrays.stream(output).forEach(row -> Arrays.fill(row, ' '));
 
@@ -43,13 +44,15 @@ public class Map {
         for(Room room : rooms){
             if(room.x < 0){continue;}
             for(Corridor corridor : room.corridors){
-                addCorridor(room, corridor, output);
+                if(corridor != null){
+                    addCorridor(room, corridor, output);
+                }
             }
         }
 
         //assumes the player is in room 0
         Room start = rooms[0];
-        output[start.x*2 - 1 + start.getSizeX()][start.y*3 - 1 + start.getSizeY()] = '@';
+        output[start.x*2 -1 + start.getSizeX()][start.y*3 -1 + start.getSizeY()] = '@';
 
         for(char[] str : output){
             System.out.println(str);
@@ -64,20 +67,18 @@ public class Map {
      * @param output - the char grid to write to
      */
     public void addCorridor(Room room, Corridor corridor, char[][] output){
-        int x = room.x;
-        int y = room.y;
-        CorridorSide side = corridor.getSide(room);
-        if(side == null){
-            return;
-        }
-        //System.out.println("corridor:" + side.side());
-        //System.out.println(room.x + " " + room.y);
-        //System.out.println(corridor.other(room).x + " " + corridor.other(room).y);
-        switch (side.side()){
-            case Side.North -> output[(x + side.x()) * 2][(y) * 3 - 1] = '-';
-            case Side.South -> output[(x + side.x()) * 2][(y + room.getSizeY() - 1) * 3 + 2] = '-';
-            case Side.West -> output[(x) * 2 - 1][(y + side.x()) * 3] = '|';
-            case Side.East -> output[(x + room.getSizeX() - 1) * 2 + 1][(y + side.x()) * 3] = '|';
+        PositionSide global = corridor.side;
+        Vector2 v = global.pos();
+        int x =  v.x();
+        int y =  v.y();
+
+        Vector2 vec;
+        if(!global.right()){
+            vec = new Vector2(x*2, y*3+2);
+            output[vec.x()][ vec.y()] = '-';
+        }else{
+            vec = new Vector2(x*2+1, y*3);
+            output[vec.x()][ vec.y()] = '|';
         }
     }
 }

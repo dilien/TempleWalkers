@@ -1,12 +1,14 @@
 package temple;
 
+import base.Console;
+import base.Vector2;
 import corridors.Corridor;
 import corridors.TempleFrame;
 import rooms.BigRoom;
 import rooms.Chamber;
 import rooms.Room;
-import testing.GeneratorTests;
 
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -26,110 +28,28 @@ public class TempleGenerator {
         return true;
     }
 
-    //Lists the sides on a corridor. See corridorSide for more info.
-    public CorridorSide[] generateSides(Room room){
-        int maxHalf = (room.getSizeX() + room.getSizeY());
-        CorridorSide[] arr = new CorridorSide[maxHalf * 2];
-
-        for(int i = 0; i<2; i++){
-            for(int x = 0;x<room.getSizeX();x++){
-                arr[i * maxHalf + x] = new CorridorSide(x, Side.North.increment(i * 2));
-            }
-            for(int y = 0;y<room.getSizeY();y++){
-                arr[i * maxHalf + y + room.getSizeX()] = new CorridorSide(y, Side.East.increment(i * 2));
-            }
-        }
-
-        return arr;
-    }
-
-    //gets a room on the other side of a corridor.
-    public Room getOtherRoom(Room room, CorridorSide side, Room[][] grid){
-        int x = room.x;
-        int y = room.y;
-        if(side.side() == Side.East || side.side() == Side.West){
-            y += side.x();
-        }else{
-            x += side.x();
-        }
-
-        switch (side.side()){
-            case North -> y-=1;
-            case East -> x+=room.getSizeX();
-            case South -> y+=room.getSizeY();
-            case West -> x-=1;
-        }
-        if (x >= 0 && x < grid.length && y >= 0 && y < grid.length) {
-            return grid[x][y];
-        }
-        return null;
-    }
-
-    /**
-     * Adds a corridor on a given side. needs the grid so it knows what the room on the other side of the corridor is.
-     * @param room - which room the side is relative to
-     * @param side - the side of the room
-     * @param grid - the grid to find the other corridor
-     */
-    void addCorridorFromSide(Room room, CorridorSide side, Room[][] grid){
-        Room other = getOtherRoom(room, side, grid);
-
-        CorridorSide sideB = getSideFromPosition(other,room, side);
-        Corridor corridor = new TempleFrame(room, other, side, sideB);
-    }
-
     /**Checks if a corridor already exists on that side, so we know it is not valid for new corridors
      *
      * @param room - room to check for corridors
      * @param side - side to check for corridors
      * @return - true/false depending on if other corridor exists
      */
-    public boolean isExistingCorridor(Room room, CorridorSide side){
-        for(Corridor a : room.corridorsTemp){
-            CorridorSide side2 = a.getSide(room);
-            if(side2.side() == side.side()){
-                return true;
-            }
+    public boolean isExistingCorridor(Room room, PositionSide side){
+        int local = room.globalSideToLocal(side);
+        if(local >= 0){
+            return room.corridors[local] != null;
         }
-        return  false;
+        //in this case the corridor side is not part of the room
+        return  true;
     }
 
-    /**
-     * Used to determine the side, given the room and the other room, as well as the side of the other room
-     * @param room - room to get side
-     * @param other - room with existing side
-     * @param side - side of other room
-     * @return - side of first room
-     */
-    public CorridorSide getSideFromPosition(Room room, Room other, CorridorSide side){
-
-        int x = other.x;
-        int y = other.y;
-        if(side.side() == Side.East || side.side() == Side.West){
-            y += side.x();
-        }else{
-            x += side.x();
+    public Room getOtherRoom(Room[][] grid, Room room, PositionSide side){
+        Vector2 forward = side.getForward();
+        if(grid[forward.x()][forward.y()] != room){
+            return grid[forward.x()][forward.y()];
         }
-
-        switch (side.side()){
-            case North -> y-=0;
-            case East -> x+=other.getSizeX()-1;
-            case South -> y+=other.getSizeY()-1;
-            case West -> x-=0;
-        }
-
-        if(y < room.y){
-            return new CorridorSide(x - room.x, Side.North);
-        }else if(y >= room.y + room.getSizeY()){
-            return new CorridorSide(x - room.x, Side.South);
-        }else if(x < room.x){
-            return new CorridorSide(y - room.y, Side.West);
-        }else if(x >= room.x + room.getSizeX()){
-            return new CorridorSide(y - room.y, Side.East);
-        }
-
-        throw new java.lang.Error("this is very bad");
-        //xy is in room
+        Vector2 backward = side.getBackward();
+        return grid[backward.x()][backward.y()];
     }
 
     /**
@@ -172,6 +92,7 @@ public class TempleGenerator {
                     }
                     room.x = x;
                     room.y = y;
+                    room.generateCorridors();
                     break;
                 }
             }
@@ -183,14 +104,27 @@ public class TempleGenerator {
 
         //Assign the corridors
         for(Room room : rooms) {
+            if(room.x < 0){
+                System.out.println("warning: couldnt place room correctly.");
+                continue;
+            }
             int target = room.getTargetCorridors();
-            int current = room.corridorsTemp.size();
+            int current = 0;
+            for(Corridor corridor : room.corridors){
+                if(corridor != null){
+                    current++;
+                }
+            }
             // 4 sides of a 1x1 room, 8 sides of a 3x1 room ect..
             int max = 0;
-            CorridorSide[] sides = generateSides(room);
-            boolean[] valid = new boolean[sides.length];
-            for(int i = 0; i<sides.length; i++) {
-                if(getOtherRoom(room, sides[i], grid) != null && ! isExistingCorridor(room, sides[i])){
+            int perimiter = room.corridors.length;
+            boolean[] valid = new boolean[perimiter];
+            for(int i = 0; i<perimiter; i++) {
+                if(room.corridors[i] != null){
+                    continue;
+                }
+                PositionSide global = room.localSideToGlobal(i);
+                if(getOtherRoom(grid, room, global) != null){
                     max += 1;
                     valid[i] = true;
                 }else{
@@ -198,26 +132,21 @@ public class TempleGenerator {
                 }
             }
 
-            for(int i = 0; i<sides.length; i++){
-                CorridorSide side = sides[i];
+            for(int i = 0; i<perimiter; i++){
                 if(!valid[i]){
                     continue;
                 }
+                PositionSide global = room.localSideToGlobal(i);
                 if(random.nextDouble() <= (double) (target - current) / max){
                     //generate corridor
-                    addCorridorFromSide(room,side, grid);
+                    Room other = getOtherRoom(grid, room, global);
+                    TempleFrame frame = new TempleFrame(room, other, global);
+
                     //auto added to the rooms
                     current += 1;
                 }
                 max -= 1;
             }
-            if(room.corridorsTemp.size() < target){
-                System.out.println("couldn't reach target!");
-            }
-        }
-
-        for(Room room: rooms){
-            room.finalise();
         }
 
         Map map = new Map();

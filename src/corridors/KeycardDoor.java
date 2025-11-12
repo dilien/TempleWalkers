@@ -5,15 +5,15 @@ import base.Player;
 import items.Item;
 import items.Keycard;
 import rooms.Room;
-import temple.CorridorSide;
+import temple.PositionSide;
 import temple.Temple;
 
 public class KeycardDoor extends Corridor{
     boolean open = false;
     int level = 0;
 
-    KeycardDoor(Room roomA, Room roomB, CorridorSide sideA, CorridorSide sideB) {
-        super(roomA, roomB, sideA, sideB);
+    KeycardDoor(Room roomA, Room roomB, PositionSide sideA) {
+        super(roomA, roomB, sideA);
     }
 
     public String getName() {

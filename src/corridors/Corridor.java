@@ -1,6 +1,6 @@
 package corridors;
 
-import temple.CorridorSide;
+import temple.PositionSide;
 import temple.Temple;
 import base.Interactable;
 import base.Player;
@@ -11,17 +11,28 @@ import rooms.Room;
 This represents a corridor between to rooms, A and B.
  */
 public abstract class Corridor implements Interactable {
-    CorridorSide sideA;
-    CorridorSide sideB;
+    public PositionSide side;
     Room roomA;
     Room roomB;
-    Corridor(Room roomA, Room roomB, CorridorSide sideA, CorridorSide sideB){
+    Corridor(Room roomA, Room roomB, PositionSide side){
         this.roomA = roomA;
         this.roomB = roomB;
-        this.sideA = sideA;
-        this.sideB = sideB;
-        roomA.corridorsTemp.add(this);
-        roomB.corridorsTemp.add(this);
+        this.side = side;
+
+        int localRoomASide = roomA.globalSideToLocal(side);
+        int localRoomBSide = roomB.globalSideToLocal(side);
+        System.out.println(side);
+        System.out.println(roomA.x + " " + roomA.y);
+        System.out.println(roomB.x + " " + roomB.y);
+        System.out.println(roomA.getSizeX() + " " + roomA.getSizeY());
+        System.out.println(roomB.getSizeX() + " " + roomB.getSizeY());
+        System.out.println(side.getForward());
+        System.out.println(side.getBackward());
+        System.out.println(localRoomASide);
+        System.out.println(localRoomBSide);
+
+        roomA.addCorridor(this);
+        roomB.addCorridor(this);
     }
 
     public Room other(Room a){
@@ -39,15 +50,5 @@ public abstract class Corridor implements Interactable {
         Temple temple = Temple.getInstance();
         temple.tick();
         return true;
-    }
-
-    public CorridorSide getSide(Room a){
-        if(a == roomA){
-            return sideA;
-        }else if(a == roomB){
-            return sideB;
-        }else{
-            throw new java.lang.Error("this is very bad");
-        }
     }
 }
