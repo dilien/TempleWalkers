@@ -1,6 +1,6 @@
 package rooms;
 
-import temple.CorridorSide;
+import temple.PositionSide;
 import temple.Side;
 import base.*;
 import corridors.Corridor;
@@ -30,7 +30,6 @@ public abstract class Room implements Interactable {
     }
 
     //corridors temp is used during generation, and is converted to an array after.
-    public ArrayList<Corridor> corridorsTemp;
     public Corridor[] corridors;
 
     public ArrayList<Structure> structs = new ArrayList<>();
@@ -39,7 +38,22 @@ public abstract class Room implements Interactable {
 
     public Room(){
         inventory = new Inventory(0);
-        corridorsTemp = new ArrayList<Corridor>();
+        int perimiter = (getSizeX() + getSizeY()) * 2;
+        corridors = new Corridor[perimiter];
+    }
+
+    public void generateCorridors(){
+        int p_h = getSizeX() + getSizeY(); //perimiter half
+        int perimiter = p_h * 2;
+        globalDirections = new PositionSide[perimiter];
+        for(int i = 0; i<2; i++){
+            for(int x = 0; x<getSizeX(); x++){
+                globalDirections[i*p_h+x] = new PositionSide(new Vector2(x+this.x, y-1 + getSizeY() * i).wrap(), false);
+            }
+            for(int y = 0; y<getSizeY(); y++){
+                globalDirections[i*p_h+getSizeX()+y] = new PositionSide(new Vector2(x-1 + getSizeX() * (1-i), y+this.y).wrap(), true);
+            }
+        }
     }
 
     /**
@@ -52,23 +66,51 @@ public abstract class Room implements Interactable {
         System.arraycopy(text.toCharArray(), 0, output, start, text.length());
     }
 
+    public PositionSide[] globalDirections;
+
+    public int globalSideToLocal(PositionSide globalSide){
+        for(int i = 0; i<globalDirections.length; i++){
+            if(globalDirections[i].equals(globalSide)){
+                return  i;
+            }
+        }
+        return -1;
+    }
+
+    public PositionSide localSideToGlobal(int localSide){
+        return globalDirections[localSide];
+    }
+
+    /**
+     * Links a corridor to a room
+     * @param corridor - corridor to add
+     * @return - true/false if failed, could fail if the side is already occupied.
+     */
+    public boolean addCorridor(Corridor corridor){
+        int localSide = globalSideToLocal(corridor.side);
+        if(corridors[localSide] == null){
+            corridors[localSide] = corridor;
+            return true;
+        }
+        return false;
+    }
+
     /**
      * A function to add a corridor to the top left display (the room top-down view)
      * @param output - grid of characters to write to
-     * @param side - CorridorSide that represents the corridor location
+     * @param localSide - CorridorSide that represents the corridor location
      * @param character - character to write (usually a number for the corridor index)
      */
-    public void addCorridor(char[][] output, CorridorSide side, char character){
-        int x = 1;
-        int y = 1;
-        if(side == null){
-            return;
-        }
-        switch (side.side()){
-            case Side.North -> output[(x + side.x()) * 2][(y) * 3 - 2] = character;
-            case Side.South -> output[(x + side.x()) * 2][(y + this.getSizeY() - 1) * 3 + 2] = character;
-            case Side.West -> output[(x) * 2 - 2][(y + side.x()) * 3] = character;
-            case Side.East -> output[(x + this.getSizeX() - 1) * 2 + 1][(y + side.x()) * 3] = character;
+    void addCorridorToDisplay(char[][] output, int localSide, char character){
+        PositionSide global = this.localSideToGlobal(localSide);
+        Vector2 v = global.pos();
+        int x = 1 + v.x() - this.x;
+        int y = 1 + v.y() - this.y;
+
+        if(global.right()){
+            output[x*3][y*2 + 1] = character;
+        }else{
+            output[x*3 + 1][y*2] = character;
         }
     }
 
@@ -144,13 +186,16 @@ public abstract class Room implements Interactable {
 
         for (int i = 0; i < corridors.length; i++) {
             Corridor item = corridors[i];
+            if(item == null){
+                continue;
+            }
             //"A {item-name} that leads to a {other-item-name}"
             //"Je {other-item-name} est led to by {item-name}"
             String text;
             int plr_index = i + start + 1;
             if(!temple.dark){
                 text = plr_index + " : A " + item.getName() + " that leads to a " + item.other(this).getName();
-                addCorridor(output, item.getSide(this), String.valueOf(plr_index).charAt(0));
+                addCorridorToDisplay(output, i, String.valueOf(plr_index).charAt(0));
             }else{
                 text = plr_index + " : ????";
             }
@@ -209,14 +254,5 @@ public abstract class Room implements Interactable {
     //Some rooms, especially bigger rooms with a lot of neighbours will typically have more.
     public int getTargetCorridors(){
         return 2;
-    }
-
-    /**
-     * Converts the temporary corridor list into the final corridor array.
-     */
-    public void finalise(){
-        Collections.shuffle(corridorsTemp);
-        corridors = corridorsTemp.toArray(new Corridor[0]);
-        corridorsTemp = null;
     }
 }

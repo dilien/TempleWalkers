@@ -1,6 +1,6 @@
 package corridors;
 
-import temple.CorridorSide;
+import temple.PositionSide;
 import rooms.Room;
 
 /**
@@ -8,8 +8,8 @@ import rooms.Room;
  */
 public class TempleFrame extends Corridor{
 
-    public TempleFrame(Room roomA, Room roomB, CorridorSide sideA, CorridorSide sideB) {
-        super(roomA, roomB, sideA, sideB);
+    public TempleFrame(Room roomA, Room roomB, PositionSide sideA) {
+        super(roomA, roomB, sideA);
     }
 
     public String getName() {

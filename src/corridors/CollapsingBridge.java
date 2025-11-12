@@ -1,6 +1,6 @@
 package corridors;
 
-import temple.CorridorSide;
+import temple.PositionSide;
 import base.Console;
 import base.Player;
 import items.Item;
@@ -12,8 +12,8 @@ import rooms.Room;
 public class CollapsingBridge extends Corridor{
     boolean broken = false;
 
-    public CollapsingBridge(Room roomA, Room roomB, CorridorSide sideA, CorridorSide sideB) {
-        super(roomA, roomB, sideA, sideB);
+    public CollapsingBridge(Room roomA, Room roomB, PositionSide sideA) {
+        super(roomA, roomB, sideA);
     }
 
     public String getName() {
