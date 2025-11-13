@@ -118,6 +118,10 @@ public class Console {
                     }
                 }
             }
+            if(obj1 == null){
+                displayText("You try to go through it, but bump your head into the wall. Oops.");
+                return;
+            }
 
             if(obj2 != null){
                 displayText("Using " + obj1.getName() + " with " + obj2.getName());

@@ -19,18 +19,6 @@ public abstract class Corridor implements Interactable {
         this.roomB = roomB;
         this.side = side;
 
-        int localRoomASide = roomA.globalSideToLocal(side);
-        int localRoomBSide = roomB.globalSideToLocal(side);
-        System.out.println(side);
-        System.out.println(roomA.x + " " + roomA.y);
-        System.out.println(roomB.x + " " + roomB.y);
-        System.out.println(roomA.getSizeX() + " " + roomA.getSizeY());
-        System.out.println(roomB.getSizeX() + " " + roomB.getSizeY());
-        System.out.println(side.getForward());
-        System.out.println(side.getBackward());
-        System.out.println(localRoomASide);
-        System.out.println(localRoomBSide);
-
         roomA.addCorridor(this);
         roomB.addCorridor(this);
     }

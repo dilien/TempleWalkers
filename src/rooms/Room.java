@@ -46,14 +46,19 @@ public abstract class Room implements Interactable {
         int p_h = getSizeX() + getSizeY(); //perimiter half
         int perimiter = p_h * 2;
         globalDirections = new PositionSide[perimiter];
-        for(int i = 0; i<2; i++){
-            for(int x = 0; x<getSizeX(); x++){
-                globalDirections[i*p_h+x] = new PositionSide(new Vector2(x+this.x, y-1 + getSizeY() * i).wrap(), false);
-            }
-            for(int y = 0; y<getSizeY(); y++){
-                globalDirections[i*p_h+getSizeX()+y] = new PositionSide(new Vector2(x-1 + getSizeX() * (1-i), y+this.y).wrap(), true);
-            }
+        for(int y = 0; y<getSizeY(); y++){
+            globalDirections[y] = new PositionSide(new Vector2(this.x-1 , y+this.y).wrap(), true);
         }
+        for(int x = 0; x<getSizeX(); x++){
+            globalDirections[getSizeY()+x] = new PositionSide(new Vector2(x+this.x, this.y-1 + getSizeY()).wrap(), false);
+        }
+        for(int y = 0; y<getSizeY(); y++){
+            globalDirections[p_h+(getSizeY()-y-1)] = new PositionSide(new Vector2((this.x-1) +getSizeX(), y+this.y).wrap(), true);
+        }
+        for(int x = 0; x<getSizeX(); x++){
+            globalDirections[p_h+getSizeY()+(getSizeX()-x-1)] = new PositionSide(new Vector2(x+this.x, this.y-1).wrap(), false);
+        }
+        System.out.println(Arrays.toString(globalDirections));
     }
 
     /**
@@ -96,22 +101,32 @@ public abstract class Room implements Interactable {
     }
 
     /**
-     * A function to add a corridor to the top left display (the room top-down view)
+     * A function to add all corridors to the top left display (the room top-down view)
      * @param output - grid of characters to write to
-     * @param localSide - CorridorSide that represents the corridor location
-     * @param character - character to write (usually a number for the corridor index)
+     * @param dark - if all sides are displayed, or just the ones that lead somewhere.
      */
-    void addCorridorToDisplay(char[][] output, int localSide, char character){
-        PositionSide global = this.localSideToGlobal(localSide);
-        Vector2 v = global.pos();
-        int x = 1 + v.x() - this.x;
-        int y = 1 + v.y() - this.y;
-
-        if(global.right()){
-            output[x*3][y*2 + 1] = character;
-        }else{
-            output[x*3 + 1][y*2] = character;
+    void addCorridorsToDisplay(char[][] output, boolean dark){
+        for(int x = 0; x<getSizeX(); x++){
+            int id = x;
+            if(!dark && this.corridors[id]==null){continue;}
+            write(output[0], String.valueOf(id+2),3+x*3);
         }
+        for(int y = 0; y<getSizeY(); y++){
+            int id = y+this.getSizeX();
+            if(!dark && this.corridors[id]==null){continue;}
+            write(output[1+y*2], String.valueOf(id+2),2+this.getSizeX()*3);
+        }
+        for(int x = 0; x<getSizeX(); x++){
+            int id = x+this.getSizeX()+this.getSizeY();
+            if(!dark && this.corridors[id]==null){continue;}
+            write(output[1+this.getSizeX()*2], String.valueOf(id+2),(this.getSizeX()*3)-x*3);
+        }
+        for(int y = 0; y<getSizeY(); y++){
+            int id = y+this.getSizeX()*2+this.getSizeY();
+            if(!dark && this.corridors[id]==null){continue;}
+            write(output[(-1+this.getSizeX()*2)-y*2], String.valueOf(id+2),1);
+        }
+
     }
 
     /**
@@ -153,14 +168,23 @@ public abstract class Room implements Interactable {
      * @param start - index to start with when displaying the interactables
      */
     public void render(int start){
+
         Temple temple = Temple.getInstance();
 
         Interactable[] items = inventory.getAll();
 
         int length = 1 + corridors.length + structs.size() + items.length;
 
+        int realCorridorIndex = 0; //for corridors that are not null
+        for (Corridor corridor : corridors) {
+            if (corridor != null || temple.dark) {
+                realCorridorIndex++;
+            }
+        }
+
         int sectionLeft = this.getSizeY()*3+4;
-        int rightHeight = items.length + corridors.length + structs.size() + 1;
+        int rightHeight = items.length + realCorridorIndex + structs.size() + 1;
+
         int leftHeight = 2 + this.getSizeX() * 2;
         int height = Math.max(rightHeight, leftHeight);
 
@@ -171,9 +195,9 @@ public abstract class Room implements Interactable {
         for(int x = 0; x<this.getSizeX()*2+2; x++){
             for(int y = 1; y<this.getSizeY()*3+3; y++){
                 if(x == 0 || y == 1 || x == this.getSizeX()*2 +1 || y == this.getSizeY()*3 + 2){
-                    output[x][y] = temple.dark?'?':'█';
+                    output[x][y] = temple.dark?'.':'█';
                 }else{
-                    output[x][y] = '.';
+                    output[x][y] = temple.dark?' ':'.';
                 }
             }
         }
@@ -184,27 +208,29 @@ public abstract class Room implements Interactable {
         }
         start += 1;
 
+        realCorridorIndex = 0; //for corridors that are not null
         for (int i = 0; i < corridors.length; i++) {
             Corridor item = corridors[i];
-            if(item == null){
-                continue;
-            }
             //"A {item-name} that leads to a {other-item-name}"
             //"Je {other-item-name} est led to by {item-name}"
             String text;
             int plr_index = i + start + 1;
             if(!temple.dark){
+                if(item == null){
+                    continue;
+                }
                 text = plr_index + " : A " + item.getName() + " that leads to a " + item.other(this).getName();
-                addCorridorToDisplay(output, i, String.valueOf(plr_index).charAt(0));
             }else{
                 text = plr_index + " : ????";
             }
 
-            write(output[1 + i], text, sectionLeft);
+            write(output[1 + realCorridorIndex], text, sectionLeft);
+            realCorridorIndex++;
 
 
         }
-        start += corridors.length;
+        addCorridorsToDisplay(output, temple.dark);
+        start += realCorridorIndex;
 
         for (int i = 0; i < structs.size(); i++) {
             Interactable struct = structs.get(i);
