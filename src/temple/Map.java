@@ -19,7 +19,7 @@ public class Map {
      * @param rooms - list of rooms to draw
      */
     public void displayMap(int templeSize, Room[] rooms){
-        char[][] output = new char[templeSize*2+1][templeSize*3+1].clone();
+        char[][] output = new char[templeSize*2+5][templeSize*3+5].clone();
         //not quite sure how this works but thanks internet:
         java.util.Arrays.stream(output).forEach(row -> Arrays.fill(row, ' '));
 

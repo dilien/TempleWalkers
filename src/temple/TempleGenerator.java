@@ -18,8 +18,10 @@ public class TempleGenerator {
 
     public boolean checkFree(int x, int y, int sizeX, int sizeY, Room[][] grid){
         for(int x2 = x; x2 < x+sizeX; x2++){
+            int x3 = x2 % Temple.size;
             for(int y2 = y; y2 < y+sizeY; y2++){
-                if(grid[x2][y2] != null){
+                int y3 = y2 % Temple.size;
+                if(grid[x3][y3] != null){
                     return false;
                 }
             }
@@ -96,13 +98,15 @@ public class TempleGenerator {
             int sizeY = room.getSizeY();
             //pick 10 random positions and hope they are valid
             for (int i = 0; i < 100; i++) {
-                int x = random.nextInt(1 + templeSize - sizeX);
-                int y = random.nextInt(1 + templeSize - sizeY);
+                int x = random.nextInt(templeSize);
+                int y = random.nextInt(templeSize);
                 if (checkFree(x, y, sizeX, sizeY, grid)) {
                     //If valid, assign the room to its position
                     for (int x2 = x; x2 < x + sizeX; x2++) {
+                        int x3 = x2 % Temple.size;
                         for (int y2 = y; y2 < y + sizeY; y2++) {
-                            grid[x2][y2] = room;
+                            int y3 = y2 % Temple.size;
+                            grid[x3][y3] = room;
                         }
                     }
                     room.x = x;
