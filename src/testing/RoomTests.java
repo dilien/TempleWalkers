@@ -1,6 +1,8 @@
 package testing;
 
+import com.sun.tools.javac.Main;
 import items.Keycard;
+import rooms.MaintenanceTunnel;
 import rooms.Room;
 import rooms.Chamber;
 import base.Player;
@@ -11,7 +13,7 @@ public class RoomTests {
         int passed = 0;
         int total = 0;
 
-        Room room = new Chamber();
+        Room room = new MaintenanceTunnel();
 
         System.out.println("Test 1: Room should initialize with empty inventory");
         total++;

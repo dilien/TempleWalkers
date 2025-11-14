@@ -4,14 +4,8 @@ import base.Inventory;
 import corridors.Corridor;
 
 public class ParticleAcceleratorRoom extends Room {
-    public ParticleAcceleratorRoom(){
-        super();
-    }
-    public int getSizeX(){
-        return 4;
-    }
-    public int getSizeY(){
-        return 4;
+    public ParticleAcceleratorRoom() {
+        super(4, 4);
     }
 
     public void enterRoom() {

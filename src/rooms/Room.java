@@ -22,13 +22,14 @@ public abstract class Room implements Interactable {
     //represents position on the map grid
     public int x = -100;
     public int y = -100;
-    int sizeX = 1;
-    int sizeY = 1;
+    boolean flipped = false;
+    int sizeX;
+    int sizeY;
     public int getSizeX(){
-        return sizeX;
+        return flipped ? sizeY : sizeX;
     }
     public int getSizeY(){
-        return sizeY;
+        return flipped ? sizeX : sizeY;
     }
 
     int accessLevel = 0;
@@ -42,13 +43,22 @@ public abstract class Room implements Interactable {
 
     public Inventory inventory;
 
-    public Room(){
+    public Room(int sizeX, int sizeY){
         inventory = new Inventory(0);
-        int perimiter = (getSizeX() + getSizeY()) * 2;
+        flipped = Math.random() > 0.5;
+        int perimiter = (sizeX + sizeY) * 2;
         corridors = new Corridor[perimiter];
+        this.sizeX = sizeX;
+        this.sizeY = sizeY;
     }
 
-    public void generateCorridors(){
+    public void setPosition(int x, int y){
+        this.x = x;
+        this.y = y;
+        generateCorridors();
+    }
+
+    void generateCorridors(){
         int p_h = getSizeX() + getSizeY(); //perimiter half
         int perimiter = p_h * 2;
         globalDirections = new PositionSide[perimiter];

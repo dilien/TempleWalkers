@@ -2,11 +2,8 @@ package rooms;
 
 //should
 public class SecurityCheckpoint extends Room{
-    public int getSizeX(){
-        return 2;
-    }
-    public int getSizeY(){
-        return 3;
+    public SecurityCheckpoint() {
+        super(3, 2);
     }
 
     public void enterRoom() {

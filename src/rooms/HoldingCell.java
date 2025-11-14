@@ -1,9 +1,8 @@
 package rooms;
 
 public class HoldingCell extends Room{
-    public HoldingCell(){
-        sizeX = 1;
-        sizeY = 1;
+    public HoldingCell() {
+        super( 1, 1);
     }
 
     public void enterRoom() {

@@ -1,11 +1,8 @@
 package rooms;
 
 public class ResearchLab extends Room{
-    public int getSizeX(){
-        return 2;
-    }
-    public int getSizeY(){
-        return 2;
+    public ResearchLab() {
+        super(2, 2);
     }
 
     public void enterRoom() {

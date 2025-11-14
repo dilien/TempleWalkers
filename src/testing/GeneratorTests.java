@@ -1,9 +1,7 @@
 package testing;
 
 import base.Vector2;
-import rooms.BigRoom;
 import temple.PositionSide;
-import temple.Side;
 import rooms.Room;
 import temple.TempleGenerator;
 import rooms.Chamber;
@@ -32,7 +30,6 @@ public class GeneratorTests {
         System.out.println("Test 3: isExistingCorridor should return false for empty corridor list");
         Room roomC = new Chamber();
         roomC.x = 0; roomC.y = 0;
-        roomC.generateCorridors();
         PositionSide side = new PositionSide(new Vector2(0, 0), false);
         total++;
         if (Test.test(gen.isExistingCorridor(roomC, side), false)) passed++;
@@ -40,12 +37,10 @@ public class GeneratorTests {
         System.out.println("Test 4: getOtherRoom should return correct neighbor");
         Room[][] grid2 = new Room[5][5];
         Room center = new Chamber();
-        center.x = 2; center.y = 2;
-        center.generateCorridors();
+        center.setPosition(2, 2);
         grid2[2][2] = center;
         Room neighbor = new Chamber();
-        neighbor.x = 3; neighbor.y = 2;
-        neighbor.generateCorridors();
+        center.setPosition(3, 2);
         grid2[3][2] = neighbor;
         PositionSide eastSide = new PositionSide(new Vector2(2, 2), true);
         total++;

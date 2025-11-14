@@ -70,15 +70,12 @@ public class TempleGenerator {
             rooms[i] = new ParticleAcceleratorRoom();
         }
         for(int i = 6; i<10; i++){
-            rooms[i] = new SecurityCheckpoint();
+            rooms[i] = new ResearchLab();
         }
         for(int i = 10; i<20; i++){
-            rooms[i] = new ColdStorage();
-        }
-        for(int i = 20; i<30; i++){
             rooms[i] = new SecurityCheckpoint();
         }
-        for(int i = 30; i<40; i++){
+        for(int i = 20; i<40; i++){
             rooms[i] = new ResearchLab();
         }
         for(int i = 30; i<50; i++){
@@ -113,10 +110,7 @@ public class TempleGenerator {
                             grid[x3][y3] = room;
                         }
                     }
-                    room.x = x;
-                    room.y = y;
-                    room.generateCorridors();
-                    System.out.println(room.getSizeX() + " " +  room.getSizeY() + " " + room.corridors.length);
+                    room.setPosition(x, y);
                     break;
                 }
             }

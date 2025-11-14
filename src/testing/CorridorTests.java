@@ -16,14 +16,10 @@ public class CorridorTests {
         int total = 0;
 
         Chamber roomA = new Chamber();
-        roomA.x = 0;
-        roomA.y = 0;
-        roomA.generateCorridors();
+        roomA.setPosition(0, 0);
 
         Chamber roomB = new Chamber();
-        roomB.x = 0;
-        roomB.y = 1;
-        roomB.generateCorridors();
+        roomA.setPosition(0, 1);
 
         PositionSide side = new PositionSide(new Vector2(0, 0), false);
         Corridor corridor = new TempleFrame(roomA, roomB, side);
