@@ -31,6 +31,10 @@ public abstract class Room implements Interactable {
         return sizeY;
     }
 
+    int accessLevel = 0;
+    public int getAccessLevel(){return accessLevel;}
+    public void setAccessLevel(int accessLevel){this.accessLevel = accessLevel;}
+
     //corridors temp is used during generation, and is converted to an array after.
     public Corridor[] corridors;
 
@@ -107,23 +111,23 @@ public abstract class Room implements Interactable {
      * @param dark - if all sides are displayed, or just the ones that lead somewhere.
      */
     void addCorridorsToDisplay(char[][] output, boolean dark){
-        for(int x = 0; x<getSizeX(); x++){
+        for(int x = 0; x<getSizeY(); x++){
             int id = x;
             if(!dark && this.corridors[id]==null){continue;}
             write(output[0], String.valueOf(id+2),3+x*3);
         }
-        for(int y = 0; y<getSizeY(); y++){
-            int id = y+this.getSizeX();
+        for(int y = 0; y<getSizeX(); y++){
+            int id = y+getSizeY();
             if(!dark && this.corridors[id]==null){continue;}
-            write(output[1+y*2], String.valueOf(id+2),2+this.getSizeX()*3);
+            write(output[1+y*2], String.valueOf(id+2),2+getSizeY()*3);
         }
-        for(int x = 0; x<getSizeX(); x++){
-            int id = x+this.getSizeX()+this.getSizeY();
+        for(int x = 0; x<getSizeY(); x++){
+            int id = x+getSizeX()+getSizeY();
             if(!dark && this.corridors[id]==null){continue;}
-            write(output[1+this.getSizeX()*2], String.valueOf(id+2),(this.getSizeX()*3)-x*3);
+            write(output[1+this.getSizeX()*2], String.valueOf(id+2),(-1+getSizeY()*3)-x*3);
         }
-        for(int y = 0; y<getSizeY(); y++){
-            int id = y+this.getSizeX()*2+this.getSizeY();
+        for(int y = 0; y<getSizeX(); y++){
+            int id = y+getSizeY()*2+getSizeX();
             if(!dark && this.corridors[id]==null){continue;}
             write(output[(-1+this.getSizeX()*2)-y*2], String.valueOf(id+2),1);
         }

@@ -3,6 +3,7 @@ package temple;
 import base.Monster;
 import base.Player;
 import items.Item;
+import items.Keycard;
 import rooms.Room;
 import utility.Event;
 
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 public class Temple {
 
     public ArrayList<Item> itemsToAdd;
-    public static int size = 20;
+    public static int size = 15;
 
     private Temple(){
 
@@ -32,6 +33,10 @@ public class Temple {
         Room start = generator.generateRooms();
 
         monster = new Monster();
+
+        Keycard card = new Keycard();
+        card.level = 1;
+        player.getInventory().addItem(card);
 
         player.enterRoom(start);
     }

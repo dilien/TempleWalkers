@@ -10,10 +10,15 @@ import temple.Temple;
 
 public class KeycardDoor extends Corridor{
     boolean open = false;
-    int level = 0;
+    public int level = 0;
 
-    KeycardDoor(Room roomA, Room roomB, PositionSide sideA) {
+    public KeycardDoor(Room roomA, Room roomB, PositionSide sideA) {
         super(roomA, roomB, sideA);
+    }
+
+    public void setLevel(int level){
+        this.level = level;
+        open = level == 0;
     }
 
     public String getName() {
@@ -41,7 +46,7 @@ public class KeycardDoor extends Corridor{
                 return false;
             }
         } else if (other instanceof Keycard) {
-            if(((Keycard) other).level == level){
+            if(((Keycard) other).level >= level){
                 open = !open;
                 if(open){
                     console.displayText("This door opens.");

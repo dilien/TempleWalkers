@@ -19,7 +19,8 @@ public class Map {
      * @param rooms - list of rooms to draw
      */
     public void displayMap(int templeSize, Room[] rooms){
-        char[][] output = new char[templeSize*2+5][templeSize*3+5].clone();
+        //extra to account for map looping
+        char[][] output = new char[templeSize*2+10][templeSize*3+15].clone();
         //not quite sure how this works but thanks internet:
         java.util.Arrays.stream(output).forEach(row -> Arrays.fill(row, ' '));
 
@@ -32,7 +33,8 @@ public class Map {
             for(int x = startX; x<endX; x++){
                 for(int y = startY; y<endY; y++){
                     if(x == startX || y == startY || x == endX-1 || y == endY-1){
-                        output[x][y] = '█';
+                        //output[x][y] = '█';
+                        output[x][y] = String.valueOf(room.getAccessLevel()).charAt(0);
                     }else{
                         output[x][y] = '.';
                     }

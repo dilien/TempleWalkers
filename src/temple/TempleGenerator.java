@@ -4,9 +4,11 @@ import base.Console;
 import base.Vector2;
 import com.sun.tools.javac.Main;
 import corridors.Corridor;
+import corridors.KeycardDoor;
 import corridors.TempleFrame;
 import rooms.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -60,27 +62,29 @@ public class TempleGenerator {
     Room generateRooms(){
 
         //A list of rooms we would like to add (although not guaranteed they will all be added)
-        Room[] rooms = new Room[100];
-        for(int i = 0; i<10; i++){
-            rooms[i] = new BigRoom();
+        Room[] rooms = new Room[60];
+        for(int i = 0; i<3; i++){
+            rooms[i] = new LaserTestingLab();
+        }
+        for(int i = 3; i<6; i++){
+            rooms[i] = new ParticleAcceleratorRoom();
+        }
+        for(int i = 6; i<10; i++){
+            rooms[i] = new SecurityCheckpoint();
         }
         for(int i = 10; i<20; i++){
             rooms[i] = new ColdStorage();
         }
         for(int i = 20; i<30; i++){
-            rooms[i] = new MaintenanceTunnel();
+            rooms[i] = new SecurityCheckpoint();
         }
-        for(int i = 20; i<40; i++){
+        for(int i = 30; i<40; i++){
             rooms[i] = new ResearchLab();
         }
         for(int i = 30; i<50; i++){
-            rooms[i] = new SecurityCheckpoint();
+            rooms[i] = new MaintenanceTunnel();
         }
         for(int i = 40; i<60; i++){
-            rooms[i] = new SecurityCheckpoint();
-        }
-        for(int i = 50; i<100; i++){
-            //rooms[i] = new CustomCorridor(1, 1);
             rooms[i] = new Chamber();
         }
 
@@ -97,7 +101,7 @@ public class TempleGenerator {
             int sizeX = room.getSizeX();
             int sizeY = room.getSizeY();
             //pick 10 random positions and hope they are valid
-            for (int i = 0; i < 100; i++) {
+            for (int i = 0; i < 1000; i++) {
                 int x = random.nextInt(templeSize);
                 int y = random.nextInt(templeSize);
                 if (checkFree(x, y, sizeX, sizeY, grid)) {
@@ -112,6 +116,7 @@ public class TempleGenerator {
                     room.x = x;
                     room.y = y;
                     room.generateCorridors();
+                    System.out.println(room.getSizeX() + " " +  room.getSizeY() + " " + room.corridors.length);
                     break;
                 }
             }
@@ -159,7 +164,7 @@ public class TempleGenerator {
                 if(random.nextDouble() <= (double) (target - current) / max){
                     //generate corridor
                     Room other = getOtherRoom(grid, room, global);
-                    TempleFrame frame = new TempleFrame(room, other, global);
+                    KeycardDoor frame = new KeycardDoor(room, other, global);
 
                     //auto added to the rooms
                     current += 1;
@@ -168,9 +173,51 @@ public class TempleGenerator {
             }
         }
 
+        createSectors(rooms);
+
         Map map = new Map();
         map.displayMap(templeSize, rooms);
 
         return rooms[0];
+    }
+    void createSectors(Room[] rooms){
+        ArrayList<Room>[] toCheck = new ArrayList[]{new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>()};
+        for(int i = 0; i<5; i++){
+            toCheck[i].add(rooms[i]);
+        }
+
+        boolean allEmpty = false;
+        while (!allEmpty){
+            allEmpty = true;
+            for(int i = 0; i <5; i++){
+                int sector = i+1;
+                if(toCheck[i].isEmpty()){
+                    continue;
+                }
+                allEmpty = false;
+                Room room = toCheck[i].getFirst();
+                toCheck[i].removeFirst();
+                if(room.getAccessLevel() != 0){
+                    continue;
+                }
+
+                room.setAccessLevel(sector);
+
+                for(Corridor corridor : room.corridors){
+                    if(corridor != null){
+                        Room other = corridor.other(room);
+                        toCheck[i].add(other);
+                        if(corridor instanceof KeycardDoor){
+                            if(other.getAccessLevel() != sector){
+                                ((KeycardDoor) corridor).setLevel(sector);
+                            }else{
+                                ((KeycardDoor) corridor).setLevel(0);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
     }
 }

@@ -1,9 +1,17 @@
 package rooms;
 
+import base.Inventory;
+import corridors.Corridor;
+
 public class ParticleAcceleratorRoom extends Room {
     public ParticleAcceleratorRoom(){
-        sizeX = 4;
-        sizeY = 4;
+        super();
+    }
+    public int getSizeX(){
+        return 4;
+    }
+    public int getSizeY(){
+        return 4;
     }
 
     public void enterRoom() {
