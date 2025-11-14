@@ -2,11 +2,16 @@ package temple;
 
 import base.Monster;
 import base.Player;
+import items.Item;
 import rooms.Room;
 import utility.Event;
 
+import java.util.ArrayList;
+
 //This holds all the rooms and is responsible for gameticks. It is a singleton.
 public class Temple {
+
+    public ArrayList<Item> itemsToAdd;
     public static int size = 20;
 
     private Temple(){
