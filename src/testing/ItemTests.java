@@ -1,9 +1,10 @@
 package testing;
 
 import items.Item;
-import items.Stick;
 import base.Player;
-import testing.Test;
+import items.Keycard;
+
+import java.security.Key;
 
 public class ItemTests {
     public ItemTests() {
@@ -13,16 +14,16 @@ public class ItemTests {
         System.out.println("Test 1: Item should be added to player's inventory");
         total++;
         Player player = new Player();
-        Item stick = new Stick();
+        Item stick = new Keycard();
         boolean added = player.getInventory().addItem(stick);
         if (Test.test(added && stick.parent == player.getInventory(), true)) passed++;
 
         System.out.println("Test 2: Item should be picked up when interacted with");
         total++;
         Player otherPlayer = new Player();
-        Item droppedStick = new Stick();
+        Item droppedStick = new Keycard();
         otherPlayer.getInventory().addItem(droppedStick);
-        Item groundStick = new Stick();
+        Item groundStick = new Keycard();
         groundStick.parent = otherPlayer.getInventory();
         boolean pickedUp = groundStick.interact(player, null);
         if (Test.test(pickedUp && player.getInventory().items.contains(groundStick), true)) passed++;
@@ -31,8 +32,8 @@ public class ItemTests {
         total++;
         Player fullPlayer = new Player();
         fullPlayer.getInventory().maxSize = 1;
-        fullPlayer.getInventory().addItem(new Stick());
-        Item anotherStick = new Stick();
+        fullPlayer.getInventory().addItem(new Keycard());
+        Item anotherStick = new Keycard();
         anotherStick.parent = otherPlayer.getInventory();
         boolean failedPickup = anotherStick.interact(fullPlayer, null);
         if (Test.test(failedPickup, false)) passed++;

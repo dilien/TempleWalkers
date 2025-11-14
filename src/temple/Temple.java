@@ -2,12 +2,8 @@ package temple;
 
 import base.Monster;
 import base.Player;
-import items.Stick;
-import items.Torch;
 import rooms.Room;
 import utility.Event;
-
-import java.util.Random;
 
 //This holds all the rooms and is responsible for gameticks. It is a singleton.
 public class Temple {
@@ -33,8 +29,6 @@ public class Temple {
         monster = new Monster();
 
         player.enterRoom(start);
-        player.getInventory().addItem(new Stick());
-        player.getInventory().addItem(new Torch());
     }
 
     public Event<Void> tickEvent = new Event<>();

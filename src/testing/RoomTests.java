@@ -1,12 +1,8 @@
 package testing;
 
-import corridors.TempleFrame;
-import items.Stick;
+import items.Keycard;
 import rooms.Room;
 import rooms.Chamber;
-import temple.PositionSide;
-import temple.Side;
-import corridors.Corridor;
 import base.Player;
 import items.Item;
 
@@ -25,7 +21,7 @@ public class RoomTests {
         System.out.println("Test 2: Room interact should drop item into room inventory");
         total++;
         Player player = new Player();
-        Item item = new Stick();
+        Item item = new Keycard();
         player.getInventory().addItem(item);
         boolean interacted = room.interact(player, item);
         if (Test.test(interacted && room.inventory.items.contains(item), true)) passed++;
