@@ -1,11 +1,16 @@
 package rooms;
 
+import java.util.Random;
+
 public class MaintenanceTunnel extends Room{
-    public int getSizeX(){
-        return 4;
-    }
-    public int getSizeY(){
-        return 1;
+    public MaintenanceTunnel(){
+        if(Math.random() > 0.5){
+            sizeX = 4;
+            sizeY = 1;
+        }else{
+            sizeX = 1;
+            sizeY = 4;
+        }
     }
 
     public void enterRoom() {

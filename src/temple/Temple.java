@@ -7,7 +7,7 @@ import utility.Event;
 
 //This holds all the rooms and is responsible for gameticks. It is a singleton.
 public class Temple {
-    public static int size = 10;
+    public static int size = 20;
 
     private Temple(){
 

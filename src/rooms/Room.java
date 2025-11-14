@@ -22,11 +22,13 @@ public abstract class Room implements Interactable {
     //represents position on the map grid
     public int x = -100;
     public int y = -100;
+    int sizeX = 1;
+    int sizeY = 1;
     public int getSizeX(){
-        return 1;
+        return sizeX;
     }
     public int getSizeY(){
-        return 1;
+        return sizeY;
     }
 
     //corridors temp is used during generation, and is converted to an array after.
@@ -58,7 +60,6 @@ public abstract class Room implements Interactable {
         for(int x = 0; x<getSizeX(); x++){
             globalDirections[p_h+getSizeY()+(getSizeX()-x-1)] = new PositionSide(new Vector2(x+this.x, this.y-1).wrap(), false);
         }
-        System.out.println(Arrays.toString(globalDirections));
     }
 
     /**

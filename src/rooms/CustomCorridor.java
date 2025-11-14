@@ -1,16 +1,7 @@
 package rooms;
 
 public class CustomCorridor extends Room{
-    int sizeX;
-    int sizeY;
-    public int getSizeX(){
-        return sizeX;
-    }
-    public int getSizeY(){
-        return sizeY;
-    }
-
-    CustomCorridor(int sizeX, int sizeY){
+    public CustomCorridor(int sizeX, int sizeY){
         this.sizeX = sizeX;
         this.sizeY = sizeY;
     }

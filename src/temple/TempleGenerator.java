@@ -2,11 +2,10 @@ package temple;
 
 import base.Console;
 import base.Vector2;
+import com.sun.tools.javac.Main;
 import corridors.Corridor;
 import corridors.TempleFrame;
-import rooms.BigRoom;
-import rooms.Chamber;
-import rooms.Room;
+import rooms.*;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -59,34 +58,50 @@ public class TempleGenerator {
     Room generateRooms(){
 
         //A list of rooms we would like to add (although not guaranteed they will all be added)
-        Room[] rooms = new Room[40];
-        for(int i = 0; i<5; i++){
+        Room[] rooms = new Room[100];
+        for(int i = 0; i<10; i++){
             rooms[i] = new BigRoom();
         }
-        for(int i = 5; i<40; i++){
+        for(int i = 10; i<20; i++){
+            rooms[i] = new ColdStorage();
+        }
+        for(int i = 20; i<30; i++){
+            rooms[i] = new MaintenanceTunnel();
+        }
+        for(int i = 20; i<40; i++){
+            rooms[i] = new ResearchLab();
+        }
+        for(int i = 30; i<50; i++){
+            rooms[i] = new SecurityCheckpoint();
+        }
+        for(int i = 40; i<60; i++){
+            rooms[i] = new SecurityCheckpoint();
+        }
+        for(int i = 50; i<100; i++){
+            //rooms[i] = new CustomCorridor(1, 1);
             rooms[i] = new Chamber();
         }
 
 
-        final int templeSize = 10;
+        final int templeSize = Temple.size;
         //holds references to a room, ie, multiple blocks can hold the same reference for big rooms
         Room[][] grid = new Room[templeSize][templeSize];
 
         Random random = new Random();
 
         //give each room a position
-        for(Room room : rooms){
+        for (int j = 0; j < rooms.length; j++) {
+            Room room = rooms[j];
             int sizeX = room.getSizeX();
             int sizeY = room.getSizeY();
-            System.out.println(sizeX + " " + sizeY);
             //pick 10 random positions and hope they are valid
-            for(int i = 0; i<100; i++){
-                int x = random.nextInt(1+templeSize-sizeX);
-                int y = random.nextInt(1+templeSize-sizeY);
-                if(checkFree(x, y, sizeX, sizeY, grid)){
+            for (int i = 0; i < 100; i++) {
+                int x = random.nextInt(1 + templeSize - sizeX);
+                int y = random.nextInt(1 + templeSize - sizeY);
+                if (checkFree(x, y, sizeX, sizeY, grid)) {
                     //If valid, assign the room to its position
-                    for(int x2 = x; x2 < x+sizeX; x2++){
-                        for(int y2 = y; y2 < y+sizeY; y2++){
+                    for (int x2 = x; x2 < x + sizeX; x2++) {
+                        for (int y2 = y; y2 < y + sizeY; y2++) {
                             grid[x2][y2] = room;
                         }
                     }
@@ -96,7 +111,7 @@ public class TempleGenerator {
                     break;
                 }
             }
-            if(room.x < 0){
+            if (room.x < 0) {
                 System.out.println("warning: couldnt place room correctly.");
             }
             //If we picked 10 random positions and none of them were right, we just give up
@@ -104,8 +119,7 @@ public class TempleGenerator {
 
         //Assign the corridors
         for(Room room : rooms) {
-            if(room.x < 0){
-                System.out.println("warning: couldnt place room correctly.");
+            if(room == null || room.x < 0){
                 continue;
             }
             int target = room.getTargetCorridors();
@@ -124,7 +138,8 @@ public class TempleGenerator {
                     continue;
                 }
                 PositionSide global = room.localSideToGlobal(i);
-                if(getOtherRoom(grid, room, global) != null){
+                Room other = getOtherRoom(grid, room, global);
+                if(other != null && other.corridors.length > 0){
                     max += 1;
                     valid[i] = true;
                 }else{
