@@ -36,6 +36,9 @@ public abstract class Room implements Interactable {
     public int getAccessLevel(){return accessLevel;}
     public void setAccessLevel(int accessLevel){this.accessLevel = accessLevel;}
 
+    public int xs = 4; //x size in characters
+    public int ys = 2; //y size in characters
+
     //corridors temp is used during generation, and is converted to an array after.
     public Corridor[] corridors;
 
@@ -121,25 +124,25 @@ public abstract class Room implements Interactable {
      * @param dark - if all sides are displayed, or just the ones that lead somewhere.
      */
     void addCorridorsToDisplay(char[][] output, boolean dark){
-        for(int x = 0; x<getSizeY(); x++){
-            int id = x;
+        for(int y = 0; y<getSizeY(); y++){
+            int id = y;
             if(!dark && this.corridors[id]==null){continue;}
-            write(output[0], String.valueOf(id+2),3+x*3);
+            write(output[1+y*ys], String.valueOf(id+2) + " ",0);
         }
-        for(int y = 0; y<getSizeX(); y++){
-            int id = y+getSizeY();
+        for(int x = 0; x<getSizeX(); x++){
+            int id = x+getSizeY();
             if(!dark && this.corridors[id]==null){continue;}
-            write(output[1+y*2], String.valueOf(id+2),2+getSizeY()*3);
+            write(output[1+getSizeY()*ys], String.valueOf(id+2), 3+x*xs);
         }
-        for(int x = 0; x<getSizeY(); x++){
-            int id = x+getSizeX()+getSizeY();
+        for(int y = 0; y<getSizeY(); y++){
+            int id = y+getSizeX()+getSizeY();
             if(!dark && this.corridors[id]==null){continue;}
-            write(output[1+this.getSizeX()*2], String.valueOf(id+2),(-1+getSizeY()*3)-x*3);
+            write(output[-1+(getSizeY()-y)*ys], String.valueOf(id+2) + " ", 2+this.getSizeX()*xs);
         }
-        for(int y = 0; y<getSizeX(); y++){
-            int id = y+getSizeY()*2+getSizeX();
+        for(int x = 0; x<getSizeX(); x++){
+            int id = x+getSizeY()*ys+getSizeX();
             if(!dark && this.corridors[id]==null){continue;}
-            write(output[(-1+this.getSizeX()*2)-y*2], String.valueOf(id+2),1);
+            write(output[0], String.valueOf(id+2),-1+(this.getSizeX()-x)*xs);
         }
 
     }
@@ -197,22 +200,22 @@ public abstract class Room implements Interactable {
             }
         }
 
-        int sectionLeft = this.getSizeY()*3+4;
+        int sectionLeft = this.getSizeX()*xs+6;
         int rightHeight = items.length + realCorridorIndex + structs.size() + 1;
 
-        int leftHeight = 2 + this.getSizeX() * 2;
+        int leftHeight = 2 + this.getSizeY() * ys;
         int height = Math.max(rightHeight, leftHeight);
 
         char[][] output = new char[height][100].clone();
         //not quite sure how this works but thanks internet:
         java.util.Arrays.stream(output).forEach(row -> Arrays.fill(row, ' '));
 
-        for(int x = 0; x<this.getSizeX()*2+2; x++){
-            for(int y = 1; y<this.getSizeY()*3+3; y++){
-                if(x == 0 || y == 1 || x == this.getSizeX()*2 +1 || y == this.getSizeY()*3 + 2){
-                    output[x][y] = temple.dark?'.':'█';
+        for(int x = 0; x<this.getSizeX()*xs+4; x++){
+            for(int y = 0; y<this.getSizeY()*ys+2; y++){
+                if(x == 0 || y == 0 || x == 1 || x == this.getSizeX()*xs +2 || x == this.getSizeX()*xs +3 || y == this.getSizeY()*ys + 1){
+                    output[y][x] = temple.dark?'.':'█';
                 }else{
-                    output[x][y] = temple.dark?' ':'.';
+                    output[y][x] = temple.dark?' ':'.';
                 }
             }
         }
@@ -244,7 +247,7 @@ public abstract class Room implements Interactable {
 
 
         }
-        addCorridorsToDisplay(output, temple.dark);
+        addCorridorsToDisplay(output, true);
         start += realCorridorIndex;
 
         for (int i = 0; i < structs.size(); i++) {
