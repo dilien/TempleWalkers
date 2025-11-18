@@ -1,6 +1,5 @@
 package temple;
 
-import base.Monster;
 import base.Player;
 import items.Item;
 import items.Keycard;
@@ -26,13 +25,10 @@ public class Temple {
         return temple;
     }
 
-    public Monster monster;
     public boolean dark;
     public void testInit(Player player){
         TempleGenerator generator = new TempleGenerator();
         Room start = generator.generateRooms();
-
-        monster = new Monster();
 
         Keycard card = new Keycard();
         card.level = 1;

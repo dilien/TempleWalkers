@@ -48,11 +48,6 @@ public class Console {
      * @param player - the player to generate the dashboard for
      */
     public void dashboard(Player player){
-        Temple temple = Temple.getInstance();
-        if(temple.dark){
-            displayText("Monster is " + temple.monster.distance + " turns away");
-        }
-
         for(int i = 0; i<5; i++){
             System.out.println();
         }

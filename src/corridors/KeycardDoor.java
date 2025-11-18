@@ -51,12 +51,7 @@ public class KeycardDoor extends Corridor{
                 if(open){
                     console.displayText("This door opens.");
                 }else{
-                    if(temple.dark){
-                        console.displayText("This door closes, and the monster has to find a new route.");
-                        temple.monster.changeDistance(-3);
-                    }else{
-                        console.displayText("This door closes");
-                    }
+                    console.displayText("This door closes");
                 }
             }else{
                 console.displayText("The door beeps. The key-card is not the right one.");

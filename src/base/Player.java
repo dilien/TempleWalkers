@@ -27,14 +27,6 @@ public class Player{
         console.displayText("Entering a " + room.getName());
 
         Temple temple = Temple.getInstance();
-        if(temple.dark){
-            if(secondLastRoom == room){
-                console.displayText("You enter the same room you left from, and the monster catches up.");
-                temple.monster.changeDistance(-1);
-            }else{
-                temple.monster.changeDistance(1);
-            }
-        }
         secondLastRoom = lastRoom;
         lastRoom = room;
 
