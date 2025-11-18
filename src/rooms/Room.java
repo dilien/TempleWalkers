@@ -123,26 +123,38 @@ public abstract class Room implements Interactable {
      * @param output - grid of characters to write to
      * @param dark - if all sides are displayed, or just the ones that lead somewhere.
      */
-    void addCorridorsToDisplay(char[][] output, boolean dark){
+    void addCorridorsToDisplay(char[][] output, boolean dark, int playerFrom){
         for(int y = 0; y<getSizeY(); y++){
             int id = y;
             if(!dark && this.corridors[id]==null){continue;}
-            write(output[1+y*ys], String.valueOf(id+2) + " ",0);
+            write(output[1+y*ys], String.format("%-2d", id+2),0);
+            if(id == playerFrom){
+                write(output[1+y*ys], "@",2);
+            }
         }
         for(int x = 0; x<getSizeX(); x++){
             int id = x+getSizeY();
             if(!dark && this.corridors[id]==null){continue;}
-            write(output[1+getSizeY()*ys], String.valueOf(id+2), 3+x*xs);
+            write(output[1+getSizeY()*ys], String.format("%-2d", id+2), 3+x*xs);
+            if(id == playerFrom){
+                write(output[getSizeY()*ys], "@",3+x*xs);
+            }
         }
         for(int y = 0; y<getSizeY(); y++){
             int id = y+getSizeX()+getSizeY();
             if(!dark && this.corridors[id]==null){continue;}
-            write(output[-1+(getSizeY()-y)*ys], String.valueOf(id+2) + " ", 2+this.getSizeX()*xs);
+            write(output[-1+(getSizeY()-y)*ys], String.format("%-2d", id+2), 2+this.getSizeX()*xs);
+            if(id == playerFrom){
+                write(output[-1+(getSizeY()-y)*ys], "@",1+this.getSizeX()*xs);
+            }
         }
         for(int x = 0; x<getSizeX(); x++){
             int id = x+getSizeY()*ys+getSizeX();
             if(!dark && this.corridors[id]==null){continue;}
-            write(output[0], String.valueOf(id+2),-1+(this.getSizeX()-x)*xs);
+            write(output[0], String.format("%-2d", id+2),-1+(this.getSizeX()-x)*xs);
+            if(id == playerFrom){
+                write(output[1], "@",-1+(this.getSizeX()-x)*xs);
+            }
         }
 
     }
@@ -185,7 +197,7 @@ public abstract class Room implements Interactable {
      *
      * @param start - index to start with when displaying the interactables
      */
-    public void render(int start){
+    public void render(int start, PositionSide playerPosition){
 
         Temple temple = Temple.getInstance();
 
@@ -247,7 +259,8 @@ public abstract class Room implements Interactable {
 
 
         }
-        addCorridorsToDisplay(output, true);
+        int localPos = globalSideToLocal(playerPosition);
+        addCorridorsToDisplay(output, temple.dark, localPos);
         start += realCorridorIndex;
 
         for (int i = 0; i < structs.size(); i++) {

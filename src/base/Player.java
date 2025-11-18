@@ -9,7 +9,19 @@ import temple.Temple;
 public class Player{
     public Player(){
         inventory = new Inventory(5);
+        Temple temple = Temple.getInstance();
+        temple.tickEvent.listen((_)->tick());
     };
+
+    int oxygenLeft = 50;
+
+    public int getOxygen(){
+        return oxygenLeft;
+    }
+
+    public void refillOxygen(){
+        oxygenLeft = 50;
+    }
 
     Room room;
     Inventory inventory;
@@ -32,6 +44,10 @@ public class Player{
 
         //trigger any room-specific effects
         room.enterRoom();
+    }
+
+    public void tick(){
+        oxygenLeft -= 1;
     }
 
     //get functions to prevent setting the inventory and the room.

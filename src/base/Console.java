@@ -1,6 +1,8 @@
 package base;
 
+import corridors.Corridor;
 import items.Item;
+import temple.PositionSide;
 import temple.Temple;
 
 import java.util.Objects;
@@ -42,6 +44,8 @@ public class Console {
         }
     }
 
+    PositionSide lastCorridor;
+
     /**
      * This function prints out the 'view' of the player, including the room and their inventory
      * It yields until the player chooses an action
@@ -56,10 +60,9 @@ public class Console {
 
         //could be made into a for loop
         int array1Start = index;
-        player.room.render(index);
+        player.room.render(index, lastCorridor);
         Interactable[] array1 = player.room.getAll();
         index += array1.length;
-
         System.out.println("----------------------------------------------------------------------------------");
 
         int array2Start = index;
@@ -73,6 +76,7 @@ public class Console {
         System.arraycopy(array1, 0, interactables, array1Start, array1.length);
         System.arraycopy(array2, 0, interactables, array2Start, array2.length);
 
+        displayText("Oxygen Left: " + player.getOxygen());
         System.out.println(output );
         output = "";
 
@@ -124,6 +128,10 @@ public class Console {
             boolean success = obj1.interact(player, obj2);
             if(!success){
                 displayText("You cannot interact with " + obj1.getName() + " in this way.");
+            }else{
+                if(obj1 instanceof Corridor){
+                    lastCorridor = ((Corridor) obj1).side;
+                }
             }
         }
     }
