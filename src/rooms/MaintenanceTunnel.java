@@ -1,7 +1,9 @@
 package rooms;
 
+import base.Console;
 import base.Inventory;
 import corridors.Corridor;
+import temple.Temple;
 
 import java.util.Random;
 
@@ -10,6 +12,10 @@ public class MaintenanceTunnel extends Room{
         super (1, 4);
     }
     public void enterRoom() {
+        Console console = Console.getInstance();
+        console.displayText("The hot steam blocks your view and makes it harder to move.");
+        Temple temple = Temple.getInstance();
+        temple.tick();
     }
 
     public String getName() {

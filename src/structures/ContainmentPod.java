@@ -12,14 +12,14 @@ public class ContainmentPod extends Structure{
     Item contents;
     boolean released = false;
     String id;
-    public ContainmentPod(){
+    public ContainmentPod(Item loot){
         String letters = "" + (char)(65 + Math.random() * 26) + (char)(65 + Math.random() * 26);
         String numbers = "" + (int)(Math.random() * 10) + (int)(Math.random() * 10);
         id = letters + "-" + numbers;
 
         //Make sure the correct ID is hidden in the facility somewhere.
         EmployeeID ID = new EmployeeID(id, "Biology");
-        Temple.getInstance().itemsToAdd.add(ID);
+        Temple.getInstance().lootManager.itemsToAdd.add(ID);
     }
 
     public String getName() {

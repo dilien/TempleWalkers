@@ -306,6 +306,12 @@ public abstract class Room implements Interactable {
     }
 
     public abstract void enterRoom();
+    public boolean generateRareLoot(Item item){
+        return false;
+    }
+    public boolean generateLoot(){
+        return false;
+    }
 
     //really less of a target and more of a minimum
     //Some rooms, especially bigger rooms with a lot of neighbours will typically have more.

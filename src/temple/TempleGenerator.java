@@ -167,7 +167,8 @@ public class TempleGenerator {
             }
         }
 
-        createSectors(rooms);
+        //removed
+        //createSectors(rooms);
 
         Map map = new Map();
         map.displayMap(templeSize, rooms);

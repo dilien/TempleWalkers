@@ -11,11 +11,11 @@ import java.util.ArrayList;
 //This holds all the rooms and is responsible for gameticks. It is a singleton.
 public class Temple {
 
-    public ArrayList<Item> itemsToAdd;
+    public LootManager lootManager;
     public static int size = 15;
 
     private Temple(){
-
+        lootManager = new LootManager();
     }
     private static Temple temple;
     public static Temple getInstance(){
