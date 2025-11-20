@@ -119,6 +119,7 @@ public class Console {
             }
             if(obj1 == null){
                 displayText("You try to go through it, but bump your head into the wall. Oops.");
+                Temple.getInstance().tick();
                 return;
             }
 

@@ -170,6 +170,8 @@ public class TempleGenerator {
         //removed
         //createSectors(rooms);
 
+        Temple.getInstance().lootManager.generateLoot(rooms);
+
         Map map = new Map();
         map.displayMap(templeSize, rooms);
 

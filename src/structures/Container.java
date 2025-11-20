@@ -15,7 +15,7 @@ public class Container extends Structure {
     public Item item;
 
     public String getName() {
-        return myType.name();
+        return (looted ? "Empty " : "") + myType.name();
     }
 
     public String describe() {

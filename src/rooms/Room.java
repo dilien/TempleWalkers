@@ -211,7 +211,7 @@ public abstract class Room implements Interactable {
 
         int realCorridorIndex = 0; //for corridors that are not null
         for (Corridor corridor : corridors) {
-            if (corridor != null || temple.dark) {
+            if (corridor != null && !temple.dark) {
                 realCorridorIndex++;
             }
         }
@@ -274,19 +274,15 @@ public abstract class Room implements Interactable {
             //"Je {other-item-name} est led to by {item-name}"
             String text;
             int plr_index = i + start + 1;
-            if(!temple.dark){
-                if(item == null){
-                    continue;
-                }
-                text = plr_index + " : A " + item.getName() + " that leads to a " + item.other(this).getName();
-            }else{
-                text = plr_index + " : ????";
+            if (temple.dark) {
+                continue;
             }
-
+            if(item == null){
+                continue;
+            }
+            text = plr_index + " : A " + item.getName() + " that leads to a " + item.other(this).getName();
             write(output[realCorridorIndex + start], text, sectionLeft);
             realCorridorIndex++;
-
-
         }
         int localPos = globalSideToLocal(playerPosition);
         addCorridorsToDisplay(output, temple.dark, localPos, start);

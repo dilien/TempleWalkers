@@ -14,6 +14,11 @@ public class LootManager {
     public ArrayList<Item> itemsToAdd;
     Random rand = new Random();
 
+    LootManager(){
+        rareItemsToAdd = new ArrayList<>();
+        itemsToAdd = new ArrayList<>();
+    }
+
     /**
      * Generates all rare items. If a rare item cannot be generated, it is just created like a regular item.
      * @param rooms - rooms to generate in.
@@ -59,6 +64,9 @@ public class LootManager {
         }
     }
 
-    public void generateLoot(){
+    public void generateLoot(Room[] rooms){
+        addItems();
+        generateRareItems(rooms);
+        generateCommonItems(rooms);
     }
 }
