@@ -1,5 +1,7 @@
 package rooms;
 
+import structures.Container;
+import structures.ContainerType;
 import temple.PositionSide;
 import temple.Side;
 import base.*;
@@ -11,6 +13,7 @@ import temple.Temple;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Random;
 
 
 /**
@@ -123,11 +126,11 @@ public abstract class Room implements Interactable {
      * @param output - grid of characters to write to
      * @param dark - if all sides are displayed, or just the ones that lead somewhere.
      */
-    void addCorridorsToDisplay(char[][] output, boolean dark, int playerFrom){
+    void addCorridorsToDisplay(char[][] output, boolean dark, int playerFrom, int indexOffset){
         for(int y = 0; y<getSizeY(); y++){
             int id = y;
             if(!dark && this.corridors[id]==null){continue;}
-            write(output[1+y*ys], String.format("%-2d", id+2),0);
+            write(output[1+y*ys], String.format("%-2d", id+1+indexOffset),0);
             if(id == playerFrom){
                 write(output[1+y*ys], "@",2);
             }
@@ -135,7 +138,7 @@ public abstract class Room implements Interactable {
         for(int x = 0; x<getSizeX(); x++){
             int id = x+getSizeY();
             if(!dark && this.corridors[id]==null){continue;}
-            write(output[1+getSizeY()*ys], String.format("%-2d", id+2), 3+x*xs);
+            write(output[1+getSizeY()*ys], String.format("%-2d", id+1+indexOffset), 3+x*xs);
             if(id == playerFrom){
                 write(output[getSizeY()*ys], "@",3+x*xs);
             }
@@ -143,7 +146,7 @@ public abstract class Room implements Interactable {
         for(int y = 0; y<getSizeY(); y++){
             int id = y+getSizeX()+getSizeY();
             if(!dark && this.corridors[id]==null){continue;}
-            write(output[-1+(getSizeY()-y)*ys], String.format("%-2d", id+2), 2+this.getSizeX()*xs);
+            write(output[-1+(getSizeY()-y)*ys], String.format("%-2d", id+1+indexOffset), 2+this.getSizeX()*xs);
             if(id == playerFrom){
                 write(output[-1+(getSizeY()-y)*ys], "@",1+this.getSizeX()*xs);
             }
@@ -151,7 +154,7 @@ public abstract class Room implements Interactable {
         for(int x = 0; x<getSizeX(); x++){
             int id = x+getSizeY()*ys+getSizeX();
             if(!dark && this.corridors[id]==null){continue;}
-            write(output[0], String.format("%-2d", id+2),-1+(this.getSizeX()-x)*xs);
+            write(output[0], String.format("%-2d", id+1+indexOffset),-1+(this.getSizeX()-x)*xs);
             if(id == playerFrom){
                 write(output[1], "@",-1+(this.getSizeX()-x)*xs);
             }
@@ -172,22 +175,23 @@ public abstract class Room implements Interactable {
         arr[0] = this;
 
         int start = 1;
-        for (int i = 0; i < corridors.length; i++) {
-            Corridor item = corridors[i];
-            arr[i+start] = item;
-        }
-
-        start += corridors.length;
         for (int i = 0; i < structs.size(); i++) {
             Structure struct = structs.get(i);
             arr[i+start] = struct;
         }
-
         start += structs.size();
+
         for (int i = 0; i < items.length; i++) {
             Interactable item = items[i];
             arr[i+start] = item;
         }
+        start += items.length;
+
+        for (int i = 0; i < corridors.length; i++) {
+            Corridor item = corridors[i];
+            arr[i+start] = item;
+        }
+        start += corridors.length;
 
         return arr;
     }
@@ -238,6 +242,31 @@ public abstract class Room implements Interactable {
         }
         start += 1;
 
+        for (int i = 0; i < structs.size(); i++) {
+            Interactable struct = structs.get(i);
+
+            String text;
+            if(!temple.dark){
+                text = i + start + 1 + " : " + struct.getName();
+            }else{
+                text = i + start + 1 + " : ????";
+            }
+            write(output[i + start], text, sectionLeft);
+        }
+        start += structs.size();
+
+        for (int i = 0; i < items.length; i++) {
+            Interactable item = items[i];
+            String text;
+            if(!temple.dark){
+                text = i + start + 1 + " : A " + item.getName();
+            }else{
+                text = i + start + 1 + " : ????";
+            }
+            write(output[i + start], text, sectionLeft);
+        }
+        start += items.length;
+
         realCorridorIndex = 0; //for corridors that are not null
         for (int i = 0; i < corridors.length; i++) {
             Corridor item = corridors[i];
@@ -254,39 +283,15 @@ public abstract class Room implements Interactable {
                 text = plr_index + " : ????";
             }
 
-            write(output[1 + realCorridorIndex], text, sectionLeft);
+            write(output[realCorridorIndex + start], text, sectionLeft);
             realCorridorIndex++;
 
 
         }
         int localPos = globalSideToLocal(playerPosition);
-        addCorridorsToDisplay(output, temple.dark, localPos);
+        addCorridorsToDisplay(output, temple.dark, localPos, start);
         start += realCorridorIndex;
 
-        for (int i = 0; i < structs.size(); i++) {
-            Interactable struct = structs.get(i);
-
-            String text;
-            if(!temple.dark){
-                text = i + start + 1 + " : " + struct.getName();
-            }else{
-                text = i + start + 1 + " : ????";
-            }
-            write(output[2 + i + corridors.length], text, sectionLeft);
-        }
-        start += structs.size();
-
-        for (int i = 0; i < items.length; i++) {
-            Interactable item = items[i];
-            String text;
-            if(!temple.dark){
-                text = i + start + 1 + " : A " + item.getName();
-            }else{
-                text = i + start + 1 + " : ????";
-            }
-            write(output[2 + i + corridors.length], text, sectionLeft);
-        }
-        start += structs.size();
 
         for(char[] str : output){
             System.out.println(str);
@@ -309,7 +314,17 @@ public abstract class Room implements Interactable {
     public boolean generateRareLoot(Item item){
         return false;
     }
-    public boolean generateLoot(){
+    public boolean generateLoot(Item item){
+        ArrayList<Container> containers = new ArrayList<>();
+        for(Structure s : structs) {
+            if(s instanceof Container && ((Container) s).item == null) {
+                containers.add((Container)s);
+            }
+        }
+        if(!containers.isEmpty()){
+            containers.get(new Random().nextInt(containers.size())).item = item;
+            return true;
+        }
         return false;
     }
 

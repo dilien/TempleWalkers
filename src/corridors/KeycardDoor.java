@@ -9,7 +9,7 @@ import temple.PositionSide;
 import temple.Temple;
 
 public class KeycardDoor extends Corridor{
-    boolean open = false;
+    boolean open = true;
     public int level = 0;
 
     public KeycardDoor(Room roomA, Room roomB, PositionSide sideA) {

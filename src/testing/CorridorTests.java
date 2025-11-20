@@ -4,6 +4,7 @@ import base.Vector2;
 import corridors.Corridor;
 import corridors.TempleFrame;
 import items.Keycard;
+import items.OxygenCanister;
 import rooms.Chamber;
 import temple.PositionSide;
 import base.Player;
@@ -34,7 +35,7 @@ public class CorridorTests {
         total++;
         Player player = new Player();
         player.enterRoom(roomA);
-        boolean interacted = corridor.interact(player, new Keycard());
+        boolean interacted = corridor.interact(player, new OxygenCanister());
         if (Test.test(player.getRoom() == roomB, true)) passed++;
 
         System.out.println("Test 3: Corridor should be added to both rooms' temp lists");

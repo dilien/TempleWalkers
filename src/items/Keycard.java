@@ -1,7 +1,12 @@
 package items;
 
+import java.security.Key;
+
 public class Keycard extends Item{
     public int level = 0;
+    public Keycard(int level){
+        this.level = level;
+    }
 
     public String getName() {
         return "Level " + level + " key-card";

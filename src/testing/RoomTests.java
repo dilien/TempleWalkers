@@ -2,6 +2,7 @@ package testing;
 
 import com.sun.tools.javac.Main;
 import items.Keycard;
+import items.OxygenCanister;
 import rooms.MaintenanceTunnel;
 import rooms.Room;
 import rooms.Chamber;
@@ -23,7 +24,7 @@ public class RoomTests {
         System.out.println("Test 2: Room interact should drop item into room inventory");
         total++;
         Player player = new Player();
-        Item item = new Keycard();
+        Item item = new OxygenCanister();
         player.getInventory().addItem(item);
         boolean interacted = room.interact(player, item);
         if (Test.test(interacted && room.inventory.items.contains(item), true)) passed++;

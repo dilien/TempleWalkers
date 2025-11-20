@@ -1,7 +1,8 @@
 package rooms;
 
 import items.Item;
-import structures.ContainmentPod;
+import structures.AdvancedContainer;
+import structures.ContainerType;
 
 public class HoldingCell extends Room{
     public HoldingCell() {
@@ -21,7 +22,9 @@ public class HoldingCell extends Room{
     }
 
     public boolean generateRareLoot(Item item){
-        this.structs.add(new ContainmentPod(item));
+        AdvancedContainer container = new AdvancedContainer(ContainerType.containmentpod, "biology");
+        container.item = item;
+        this.structs.add(container);
         return true;
     }
 }

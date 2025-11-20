@@ -30,7 +30,7 @@ public class Temple {
         TempleGenerator generator = new TempleGenerator();
         Room start = generator.generateRooms();
 
-        Keycard card = new Keycard();
+        Keycard card = new Keycard(1);
         card.level = 1;
         player.getInventory().addItem(card);
 
