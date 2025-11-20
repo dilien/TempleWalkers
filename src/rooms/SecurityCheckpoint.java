@@ -6,9 +6,8 @@ import structures.Container;
 import structures.ContainerType;
 import structures.Elevator;
 
-//should
 public class SecurityCheckpoint extends Room{
-    public static int currentElevator; //used to make sure there is one of each.
+    public static int currentElevator = 1; //used to make sure there is one of each.
     public SecurityCheckpoint() {
         super(3, 2);
         Elevator elevator = new Elevator();
@@ -34,7 +33,7 @@ public class SecurityCheckpoint extends Room{
     }
 
     public boolean generateRareLoot(Item item){
-        AdvancedContainer container = new AdvancedContainer(ContainerType.gunlocker, "security");
+        AdvancedContainer container = new AdvancedContainer(ContainerType.gunLocker, "security");
         container.item = item;
         this.structs.add(container);
         return true;

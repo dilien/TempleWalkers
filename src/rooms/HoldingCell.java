@@ -22,7 +22,7 @@ public class HoldingCell extends Room{
     }
 
     public boolean generateRareLoot(Item item){
-        AdvancedContainer container = new AdvancedContainer(ContainerType.containmentpod, "biology");
+        AdvancedContainer container = new AdvancedContainer(ContainerType.containmentPod, "biology");
         container.item = item;
         this.structs.add(container);
         return true;

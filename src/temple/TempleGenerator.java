@@ -64,12 +64,9 @@ public class TempleGenerator {
         //A list of rooms we would like to add (although not guaranteed they will all be added)
         Room[] rooms = new Room[60];
         for(int i = 0; i<3; i++){
-            rooms[i] = new LaserTestingLab();
-        }
-        for(int i = 3; i<6; i++){
             rooms[i] = new ParticleAcceleratorRoom();
         }
-        for(int i = 6; i<10; i++){
+        for(int i = 3; i<10; i++){
             rooms[i] = new ResearchLab();
         }
         for(int i = 10; i<20; i++){
@@ -78,11 +75,11 @@ public class TempleGenerator {
         for(int i = 20; i<40; i++){
             rooms[i] = new ResearchLab();
         }
-        for(int i = 30; i<50; i++){
+        for(int i = 30; i<40; i++){
             rooms[i] = new MaintenanceTunnel();
         }
         for(int i = 40; i<60; i++){
-            rooms[i] = new Chamber();
+            rooms[i] = new SupplyCloset();
         }
 
 

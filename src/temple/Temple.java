@@ -39,23 +39,18 @@ public class Temple {
 
     public Event<Void> tickEvent = new Event<>();
 
-    int timeUntilFlip = 5;
+    int timeUntilFlip = 50;
     public int totalTurns;
     public void tick(){
         totalTurns += 1;
         timeUntilFlip -= 1;
-        if(timeUntilFlip <= 0){
-            dark = !dark;
-            if(dark){
-                //time until lights turned back on
-                //we want this to get incrementally longer
-                timeUntilFlip = (int)(Math.random() * 10) + (totalTurns / 5);
-            }else{
-                //time until lights turn off
-                //we want this to be mostly constant, but unpredictable
-                timeUntilFlip = (int)(Math.random() * 10) + 20;
-            }
+        if(timeUntilFlip == 0){
+            dark = true;
         }
         tickEvent.send(null);
+    }
+    public void resetLights(){
+        dark = false;
+        timeUntilFlip = (int)(Math.random() * 10) + 20;
     }
 }
