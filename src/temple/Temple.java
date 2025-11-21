@@ -1,13 +1,11 @@
 package temple;
 
 import base.Player;
-import items.Battery;
-import items.Flashlight;
-import items.Item;
-import items.Keycard;
+import items.*;
 import rooms.Room;
 import utility.Event;
 
+import javax.print.Doc;
 import java.util.ArrayList;
 
 //This holds all the rooms and is responsible for gameticks. It is a singleton.
@@ -34,13 +32,19 @@ public class Temple {
 
         player.getInventory().addItem(new Flashlight());
         player.getInventory().addItem(new Battery());
+        player.getInventory().addItem(new Briefcase());
+        player.getInventory().addItem(new Briefcase());
+        player.getInventory().addItem(new Artifact(0));
+        player.getInventory().addItem(new Artifact(1));
+        player.getInventory().addItem(new Artifact(2));
+        player.getInventory().addItem(new Artifact(3));
 
         player.enterRoom(start);
     }
 
     public Event<Void> tickEvent = new Event<>();
 
-    int timeUntilFlip = 50;
+    int timeUntilFlip = 5;
     public int totalTurns;
     public void tick(){
         totalTurns += 1;

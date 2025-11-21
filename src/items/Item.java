@@ -25,8 +25,8 @@ public abstract class Item implements Interactable {
                 Console.getInstance().displayText("You pick up the " + this.getName());
                 return true;
             }else{
-                Console.getInstance().displayText("You cannot use this until you pick it up, but your hands are full at the moment.");
-                return false;
+                Console.getInstance().displayText("You cannot pick this up because your hands are full at the moment.");
+                return true;
             }
         }
         return false;

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 //Not a singleton, although there is never multiple players
 public class Player{
     public Player(){
-        inventory = new Inventory(5);
+        inventory = new Inventory(12);
         Temple temple = Temple.getInstance();
         temple.tickEvent.listen((_)->tick());
     };

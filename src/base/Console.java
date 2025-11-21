@@ -137,7 +137,7 @@ public class Console {
             }
 
             if(obj2 != null){
-                displayText("Using " + obj1.getName() + " with " + obj2.getName());
+                //displayText("Using " + obj1.getName() + " with " + obj2.getName());
             }
             boolean success = obj1.interact(player, obj2);
             if(!success){

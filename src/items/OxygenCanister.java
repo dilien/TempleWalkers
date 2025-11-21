@@ -12,7 +12,7 @@ public class OxygenCanister extends Item{
     }
 
     public boolean interact(Player player, Item other) {
-        super.interact(player, other);
+        if(super.interact(player, other)){return true;}
         if(other != null){
             return false;
         }

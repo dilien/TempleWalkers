@@ -68,6 +68,20 @@ public class LootManager {
         for(int i = 0; i < 20; i++){
             itemsToAdd.add(new Battery());
         }
+
+        for(int i = 0; i < Document.scores.length - 4; i++){
+            itemsToAdd.add(new Document(i));
+        }
+        for(int i = Document.scores.length-4; i < Document.scores.length; i++){
+            rareItemsToAdd.add(new Document(i));
+        }
+
+        for(int i = 0; i < Artifact.scores.length - 4; i++){
+            itemsToAdd.add(new Artifact(i));
+        }
+        for(int i = Artifact.scores.length-4; i < Artifact.scores.length; i++){
+            rareItemsToAdd.add(new Artifact(i));
+        }
     }
 
     public void generateLoot(Room[] rooms){
