@@ -39,6 +39,7 @@ Oxygen Left: 29
 - To describe the room use `d 1`
 - To try open the cupboard using the oxygen canister (which obviously would not work)  use `i 2 12`
 
+Tip: You might want to make a map as you play. It should make the game a whole lot easier (and more fun). 
 
 ## Story/Objectives
 You work at a super top secret facility. It is Friday and no one is in the office because everyone is working from home. 
