@@ -16,7 +16,7 @@ public class Elevator extends Structure{
     }
 
     public String describe() {
-        return "This elevator leads to the surface, but requires a keycard of level " + level;
+        return "This button calls an elevator, but requires a keycard of level " + level;
     }
 
     public boolean interact(Player player, Item other){

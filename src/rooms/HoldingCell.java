@@ -2,11 +2,13 @@ package rooms;
 
 import items.Item;
 import structures.AdvancedContainer;
+import structures.Container;
 import structures.ContainerType;
 
 public class HoldingCell extends Room{
     public HoldingCell() {
         super( 1, 1);
+        this.structs.add(new Container(ContainerType.biohazardbox));
     }
 
     public void enterRoom() {
@@ -14,7 +16,7 @@ public class HoldingCell extends Room{
     }
 
     public String getName() {
-        return "Holding Cell";
+        return "Biology supply closet";
     }
 
     public String describe() {

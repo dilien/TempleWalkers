@@ -7,13 +7,8 @@ import structures.ContainerType;
 import structures.Elevator;
 
 public class SecurityCheckpoint extends Room{
-    public static int currentElevator = 1; //used to make sure there is one of each.
     public SecurityCheckpoint() {
         super(3, 2);
-        Elevator elevator = new Elevator();
-        elevator.level = currentElevator;
-        currentElevator++;
-        this.structs.add(elevator);
 
         //0-2 cupboards
         for(int i = 0; i<Math.random()*3; i++){

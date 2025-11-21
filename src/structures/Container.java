@@ -32,6 +32,7 @@ public class Container extends Structure {
         }else{
             if(item != null){
                 console.displayText("You search through the " + myType.name() + " and find a " + item.getName() + "!");
+                player.getInventory().addItem(item);
             }else{
                 console.displayText("You search through the " + myType.name() + " but find nothing");
             }

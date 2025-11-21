@@ -23,15 +23,19 @@ public class AdvancedContainer extends Container{
         Temple.getInstance().lootManager.itemsToAdd.add(ID);
     }
 
+    public String getName() {
+        return myType.name() + " : " + id;
+    }
+
     public String describe() {
-        return myType.description() + (looted ? " It has been searched through already." : "It requires an ID to open " +
+        return myType.description() + (looted ? " It has been searched through already. " : " It requires an ID to open" +
                 (item == null ? ", although it looks to be empty." : ". It contains a " + item.getName() + "."));
     }
 
     public boolean interact(Player player, Item other) {
         Console console = Console.getInstance();
         if(looted){
-            console.displayText("This " + this.getName() + "has already been looted");
+            console.displayText("This " + myType.name() + "has already been looted");
         } else if (other != null) {
             if(! (other instanceof EmployeeID)){
                 return  false;
@@ -40,10 +44,11 @@ public class AdvancedContainer extends Container{
                 Console.getInstance().displayText("The ID scans correctly, but is rejected. ACCESS DENIED.");
             }
             if(item != null){
-                console.displayText("You search through the " + this.getName() + " and find a " + item.getName() + "!");
+                console.displayText("You search through the " + myType.name() + " and find a " + item.getName() + "!");
+                player.getInventory().addItem(item);
             }else{
                 //this should probably not print, as all advanced containers should have an item.
-                console.displayText("You search through the " + this.getName() + " but find nothing. What a waste of time.");
+                console.displayText("You search through the " + myType.name() + " but find nothing. What a waste of time.");
             }
             looted = true;
             Temple.getInstance().tick();
