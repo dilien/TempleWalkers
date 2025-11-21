@@ -29,7 +29,7 @@ public class GeneratorTests {
 
         System.out.println("Test 3: isExistingCorridor should return false for empty corridor list");
         Room roomC = new Chamber();
-        roomC.x = 0; roomC.y = 0;
+        roomC.setPosition(0, 0);
         PositionSide side = new PositionSide(new Vector2(0, 0), false);
         total++;
         if (Test.test(gen.isExistingCorridor(roomC, side), false)) passed++;

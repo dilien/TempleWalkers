@@ -20,7 +20,7 @@ public class CorridorTests {
         roomA.setPosition(0, 0);
 
         Chamber roomB = new Chamber();
-        roomA.setPosition(0, 1);
+        roomB.setPosition(0, 1);
 
         PositionSide side = new PositionSide(new Vector2(0, 0), false);
         Corridor corridor = new TempleFrame(roomA, roomB, side);
