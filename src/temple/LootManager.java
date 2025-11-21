@@ -69,6 +69,10 @@ public class LootManager {
             itemsToAdd.add(new Battery());
         }
 
+        for(int i = 0; i < 5; i++){
+            rareItemsToAdd.add(new Briefcase());
+        }
+
         for(int i = 0; i < Document.scores.length - 4; i++){
             itemsToAdd.add(new Document(i));
         }

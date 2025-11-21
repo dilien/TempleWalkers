@@ -10,9 +10,11 @@ public class Main {
         Temple temple = Temple.getInstance();
         temple.testInit(main);
 
-        while(true){
+        while(!main.end){
             Console.getInstance().dashboard(main);
             //temple.tick();
         }
+
+        main.summarise();
     }
 }

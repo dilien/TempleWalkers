@@ -27,7 +27,8 @@ public class Elevator extends Structure{
         if (other instanceof Keycard) {
             if(((Keycard) other).level >= level){
                 //win
-
+                Console.getInstance().displayText("\n You enter the elevator and head back up to the surface.");
+                player.end = true;
             }else{
                 console.displayText("The elevator beeps. The key-card is not the right one.");
             }

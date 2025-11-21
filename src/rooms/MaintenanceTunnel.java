@@ -19,9 +19,7 @@ public class MaintenanceTunnel extends Room{
     }
     public void enterRoom() {
         Console console = Console.getInstance();
-        console.displayText("The hot steam blocks your view and makes it harder to move.");
         Temple temple = Temple.getInstance();
-        temple.tick();
     }
 
     public String getName() {

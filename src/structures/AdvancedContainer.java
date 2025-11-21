@@ -45,7 +45,10 @@ public class AdvancedContainer extends Container{
             }
             if(item != null){
                 console.displayText("You search through the " + myType.name() + " and find a " + item.getName() + "!");
-                player.getInventory().addItem(item);
+                if(!player.getInventory().addItem(item)){
+                    console.displayText("You drop the item on the floor.");
+                    player.getRoom().inventory.addItem(item);
+                }
             }else{
                 //this should probably not print, as all advanced containers should have an item.
                 console.displayText("You search through the " + myType.name() + " but find nothing. What a waste of time.");

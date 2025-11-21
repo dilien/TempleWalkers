@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class Temple {
 
     public LootManager lootManager;
-    public static int size = 15;
+    public static int size = 10;
 
     private Temple(){
         lootManager = new LootManager();
@@ -30,21 +30,12 @@ public class Temple {
         TempleGenerator generator = new TempleGenerator();
         Room start = generator.generateRooms();
 
-        player.getInventory().addItem(new Flashlight());
-        player.getInventory().addItem(new Battery());
-        player.getInventory().addItem(new Briefcase());
-        player.getInventory().addItem(new Briefcase());
-        player.getInventory().addItem(new Artifact(0));
-        player.getInventory().addItem(new Artifact(1));
-        player.getInventory().addItem(new Artifact(2));
-        player.getInventory().addItem(new Artifact(3));
-
         player.enterRoom(start);
     }
 
     public Event<Void> tickEvent = new Event<>();
 
-    int timeUntilFlip = 5;
+    int timeUntilFlip = 50;
     public int totalTurns;
     public void tick(){
         totalTurns += 1;

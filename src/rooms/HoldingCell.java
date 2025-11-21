@@ -7,7 +7,7 @@ import structures.ContainerType;
 
 public class HoldingCell extends Room{
     public HoldingCell() {
-        super( 1, 1);
+        super( 2, 1);
         this.structs.add(new Container(ContainerType.biohazardbox));
     }
 
