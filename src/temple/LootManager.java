@@ -1,8 +1,6 @@
 package temple;
 
-import items.Item;
-import items.Keycard;
-import items.OxygenCanister;
+import items.*;
 import rooms.Room;
 
 import java.security.Key;
@@ -59,8 +57,16 @@ public class LootManager {
              rareItemsToAdd.add(new Keycard(i));
          }
 
-        for(int i = 0; i < 10; i++){
+        for(int i = 0; i < 20; i++){
             itemsToAdd.add(new OxygenCanister());
+        }
+
+        for(int i = 0; i < 10; i++){
+            itemsToAdd.add(new Flashlight());
+        }
+
+        for(int i = 0; i < 20; i++){
+            itemsToAdd.add(new Battery());
         }
     }
 

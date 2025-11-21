@@ -35,6 +35,11 @@ public abstract class Item implements Interactable {
     public void tick(){
 
     };
+
+    public void delete(){
+        parent.removeItem(this);
+        //hopefully garbage manager deals with the rest...
+    }
 }
 
 /*

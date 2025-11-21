@@ -1,6 +1,8 @@
 package temple;
 
 import base.Player;
+import items.Battery;
+import items.Flashlight;
 import items.Item;
 import items.Keycard;
 import rooms.Room;
@@ -30,9 +32,8 @@ public class Temple {
         TempleGenerator generator = new TempleGenerator();
         Room start = generator.generateRooms();
 
-        Keycard card = new Keycard(1);
-        card.level = 1;
-        player.getInventory().addItem(card);
+        player.getInventory().addItem(new Flashlight());
+        player.getInventory().addItem(new Battery());
 
         player.enterRoom(start);
     }

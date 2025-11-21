@@ -1,6 +1,5 @@
 package base;
 
-import items.Gold;
 import items.Item;
 
 import java.util.ArrayList;
@@ -9,12 +8,9 @@ import java.util.ArrayList;
 Represents a container of items, and is used by the player and every room.
  */
 public class Inventory {
-    //TODO: Not every inventory needs gold, only the player one. Maybe it should be an item in the items instead.
-    public Gold gold;
     public int maxSize = 0;
     public ArrayList<Item> items;
     public Inventory(int size){
-        gold = new Gold();
         items = new ArrayList<>();
         maxSize = size;
     }

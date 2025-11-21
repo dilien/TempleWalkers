@@ -4,6 +4,8 @@ import items.Item;
 import rooms.Room;
 import temple.Temple;
 
+import java.util.ArrayList;
+
 //represents the player object
 //Not a singleton, although there is never multiple players
 public class Player{
@@ -26,10 +28,6 @@ public class Player{
     Room room;
     Inventory inventory;
 
-    //a b a
-    //enter(a), last null,null,a
-    //enter(b), last a, a,b
-    //enter(a), last b,a
 
     Room lastRoom = null;
     Room secondLastRoom = null;

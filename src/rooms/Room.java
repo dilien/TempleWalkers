@@ -201,9 +201,7 @@ public abstract class Room implements Interactable {
      *
      * @param start - index to start with when displaying the interactables
      */
-    public void render(int start, PositionSide playerPosition){
-
-        Temple temple = Temple.getInstance();
+    public void render(int start, PositionSide playerPosition, boolean dark){
 
         Interactable[] items = inventory.getAll();
 
@@ -211,7 +209,7 @@ public abstract class Room implements Interactable {
 
         int realCorridorIndex = 0; //for corridors that are not null
         for (Corridor corridor : corridors) {
-            if (corridor != null && !temple.dark) {
+            if (corridor != null && !dark) {
                 realCorridorIndex++;
             }
         }
@@ -229,13 +227,13 @@ public abstract class Room implements Interactable {
         for(int x = 0; x<this.getSizeX()*xs+4; x++){
             for(int y = 0; y<this.getSizeY()*ys+2; y++){
                 if(x == 0 || y == 0 || x == 1 || x == this.getSizeX()*xs +2 || x == this.getSizeX()*xs +3 || y == this.getSizeY()*ys + 1){
-                    output[y][x] = temple.dark?'.':'█';
+                    output[y][x] = dark?'.':'█';
                 }else{
-                    output[y][x] = temple.dark?' ':'.';
+                    output[y][x] = dark?' ':'.';
                 }
             }
         }
-        if(temple.dark){
+        if(dark){
             write(output[0], start + 1 + " : You are in a ????", sectionLeft);
         }else{
             write(output[0], start + 1 + " : You are in a " + this.getName(), sectionLeft);
@@ -246,7 +244,7 @@ public abstract class Room implements Interactable {
             Interactable struct = structs.get(i);
 
             String text;
-            if(!temple.dark){
+            if(!dark){
                 text = i + start + 1 + " : " + struct.getName();
             }else{
                 text = i + start + 1 + " : ????";
@@ -258,7 +256,7 @@ public abstract class Room implements Interactable {
         for (int i = 0; i < items.length; i++) {
             Interactable item = items[i];
             String text;
-            if(!temple.dark){
+            if(!dark){
                 text = i + start + 1 + " : A " + item.getName();
             }else{
                 text = i + start + 1 + " : ????";
@@ -274,7 +272,7 @@ public abstract class Room implements Interactable {
             //"Je {other-item-name} est led to by {item-name}"
             String text;
             int plr_index = i + start + 1;
-            if (temple.dark) {
+            if (dark) {
                 continue;
             }
             if(item == null){
@@ -288,7 +286,7 @@ public abstract class Room implements Interactable {
             realCorridorIndex++;
         }
         int localPos = globalSideToLocal(playerPosition);
-        addCorridorsToDisplay(output, temple.dark, localPos, start);
+        addCorridorsToDisplay(output, dark, localPos, start);
         start += realCorridorIndex;
 
 

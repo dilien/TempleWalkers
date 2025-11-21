@@ -1,6 +1,7 @@
 package base;
 
 import corridors.Corridor;
+import items.Flashlight;
 import items.Item;
 import temple.PositionSide;
 import temple.Temple;
@@ -56,11 +57,23 @@ public class Console {
             System.out.println();
         }
 
+        boolean dark = Temple.getInstance().dark;
+        for(Item item : player.getInventory().items){
+            if(item instanceof Flashlight flash){
+                if(flash.active){
+                    if(!dark){
+                        Console.getInstance().displayText("Warning: you have a flashlight on when it is bright already, and this wastes battery.");
+                    }
+                    dark = false;
+                }
+            }
+        }
+
         int index = 0;
 
         //could be made into a for loop
         int array1Start = index;
-        player.room.render(index, lastCorridor);
+        player.room.render(index, lastCorridor, dark);
         Interactable[] array1 = player.room.getAll();
         index += array1.length;
         System.out.println("----------------------------------------------------------------------------------");
