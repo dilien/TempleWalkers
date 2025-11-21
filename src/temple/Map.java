@@ -25,7 +25,7 @@ public class Map {
         java.util.Arrays.stream(output).forEach(row -> Arrays.fill(row, ' '));
 
         for(Room room : rooms) {
-            if(room.x < 0){continue;}
+            if(room == null){continue;}
             int startX = room.x * 2;
             int startY = room.y * 3;
             int endX = startX + room.getSizeX() * 2 - 1;
@@ -44,7 +44,7 @@ public class Map {
 
 
         for(Room room : rooms){
-            if(room.x < 0){continue;}
+            if(room == null){continue;}
             for(Corridor corridor : room.corridors){
                 if(corridor != null){
                     addCorridor(room, corridor, output);

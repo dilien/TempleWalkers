@@ -35,13 +35,14 @@ public class AdvancedContainer extends Container{
     public boolean interact(Player player, Item other) {
         Console console = Console.getInstance();
         if(looted){
-            console.displayText("This " + myType.name() + "has already been looted");
+            console.displayText("This " + myType.name() + " has already been looted");
         } else if (other != null) {
             if(! (other instanceof EmployeeID)){
                 return  false;
             }
             if(!Objects.equals(((EmployeeID) other).id, id)){
                 Console.getInstance().displayText("The ID scans correctly, but is rejected. ACCESS DENIED.");
+                return true;
             }
             if(item != null){
                 console.displayText("You search through the " + myType.name() + " and find a " + item.getName() + "!");

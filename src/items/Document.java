@@ -23,20 +23,12 @@ public class Document extends Item{
             "something uncomprehensible",
             "The secrets to the universe",
             "a minor success"};
-    public final static int[] scores = new int[]{
-            10, 10, 10, 10, 10,
-            15, 15, 15, 15, 15,
-            25, 25, 25, 25, 25,
-            40, 40, 40, 40, 40,
-            100, 100, 100, 100,
-            200, 200, 200,
-            500};
 
     public int score = 5;
     String description;
-    public Document(int seed){
+    public Document(int score){
         Random random = new Random();
-        score = scores[seed];
+        this.score = score;
         int category = random.nextInt(5);
         //hard coded rather than re-generated every time.
         this.description = "The paper: " + FullTitle[category] + " " + Thing[random.nextInt(5)] + " resulting in " + Success[random.nextInt(5)] + ". Score: " + score;

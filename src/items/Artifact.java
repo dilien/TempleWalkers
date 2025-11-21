@@ -18,17 +18,11 @@ public class Artifact extends Score{
             "has eyes that look right at you",
             "mutters strange incantations",
             "does not interest you in the slightest"};
-    public final static int[] scores = new int[]{
-            40, 40, 40, 40, 40,
-            100, 100, 100, 100,
-            200, 200, 200,
-            500};
-
     String name;
     String description;
-    public Artifact(int seed){
+    public Artifact(int score){
         Random random = new Random();
-        score = scores[seed];
+        this.score = score;
         name = names[random.nextInt(4)];
         description = "The " + name + " " + fact[random.nextInt(13)] + " and " + fact[random.nextInt(13)] + ". Its function is beyond you. Score: " + score;
     }

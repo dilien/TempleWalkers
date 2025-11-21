@@ -5,6 +5,8 @@ import rooms.Room;
 
 import java.security.Key;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
 import java.util.Random;
 
 public class LootManager {
@@ -57,40 +59,48 @@ public class LootManager {
              rareItemsToAdd.add(new Keycard(i));
          }
 
-        for(int i = 0; i < 20; i++){
+        for(int i = 0; i < 10; i++){
             itemsToAdd.add(new OxygenCanister());
         }
 
-        for(int i = 0; i < 10; i++){
+        for(int i = 0; i < 3; i++){
             itemsToAdd.add(new Flashlight());
         }
 
-        for(int i = 0; i < 20; i++){
+        for(int i = 0; i < 5; i++){
             itemsToAdd.add(new Battery());
         }
 
-        for(int i = 0; i < 5; i++){
+        for(int i = 0; i < 3; i++){
             rareItemsToAdd.add(new Briefcase());
         }
 
-        for(int i = 0; i < Document.scores.length - 4; i++){
+
+        for(int i : new int[]{
+                20, 20, 20, 20,
+                30, 30, 30, 30,
+                50, 50, 50,
+                100, 100,
+                200}){
             itemsToAdd.add(new Document(i));
         }
-        for(int i = Document.scores.length-4; i < Document.scores.length; i++){
+        for(int i : new int[]{400, 500, 600, 700, 800}){
             rareItemsToAdd.add(new Document(i));
         }
 
-        for(int i = 0; i < Artifact.scores.length - 4; i++){
+        for(int i : new int[]{100, 200, 300, 400, 500}){
             itemsToAdd.add(new Artifact(i));
         }
-        for(int i = Artifact.scores.length-4; i < Artifact.scores.length; i++){
+        for(int i : new int[]{1250, 1500, 2000}){
             rareItemsToAdd.add(new Artifact(i));
         }
     }
 
     public void generateLoot(Room[] rooms){
         addItems();
-        generateRareItems(rooms);
-        generateCommonItems(rooms);
+        //filter for non-null rooms (rooms that have generated successfully)
+        Room[] rooms2 = Arrays.stream(rooms).filter(Objects::nonNull).toArray(Room[]::new);
+        generateRareItems(rooms2);
+        generateCommonItems(rooms2);
     }
 }

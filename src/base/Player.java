@@ -11,12 +11,12 @@ import java.util.ArrayList;
 //Not a singleton, although there is never multiple players
 public class Player{
     public Player(){
-        inventory = new Inventory(12);
+        inventory = new Inventory(10);
         Temple temple = Temple.getInstance();
         temple.tickEvent.listen((_)->tick());
     };
 
-    int oxygenLeft = 50;
+    int oxygenLeft = 30;
     public boolean end = false;
     public boolean alive = true;
 
@@ -29,7 +29,7 @@ public class Player{
         }
         if(alive){
             System.out.println("You made it out of the facility!");
-            System.out.println("You had files worth over " + score + "!");
+            System.out.println("You had files worth over " + score + "! (out of a maximum: 0)");
             if(score > 5000){
                 System.out.println("You did excellently. Well done!");
             } else if (score > 3000) {
@@ -53,7 +53,7 @@ public class Player{
     }
 
     public void refillOxygen(){
-        oxygenLeft = 50;
+        oxygenLeft = 30;
     }
 
     Room room;

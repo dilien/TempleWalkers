@@ -34,6 +34,7 @@ public class Elevator extends Structure{
             }
             return true;
         }
-        return false;
+        console.displayText("You need a level " + level + " keycard to use the elevator");
+        return true;
     }
 }

@@ -63,26 +63,26 @@ public class TempleGenerator {
     Room generateRooms(){
 
         //A list of rooms we would like to add (although not guaranteed they will all be added)
-        Room[] rooms = new Room[65];
-        for(int i = 0; i<3; i++){
+        Room[] rooms = new Room[40];
+        for(int i = 0; i<1; i++){
             rooms[i] = new ParticleAcceleratorRoom();
         }
-        for(int i = 3; i<10; i++){
+        for(int i = 1; i<5; i++){
             rooms[i] = new SecurityCheckpoint();
         }
-        for(int i = 10; i<30; i++){
+        for(int i = 5; i<15; i++){
             rooms[i] = new ResearchLab();
         }
-        for(int i = 30; i<40; i++){
+        for(int i = 15; i<20; i++){
             rooms[i] = new MaintenanceTunnel();
         }
-        for(int i = 40; i<45; i++){
+        for(int i = 20; i<25; i++){
             rooms[i] = new ElevatorShaft();
         }
-        for(int i = 45; i<55; i++){
+        for(int i = 25; i<30; i++){
             rooms[i] = new HoldingCell();
         }
-        for(int i = 55; i<65; i++){
+        for(int i = 30; i<40; i++){
             rooms[i] = new SupplyCloset();
         }
 
@@ -116,7 +116,8 @@ public class TempleGenerator {
                 }
             }
             if (room.x < 0) {
-                System.out.println("warning: couldnt place room correctly.");
+                System.out.println("warning: couldnt place " + room.getClass().getName() +  " correctly.");
+                rooms[j] = null;
             }
             //If we picked 10 random positions and none of them were right, we just give up
         }
