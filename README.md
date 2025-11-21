@@ -1,12 +1,8 @@
  Quickstart Instructions
 
 ## Installation
-1. 
-    - Install Java
-    - ```java src/Main.java```
-
-## Game Overview
-This is my awesome game about exploring a temple.
+- Install Java
+- ```java src/Main.java```
 
 ## Commands
 Commands are entered using the command, followed by the index of the item you want to interact with. **Spaces are required**.
@@ -43,13 +39,12 @@ Tip: You might want to make a map as you play. It should make the game a whole l
 
 ## Story/Objectives
 You work at a super top secret facility. It is Friday and no one is in the office because everyone is working from home. 
-Suddenly, while you are in the cleanroom, A gas leak causes experimental poisonous gas to flood the facility.
+Suddenly, while you are in the cleanroom, A gas leak causes experimental poisonous gas to flood the facility. Thankfully, you are wearing a hazmat suit.
 The military has already been called to 'dispose' of the situation, but after much convincing by fellow scientists have decided to hold off on destroying the evidence until you have made it out alive.
 It is your job to escape, as well as bring back as many research papers and 'gizmos' as you can. 
 The item's score is shown beside it, such as `research paper - 50` is worth 50 score at the end of the game.
-There is a maximum of 1000. Don't try too hard though, because if you die, you will get no score (and be dead!).
+There is a maximum of 1000. Don't focus on documents too hard, because if you die, you will get no score (and be dead!).
 
 ## Testing
-1.
-    - Install Java,
-    - ```java src/Test.java```
+- Install Java
+- ```java src/Test.java```
