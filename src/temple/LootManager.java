@@ -77,21 +77,21 @@ public class LootManager {
 
 
         for(int i : new int[]{
-                20, 20, 20, 20,
-                30, 30, 30, 30,
-                50, 50, 50,
-                100, 100,
-                200}){
+                2, 2, 2, 2,
+                3, 3, 3, 3,
+                5, 5, 5,
+                10, 10,
+                20}){
             itemsToAdd.add(new Document(i));
         }
-        for(int i : new int[]{400, 500, 600, 700, 800}){
+        for(int i : new int[]{40, 50, 60, 70, 80}){
             rareItemsToAdd.add(new Document(i));
         }
 
-        for(int i : new int[]{100, 200, 300, 400, 500}){
+        for(int i : new int[]{10, 20, 30, 40, 50}){
             itemsToAdd.add(new Artifact(i));
         }
-        for(int i : new int[]{1250, 1500, 2000}){
+        for(int i : new int[]{125, 150, 200}){
             rareItemsToAdd.add(new Artifact(i));
         }
     }

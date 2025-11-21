@@ -53,7 +53,7 @@ public class Console {
      * @param player - the player to generate the dashboard for
      */
     public void dashboard(Player player){
-        for(int i = 0; i<5; i++){
+        for(int i = 0; i<50; i++){
             System.out.println();
         }
 
@@ -89,7 +89,11 @@ public class Console {
         System.arraycopy(array1, 0, interactables, array1Start, array1.length);
         System.arraycopy(array2, 0, interactables, array2Start, array2.length);
 
-        displayText("Oxygen Left: " + player.getOxygen());
+        if(player.getOxygen() < 5){
+            displayText("Oxygen Left: " + "\u001B[31m" + player.getOxygen() + "\u001B[0m");
+        }else{
+            displayText("Oxygen Left: " + player.getOxygen());
+        }
         System.out.println(output );
         output = "";
 
@@ -97,9 +101,13 @@ public class Console {
         //if it is incorrect, we re-print the entire dashboard
         String input = scanner.nextLine().strip();
         String[] arr = input.split(" ");
-        if(arr.length < 2){
-            displayText("not enough arguments, only one command detected.");
-            return;
+
+        //number provided first, so we can assume it is a interact
+        if (parseIntOrZero(arr[0]) != 0) {
+            String[] arr2 = new String[arr.length + 1];
+            System.arraycopy(arr, 0, arr2, 1, arr.length);
+            arr2[0] = "i";
+            arr = arr2;
         }
 
         int obj1index = parseIntOrZero(arr[1]);

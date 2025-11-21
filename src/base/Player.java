@@ -28,15 +28,20 @@ public class Player{
             }
         }
         if(alive){
+            System.out.println(Console.getInstance().output);
             System.out.println("You made it out of the facility!");
-            System.out.println("You had files worth over " + score + "! (out of a maximum: 0)");
-            if(score > 5000){
+            System.out.println("You had files worth over " + score + "! (out of a maximum: 1000)");
+            if(score == 1000) {
+                System.out.println("A perfect score. Congratulations!!!!!");
+            }else if(score > 900){
+                System.out.println("You did amazingly. It was almost perfect. Well done!");
+            } else if(score > 700){
                 System.out.println("You did excellently. Well done!");
-            } else if (score > 3000) {
+            } else if (score > 400) {
                 System.out.println("You did great. Well done!");
-            }else if (score > 1500){
+            }else if (score > 200){
                 System.out.println("You did good, but you could have done better.");
-            }else if (score > 500){
+            }else if (score > 100){
                 System.out.println("You did pretty poorly, but at least you are alive.");
             }else{
                 System.out.println("The rest of the science team almost kill you with anger after how little many documents you brought back. Shame on you.");

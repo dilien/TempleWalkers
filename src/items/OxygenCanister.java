@@ -1,5 +1,6 @@
 package items;
 
+import base.Console;
 import base.Player;
 
 public class OxygenCanister extends Item{
@@ -12,12 +13,12 @@ public class OxygenCanister extends Item{
     }
 
     public boolean interact(Player player, Item other) {
-        if(super.interact(player, other)){return true;}
         if(other != null){
             return false;
         }
         player.refillOxygen();
         player.getInventory().removeItem(this);
+        Console.getInstance().displayText("You replace your old oxygen canister, and your meter is refilled.");
         return true;
     }
 }
