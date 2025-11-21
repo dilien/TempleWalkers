@@ -20,6 +20,7 @@ public class Player{
     public boolean end = false;
     public boolean alive = true;
 
+    //todo: move to console class because it makes more sense there
     public void summarise(){
         int score = 0;
         for(Item item : inventory.items){

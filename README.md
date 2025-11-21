@@ -1,4 +1,4 @@
-# Quickstart Instructions
+ Quickstart Instructions
 
 ## Installation
 1. 
@@ -17,11 +17,36 @@ Commands are entered using the command, followed by the index of the item you wa
   - Example: `i 2` walks through corridor #2
 - `i [index1] [index2]` - Interacts with an item using another item
   - Example: `i 4 6` interacts with item 4 using item 6
+- you can skip using `i` if you want, as a shortcut and just go straight to `[index] [index2]`.
 
-## Current Status
-- Map generation is complete
-- Console displays map (@ represents player)
-- Each room contains a brazier
+Let's look at an example:
+```
+████████████  1 : You are in a Research Lab                                                         
+██.......@9   2 : Cupboard                                                                          
+██........██  3 : Cupboard                                                                          
+██........8                                                                                         
+██........██                                                                                        
+███6 ███████
+----------------------------------------------------------------------------------
+Inventory contents (1/10):
+12:Oxygen Canister
+
+Entering a Research Lab
+Oxygen Left: 29
+```
+- To open the cupboard use `i 2`
+- To use the oxygen canister use `i 12`
+- To describe the room use `d 1`
+- To try open the cupboard using the oxygen canister (which obviously would not work)  use `i 2 12`
+
+
+## Story/Objectives
+You work at a super top secret facility. It is Friday and no one is in the office because everyone is working from home. 
+Suddenly, while you are in the cleanroom, A gas leak causes experimental poisonous gas to flood the facility.
+The military has already been called to 'dispose' of the situation, but after much convincing by fellow scientists have decided to hold off on destroying the evidence until you have made it out alive.
+It is your job to escape, as well as bring back as many research papers and 'gizmos' as you can. 
+The item's score is shown beside it, such as `research paper - 50` is worth 50 score at the end of the game.
+There is a maximum of 1000. Don't try too hard though, because if you die, you will get no score (and be dead!).
 
 ## Testing
 1.
