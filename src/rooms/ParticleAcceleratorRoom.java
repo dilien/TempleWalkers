@@ -24,6 +24,6 @@ public class ParticleAcceleratorRoom extends Room {
     }
 
     public String describe() {
-        return "";
+        return "A massive circular chamber housing the particle accelerator. Warning signs everywhere remind you not to throw paper airplanes into the beam path. How oddly specific.";
     }
 }

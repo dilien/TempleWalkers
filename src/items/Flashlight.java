@@ -22,7 +22,7 @@ public class Flashlight extends Item implements Rechargable{
     }
 
     public String describe() {
-        return "";
+        return "A sturdy facility-issue flashlight. If the lights were to go out, this would help you navigate to the nearest breaker switch.";
     }
 
     void setActive(boolean active){

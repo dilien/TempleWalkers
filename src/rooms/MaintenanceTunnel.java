@@ -27,7 +27,7 @@ public class MaintenanceTunnel extends Room{
     }
 
     public String describe() {
-        return "The low ceiling forces you to hunch. Pipes leak steam at irregular intervals, hissing in the darkness.";
+        return "A cramped service tunnel filled with pipes and cables. Someone's left empty coffee cups in a neat little line, creating a timeline of the facility's declining coffee quality.";
     }
 
 }

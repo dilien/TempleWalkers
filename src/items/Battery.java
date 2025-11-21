@@ -7,6 +7,6 @@ public class Battery extends Item{
     }
 
     public String describe() {
-        return "";
+        return "A compact battery designed for facility flashlights. The charge indicator is stuck permanently between 'full' and 'empty', making it about as reliable as the facility power anyway. So much for emergency planning.";
     }
 }

@@ -20,7 +20,7 @@ public class ResearchLab extends Room{
     }
 
     public String describe() {
-        return "Upturned chairs scatter the room. Half-finished equations cover whiteboards, their meanings lost in hasty scribbles.";
+        return "A sterile laboratory filled with expensive equipment and sticky notes. Most monitors display error messages, except one playing some kind of console based adventure game. How nerdy.";
     }
 
 }
