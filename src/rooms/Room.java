@@ -280,6 +280,9 @@ public abstract class Room implements Interactable {
             if(item == null){
                 continue;
             }
+            if(item.getName() == null){
+                continue;
+            }
             text = plr_index + " : A " + item.getName() + " that leads to a " + item.other(this).getName();
             write(output[realCorridorIndex + start], text, sectionLeft);
             realCorridorIndex++;

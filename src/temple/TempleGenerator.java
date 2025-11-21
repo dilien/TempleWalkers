@@ -4,6 +4,7 @@ import base.Console;
 import base.Vector2;
 import com.sun.tools.javac.Main;
 import corridors.Corridor;
+import corridors.HiddenCorridor;
 import corridors.KeycardDoor;
 import corridors.TempleFrame;
 import rooms.*;
@@ -155,7 +156,7 @@ public class TempleGenerator {
                 if(random.nextDouble() <= (double) (target - current) / max){
                     //generate corridor
                     Room other = getOtherRoom(grid, room, global);
-                    KeycardDoor frame = new KeycardDoor(room, other, global);
+                    HiddenCorridor frame = new HiddenCorridor(room, other, global);
 
                     //auto added to the rooms
                     current += 1;
