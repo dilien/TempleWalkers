@@ -7,7 +7,23 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class DifficultyManager {
-    public static Difficulty difficulty = Difficulty.Easy;
+    public static Difficulty difficulty;
+
+    public static void setDifficulty(){
+        Console console = Console.getInstance();
+        while(difficulty == null){
+            String answer = console.prompt("Please select a difficulty (e/easy) (m/medium) (h/hard)").strip() + " ";
+            if(answer.charAt(0) == 'e'){
+                difficulty = Difficulty.Easy;
+            }
+            if(answer.charAt(0) == 'm'){
+                difficulty = Difficulty.Medium;
+            }
+            if(answer.charAt(0) == 'h'){
+                difficulty = Difficulty.Hard;
+            }
+        }
+    }
     //TODO: implement difficulty with easy medium hard
     //this should effect, the items that generate, the the room size, and which rooms are added
     public static Room[] getRooms(){
