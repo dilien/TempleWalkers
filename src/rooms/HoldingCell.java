@@ -11,10 +11,6 @@ public class HoldingCell extends Room{
         this.structs.add(new Container(ContainerType.biohazardbox));
     }
 
-    public void enterRoom() {
-
-    }
-
     public String getName() {
         return "Biology supply closet";
     }

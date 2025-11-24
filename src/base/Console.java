@@ -45,6 +45,11 @@ public class Console {
         }
     }
 
+    public String prompt(String text){
+        System.out.println(text);
+        return scanner.nextLine();
+    }
+
     PositionSide lastCorridor;
 
     /**
@@ -120,8 +125,8 @@ public class Console {
         }
 
         if(player.getOxygen() == 0){
-            System.out.println("You have no oxygen left. Are you sure? (y/n)");
-            if(!Objects.equals(scanner.nextLine(), "y")){
+            String output = prompt("You have no oxygen left. Are you sure? (y/n)");
+            if(!Objects.equals(output.strip(), "y")){
                 return;
             }
         }

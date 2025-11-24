@@ -16,9 +16,6 @@ public class SecurityCheckpoint extends Room{
         }
     }
 
-    public void enterRoom() {
-    }
-
     public String getName() {
         return "Security Checkpoint";
     }

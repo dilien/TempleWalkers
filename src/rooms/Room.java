@@ -307,7 +307,9 @@ public abstract class Room implements Interactable {
         return false;
     }
 
-    public abstract void enterRoom();
+    public void enterRoom(Player player){
+
+    };
     public boolean generateRareLoot(Item item){
         return false;
     }

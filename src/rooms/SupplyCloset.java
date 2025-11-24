@@ -14,9 +14,6 @@ public class SupplyCloset extends Room{
         }
     }
 
-    public void enterRoom() {
-    }
-
     public String getName() {
         return "Supply Closet";
     }

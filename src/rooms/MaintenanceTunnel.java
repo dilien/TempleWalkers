@@ -17,10 +17,6 @@ public class MaintenanceTunnel extends Room{
             this.structs.add(new Container(ContainerType.toolbox));
         }
     }
-    public void enterRoom() {
-        Console console = Console.getInstance();
-        Temple temple = Temple.getInstance();
-    }
 
     public String getName() {
         return "Maintenance Tunnel";

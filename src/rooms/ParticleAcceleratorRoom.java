@@ -15,10 +15,6 @@ public class ParticleAcceleratorRoom extends Room {
         }
     }
 
-    public void enterRoom() {
-
-    }
-
     public String getName() {
         return "Particle accelerator chamber";
     }

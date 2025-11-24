@@ -7,9 +7,6 @@ public class Chamber extends Room{
         super(1, 1);
     }
 
-    public void enterRoom() {
-    }
-
     public String getName() {
         return "chamber";
     }

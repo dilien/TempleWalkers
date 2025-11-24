@@ -12,9 +12,6 @@ public class ResearchLab extends Room{
         }
     }
 
-    public void enterRoom() {
-    }
-
     public String getName() {
         return "Research Lab";
     }

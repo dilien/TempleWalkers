@@ -15,10 +15,6 @@ public class ElevatorShaft extends Room{
         this.structs.add(elevator);
     }
 
-    public void enterRoom() {
-
-    }
-
     public String getName() {
         return "Elevator Shaft";
     }
