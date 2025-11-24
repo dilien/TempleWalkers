@@ -13,7 +13,7 @@ public class Player{
     public Player(){
         inventory = new Inventory(10);
         Temple temple = Temple.getInstance();
-        temple.tickEvent.listen((_)->tick());
+        temple.tickEvent.listen((_void)->tick());
     };
 
     int oxygenLeft = 30;
