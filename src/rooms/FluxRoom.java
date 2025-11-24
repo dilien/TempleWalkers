@@ -30,7 +30,12 @@ public class FluxRoom extends Room{
         if(cooldown>0){cooldown-=1; return;}
         Console.getInstance().prompt("You suddenly feel disoriented and after a bright flash of light, you have no idea where you are.");
         cooldown = 1;
-        player.enterRoom(rooms.get(new Random().nextInt(rooms.size())));
+
+        Room other = this;
+        while(other == this){
+            other = rooms.get(new Random().nextInt(rooms.size()));
+        }
+        player.enterRoom(other);
     }
 
     public String getName() {
