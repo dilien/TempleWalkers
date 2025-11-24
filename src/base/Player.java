@@ -59,7 +59,7 @@ public class Player{
     }
 
     public void refillOxygen(){
-        oxygenLeft = 30;
+        oxygenLeft = 5;
     }
 
     Room room;

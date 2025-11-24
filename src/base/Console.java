@@ -119,6 +119,13 @@ public class Console {
             obj1 = interactables[obj1index-1];
         }
 
+        if(player.getOxygen() == 0){
+            System.out.println("You have no oxygen left. Are you sure? (y/n)");
+            if(!Objects.equals(scanner.nextLine(), "y")){
+                return;
+            }
+        }
+
         if(Objects.equals(arr[0], "d")){
             displayText(obj1.describe());
         } else if (Objects.equals(arr[0], "i")) {
