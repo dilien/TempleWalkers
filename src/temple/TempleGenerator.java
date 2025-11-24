@@ -1,6 +1,7 @@
 package temple;
 
 import base.Console;
+import base.DifficultyManager;
 import base.Vector2;
 import com.sun.tools.javac.Main;
 import corridors.Corridor;
@@ -63,31 +64,7 @@ public class TempleGenerator {
     Room generateRooms(){
 
         //A list of rooms we would like to add (although not guaranteed they will all be added)
-        Room[] rooms = new Room[42];
-        for(int i = 0; i<1; i++){
-            rooms[i] = new ParticleAcceleratorRoom();
-        }
-        for(int i = 1; i<5; i++){
-            rooms[i] = new SecurityCheckpoint();
-        }
-        for(int i = 5; i<12; i++){
-            rooms[i] = new ResearchLab();
-        }
-        for(int i = 12; i<17; i++){
-            rooms[i] = new MaintenanceTunnel();
-        }
-        for(int i = 17; i<22; i++){
-            rooms[i] = new ElevatorShaft();
-        }
-        for(int i = 22; i<27; i++){
-            rooms[i] = new HoldingCell();
-        }
-        for(int i = 27; i<37; i++){
-            rooms[i] = new SupplyCloset();
-        }
-        for(int i = 37; i<42; i++){
-            rooms[i] = new FluxRoom();
-        }
+        Room[] rooms = DifficultyManager.getRooms();
 
 
         final int templeSize = Temple.size;

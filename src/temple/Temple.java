@@ -1,5 +1,6 @@
 package temple;
 
+import base.DifficultyManager;
 import base.Player;
 import items.*;
 import rooms.Room;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 public class Temple {
 
     public LootManager lootManager;
-    public static int size = 11;
+    public static int size = DifficultyManager.getSize();
 
     private Temple(){
         lootManager = new LootManager();

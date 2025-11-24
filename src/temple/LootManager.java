@@ -1,5 +1,6 @@
 package temple;
 
+import base.DifficultyManager;
 import items.*;
 import rooms.Room;
 
@@ -56,50 +57,9 @@ public class LootManager {
          }
     }
 
-    void addItems(){
-         for(int i = 1; i < 6; i++){
-             rareItemsToAdd.add(new Keycard(i));
-         }
-
-        for(int i = 0; i < 10; i++){
-            itemsToAdd.add(new OxygenCanister());
-        }
-
-        for(int i = 0; i < 3; i++){
-            itemsToAdd.add(new Flashlight());
-        }
-
-        for(int i = 0; i < 5; i++){
-            itemsToAdd.add(new Battery());
-        }
-
-        for(int i = 0; i < 3; i++){
-            rareItemsToAdd.add(new Briefcase());
-        }
-
-
-        for(int i : new int[]{
-                2, 2, 2, 2,
-                3, 3, 3, 3,
-                5, 5, 5,
-                10, 10,
-                20}){
-            itemsToAdd.add(new Document(i));
-        }
-        for(int i : new int[]{40, 50, 60, 70, 80}){
-            rareItemsToAdd.add(new Document(i));
-        }
-
-        for(int i : new int[]{10, 20, 30, 40, 50}){
-            itemsToAdd.add(new Artifact(i));
-        }
-        for(int i : new int[]{125, 150, 200}){
-            rareItemsToAdd.add(new Artifact(i));
-        }
-    }
-
     public void generateLoot(Room[] rooms){
-        addItems();
+        itemsToAdd = DifficultyManager.getCommonItems();
+        rareItemsToAdd = DifficultyManager.getRareItems();
         //filter for non-null rooms (rooms that have generated successfully)
         Room[] rooms2 = Arrays.stream(rooms).filter(Objects::nonNull).toArray(Room[]::new);
         generateRareItems(rooms2);
