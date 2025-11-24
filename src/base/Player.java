@@ -78,7 +78,7 @@ public class Player{
         lastRoom = room;
 
         //trigger any room-specific effects
-        room.enterRoom();
+        room.enterRoom(this);
     }
 
     public void tick(){

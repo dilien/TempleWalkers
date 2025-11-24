@@ -44,14 +44,16 @@ public class LootManager {
      * @param rooms
      */
      void generateCommonItems(Room[] rooms){
-        for(Item common : itemsToAdd) {
-            Room randomRoom = rooms[rand.nextInt(rooms.length)];
-            boolean success = randomRoom.generateLoot(common);
-            if (!success) {
-                //just drop the item on the floor
-                randomRoom.inventory.addItem(common);
-            }
-        }
+         //replaced with a indexed loop to properly adjust to length increases
+         for (int i = 0; i < itemsToAdd.size(); i++) {
+             Item common = itemsToAdd.get(i);
+             Room randomRoom = rooms[rand.nextInt(rooms.length)];
+             boolean success = randomRoom.generateLoot(common);
+             if (!success) {
+                 //just drop the item on the floor
+                 randomRoom.inventory.addItem(common);
+             }
+         }
     }
 
     void addItems(){

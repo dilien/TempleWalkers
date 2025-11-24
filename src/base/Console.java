@@ -107,12 +107,20 @@ public class Console {
         String input = scanner.nextLine().strip();
         String[] arr = input.split(" ");
 
+        if(arr.length < 1){
+            return;
+        }
+
         //number provided first, so we can assume it is a interact
         if (parseIntOrZero(arr[0]) != 0) {
             String[] arr2 = new String[arr.length + 1];
             System.arraycopy(arr, 0, arr2, 1, arr.length);
             arr2[0] = "i";
             arr = arr2;
+        }
+
+        if(arr.length < 2){
+            return;
         }
 
         int obj1index = parseIntOrZero(arr[1]);
