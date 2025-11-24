@@ -13,11 +13,7 @@ public class OxygenCanister extends Item{
     }
 
     public boolean interact(Player player, Item other) {
-        //on pickup but full then use instead
-        //on pickup and not full, then pass
-        if(super.interact(player, other) && this.parent == player.getInventory()){
-            return true;
-        };
+        if(tryPickup(player)){return true;}
         if(other != null){
             return false;
         }

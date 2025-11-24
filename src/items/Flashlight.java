@@ -30,7 +30,7 @@ public class Flashlight extends Item implements Rechargable{
     }
 
     public boolean interact(Player player, Item other) {
-        if(super.interact(player, other)){return true;}
+        if(tryPickup(player)){return true;}
         Console console = Console.getInstance();
         if(other instanceof Battery){
             other.delete();

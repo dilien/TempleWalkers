@@ -14,7 +14,7 @@ public class Briefcase extends Score{
     }
 
     public boolean interact(Player player, Item other) {
-        if(super.interact(player, other)){return true;}
+        if(tryPickup(player)){return true;}
         if(other instanceof Document document){
             Console.getInstance().displayText("You meticulously place the paper into the briefcase, making sure it follows the sorting system. This takes some time.");
             score += document.score;

@@ -8,6 +8,16 @@ import base.*;
 //The Intellij debugger isn't working so I cannot check individual objects for now. Waiting on that to be fixed, so I can find the root issue.
 
 /**
+ * Notes on items interact function, and classes using the super.
+ * Base functionality : pick up item if on the floor
+ * added functionality: use item
+ *
+ * when on the floor we want to:
+ * not full: pickup item only
+ * full : interact only
+ */
+
+/**
  * This represents an item contained in an inventory.
  */
 public abstract class Item implements Interactable {
@@ -16,8 +26,12 @@ public abstract class Item implements Interactable {
         Temple.getInstance().tickEvent.listen((_void)->tick());
     }
 
-    public boolean interact(Player player, Item other) {
-        //we should make them pick up the item before any other checks can be made
+    /**
+     * @return -
+     * true if the item needs to be picked up,
+     * false if the item is already picked up/or inventory full
+     */
+    public boolean tryPickup(Player player){
         if(parent != player.getInventory()){
             Inventory parent = this.parent;
             if(player.getInventory().addItem(this)){
@@ -26,8 +40,18 @@ public abstract class Item implements Interactable {
                 return true;
             }else{
                 Console.getInstance().displayText("You cannot pick this up because your hands are full at the moment.");
-                return true;
+                return false;
             }
+        }else{
+            return false;
+        }
+    }
+
+    public boolean interact(Player player, Item other) {
+        //we should make them pick up the item before any other checks can be made
+        if(parent != player.getInventory()){
+            tryPickup(player);
+            return true;
         }
         return false;
     }
