@@ -164,9 +164,6 @@ public class Console {
                 return;
             }
 
-            if(obj2 != null){
-                //displayText("Using " + obj1.getName() + " with " + obj2.getName());
-            }
             boolean success = obj1.interact(player, obj2);
             if(!success){
                 displayText("You cannot interact with " + obj1.getName() + " in this way.");

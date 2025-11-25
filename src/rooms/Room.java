@@ -25,7 +25,7 @@ public abstract class Room implements Interactable {
     //represents position on the map grid
     public int x = -100;
     public int y = -100;
-    boolean flipped = false;
+    boolean flipped;
     int sizeX;
     int sizeY;
     public int getSizeX(){

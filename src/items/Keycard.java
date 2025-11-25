@@ -3,7 +3,7 @@ package items;
 import java.security.Key;
 
 public class Keycard extends Item{
-    public int level = 0;
+    public int level;
     public Keycard(int level){
         this.level = level;
     }

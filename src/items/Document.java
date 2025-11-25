@@ -24,7 +24,7 @@ public class Document extends Item{
             "The secrets to the universe",
             "a minor success"};
 
-    public int score = 5;
+    public int score;
     String description;
     public Document(int score){
         Random random = new Random();

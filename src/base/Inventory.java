@@ -8,7 +8,7 @@ import java.util.ArrayList;
 Represents a container of items, and is used by the player and every room.
  */
 public class Inventory {
-    public int maxSize = 0;
+    public int maxSize;
     public ArrayList<Item> items;
     public Inventory(int size){
         items = new ArrayList<>();
