@@ -3,7 +3,6 @@ package base;
 import items.*;
 import rooms.*;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class DifficultyManager {
@@ -186,7 +185,7 @@ public class DifficultyManager {
                     itemsToAdd.add(new Document(i));
                 }
                 break;
-        };
+        }
         return itemsToAdd;
     }
 
@@ -194,42 +193,42 @@ public class DifficultyManager {
         ArrayList<Item> rareItemsToAdd = new ArrayList<>();
         switch (difficulty) {
             case Easy:
-                for(int i = 1; i < 3; i++){
+                for (int i = 1; i < 3; i++) {
                     rareItemsToAdd.add(new Keycard(i));
                 }
-                for(int i : new int[]{125, 150, 200}){
+                for (int i : new int[]{125, 150, 200}) {
                     rareItemsToAdd.add(new Artifact(i));
                 }
                 break;
             case Medium:
-                for(int i = 1; i < 6; i++){
+                for (int i = 1; i < 6; i++) {
                     rareItemsToAdd.add(new Keycard(i));
                 }
-                for(int i = 0; i < 3; i++){
+                for (int i = 0; i < 3; i++) {
                     rareItemsToAdd.add(new Briefcase());
                 }
-                for(int i : new int[]{40, 50, 60, 70, 80}){
+                for (int i : new int[]{40, 50, 60, 70, 80}) {
                     rareItemsToAdd.add(new Document(i));
                 }
-                for(int i : new int[]{125, 150, 200}){
+                for (int i : new int[]{125, 150, 200}) {
                     rareItemsToAdd.add(new Artifact(i));
                 }
                 break;
             case Hard:
-                for(int i = 1; i < 6; i++){
+                for (int i = 1; i < 6; i++) {
                     rareItemsToAdd.add(new Keycard(i));
                 }
-                for(int i = 0; i < 1; i++){
+                for (int i = 0; i < 1; i++) {
                     rareItemsToAdd.add(new Briefcase());
                 }
-                for(int i : new int[]{20, 25, 30, 35, 40, 20, 25, 30, 35, 40}){
+                for (int i : new int[]{20, 25, 30, 35, 40, 20, 25, 30, 35, 40}) {
                     rareItemsToAdd.add(new Document(i));
                 }
-                for(int i : new int[]{50, 75, 75, 75, 100, 100}){
+                for (int i : new int[]{50, 75, 75, 75, 100, 100}) {
                     rareItemsToAdd.add(new Artifact(i));
                 }
                 break;
-        };
+        }
         return rareItemsToAdd;
     }
 }

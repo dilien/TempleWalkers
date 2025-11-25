@@ -3,12 +3,10 @@ package rooms;
 import base.Console;
 import base.Player;
 import items.Item;
-import temple.LootManager;
 import temple.Temple;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Scanner;
 
 public class FluxRoom extends Room{
     private static final ArrayList<FluxRoom> rooms = new ArrayList<>();
