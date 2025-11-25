@@ -46,7 +46,7 @@ public class Map {
             if(room == null){continue;}
             for(Corridor corridor : room.corridors){
                 if(corridor != null){
-                    addCorridor(room, corridor, output);
+                    addCorridor(corridor, output);
                 }
             }
         }
