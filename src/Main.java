@@ -11,9 +11,7 @@ public class Main {
 
         Player main = new Player();
         Temple temple = Temple.getInstance();
-        for (int i = 0; i < 10000; i++){
-            temple.testInit(main);
-        }
+        temple.testInit(main);
 
         while(!main.end){
             Console.getInstance().dashboard(main);
