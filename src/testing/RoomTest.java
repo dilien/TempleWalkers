@@ -14,7 +14,6 @@ import temple.PositionSide;
 public class RoomTest extends Test {
 
     public static void main(String[] args) {
-        DifficultyManager.difficulty = Difficulty.Medium;
         testRoomSize();
         testRoomPosition();
         testCorridorManagement();

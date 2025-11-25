@@ -6,8 +6,11 @@ import rooms.*;
 import java.util.ArrayList;
 
 public class DifficultyManager {
-    public static Difficulty difficulty;
+    public static Difficulty difficulty = Difficulty.Easy;
 
+    /**
+     * Takes user input and yields until a difficulty is selected
+     */
     public static void setDifficulty(){
         Console console = Console.getInstance();
         while(difficulty == null){

@@ -8,7 +8,6 @@ import structures.ContainerType;
 
 public class StructureTests extends Test {
     public static void main(String[] args) {
-        DifficultyManager.difficulty = Difficulty.Medium;
         testContainerName();
         testContainerDescription();
         testContainerInteraction();
