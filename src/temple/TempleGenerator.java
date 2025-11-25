@@ -94,7 +94,7 @@ public class TempleGenerator {
                 //System.out.println("warning: couldnt place " + room.getClass().getName() +  " correctly.");
                 rooms[j] = null;
             }
-            //If we picked 10 random positions and none of them were right, we just give up
+            //If we picked 1000 random positions and none of them were right, we just give up
         }
 
         //Assign the corridors

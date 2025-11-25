@@ -51,56 +51,56 @@ public class DifficultyManager {
                 }
                 return rooms;
             case Medium:
-                Room[] rooms2 = new Room[42];
+                Room[] rooms2 = new Room[38];
                 for(int i = 0; i<1; i++){
                     rooms2[i] = new ParticleAcceleratorRoom();
                 }
-                for(int i = 1; i<5; i++){
+                for(int i = 1; i<6; i++){
                     rooms2[i] = new SecurityCheckpoint();
                 }
-                for(int i = 5; i<15; i++){
+                for(int i = 6; i<16; i++){
                     rooms2[i] = new ResearchLab();
                 }
-                for(int i = 15; i<20; i++){
+                for(int i = 16; i<21; i++){
                     rooms2[i] = new MaintenanceTunnel();
                 }
-                for(int i = 20; i<25; i++){
+                for(int i = 21; i<26; i++){
                     rooms2[i] = new ElevatorShaft();
                 }
-                for(int i = 25; i<30; i++){
+                for(int i = 26; i<28; i++){
+                    rooms2[i] = new FluxRoom();
+                }
+                for(int i = 28; i<33; i++){
                     rooms2[i] = new HoldingCell();
                 }
-                for(int i = 30; i<40; i++){
+                for(int i = 33; i<38; i++){
                     rooms2[i] = new SupplyCloset();
-                }
-                for(int i = 40; i<42; i++){
-                    rooms2[i] = new FluxRoom();
                 }
                 return rooms2;
             case Hard:
-                Room[] rooms3 = new Room[45];
+                Room[] rooms3 = new Room[54];
                 for(int i = 0; i<1; i++){
                     rooms3[i] = new ParticleAcceleratorRoom();
                 }
-                for(int i = 1; i<5; i++){
+                for(int i = 1; i<9; i++){
                     rooms3[i] = new SecurityCheckpoint();
                 }
-                for(int i = 5; i<15; i++){
-                    rooms3[i] = new ResearchLab();
-                }
-                for(int i = 15; i<20; i++){
+                for(int i = 9; i<19; i++){
                     rooms3[i] = new MaintenanceTunnel();
                 }
-                for(int i = 20; i<25; i++){
+                for(int i = 19; i<31; i++){
+                    rooms3[i] = new ResearchLab();
+                }
+                for(int i = 31; i<36; i++){
                     rooms3[i] = new ElevatorShaft();
                 }
-                for(int i = 25; i<30; i++){
+                for(int i = 36; i<44; i++){
                     rooms3[i] = new HoldingCell();
                 }
-                for(int i = 30; i<40; i++){
+                for(int i = 44; i<49; i++){
                     rooms3[i] = new SupplyCloset();
                 }
-                for(int i = 40; i<45; i++){
+                for(int i = 49; i<54; i++){
                     rooms3[i] = new FluxRoom();
                 }
                 return rooms3;
@@ -111,8 +111,8 @@ public class DifficultyManager {
     public static int getSize(){
         return switch (difficulty) {
             case Easy -> 8;
-            case Medium -> 10;
-            case Hard -> 12;
+            case Medium -> 11;
+            case Hard -> 13;
         };
     }
 
