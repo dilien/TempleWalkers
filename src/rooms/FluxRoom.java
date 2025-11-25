@@ -26,6 +26,9 @@ public class FluxRoom extends Room{
     }
 
     public void enterRoom(Player player) {
+        //If there is no where else to teleport then return before infinite loop.
+        if(rooms.size() == 1){return;}
+
         //cooldown of one teleportation to prevent the player to be teleported in a infinite loop
         if(cooldown>0){cooldown-=1; return;}
         Console.getInstance().prompt("You suddenly feel disoriented and after a bright flash of light, you have no idea where you are.");
