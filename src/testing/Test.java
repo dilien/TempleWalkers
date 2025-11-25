@@ -13,7 +13,7 @@ public class Test {
         if(pass){
             System.out.println("Test passed");
         }else{
-            System.out.println("\t\\u001B[31mTest failed!");
+            System.out.println("\u001B[31m" + "Test failed!" + "\u001B[0m");
         }
     }
 }

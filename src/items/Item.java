@@ -33,7 +33,9 @@ public abstract class Item implements Interactable {
         if(parent != player.getInventory()){
             Inventory parent = this.parent;
             if(player.getInventory().addItem(this)){
-                parent.removeItem(this);
+                if(parent != null){
+                    parent.removeItem(this);
+                }
                 Console.getInstance().displayText("You pick up the " + this.getName());
                 return true;
             }else{
@@ -59,6 +61,7 @@ public abstract class Item implements Interactable {
     }
 
     public void delete(){
+        if(parent == null){return;}
         parent.removeItem(this);
         //hopefully garbage manager deals with the rest...
     }

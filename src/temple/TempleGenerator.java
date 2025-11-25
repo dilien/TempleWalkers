@@ -98,12 +98,12 @@ public class TempleGenerator {
         }
 
         //Assign the corridors
-        int i2 = 0;
+        int total = 0;
         for(Room room : rooms) {
             if(room == null || room.x < 0){
                 continue;
             }
-            i2++;
+            total++;
             int target = room.getTargetCorridors();
             int current = 0;
             for(Corridor corridor : room.corridors){
@@ -148,7 +148,7 @@ public class TempleGenerator {
 
         //not the best solution but better than no solution
         //re-generates entire map if all rooms are not connected
-        boolean connected = checkConnectivity(rooms, i2);
+        boolean connected = checkConnectivity(rooms[0], total);
         if(!connected){
             return generateRooms();
         }
@@ -162,14 +162,14 @@ public class TempleGenerator {
         return rooms[0];
     }
 
-    boolean checkConnectivity(Room[] rooms, int i){
+    public boolean checkConnectivity(Room start, int target){
         ArrayList<Room> checked = new ArrayList<>();
         ArrayList<Room> toCheck = new ArrayList<>();
-        checked.add(rooms[0]);
-        toCheck.add(rooms[0]);
-        int i2 = 0;
+        checked.add(start);
+        toCheck.add(start);
+        int count = 0;
         while (!toCheck.isEmpty()){
-            i2++;
+            count++;
             Room room = toCheck.getFirst();
             toCheck.removeFirst();
 
@@ -182,6 +182,6 @@ public class TempleGenerator {
                 }
             }
         }
-        return i2 == i;
+        return count == target;
     }
 }

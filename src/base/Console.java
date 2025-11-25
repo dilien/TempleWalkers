@@ -85,7 +85,7 @@ public class Console {
 
         int array2Start = index;
         player.getInventory().render(index);
-        Interactable[] array2 = player.getInventory().getAll();
+        Interactable[] array2 = player.getInventory().items.toArray(new Interactable[]{});
         index += array2.length;
 
         //interactables is the list of things the player can interact with

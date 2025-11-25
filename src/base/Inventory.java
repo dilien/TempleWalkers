@@ -28,10 +28,6 @@ public class Inventory {
         return items.remove(item);
     }
 
-    public Item[] getAll(){
-        return items.toArray(new Item[0]);
-    }
-
     public void render(int index) {
         System.out.println("Inventory contents (" + items.size() + "/" + maxSize + "): ");
         for (int i = 0; i<items.size(); i++){

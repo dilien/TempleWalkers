@@ -160,7 +160,7 @@ public abstract class Room implements Interactable {
      * @return - A list of items that can be interacted with.
      */
     public Interactable[] getAll(){
-        Interactable[] items = inventory.getAll();
+        Interactable[] items = inventory.items.toArray(new Interactable[]{});
 
         int length = 1 + corridors.length + structs.size() + items.length;
         Interactable[] arr = new Interactable[length];
@@ -195,7 +195,7 @@ public abstract class Room implements Interactable {
      */
     public void render(int start, PositionSide playerPosition, boolean dark){
 
-        Interactable[] items = inventory.getAll();
+        Item[] items = inventory.items.toArray(new Item[]{});
 
         int realCorridorIndex = 0; //for corridors that are not null
         for (Corridor corridor : corridors) {

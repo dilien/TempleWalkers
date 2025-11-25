@@ -1,21 +1,18 @@
+import structures.Structure;
 import testing.*;
 
 //Run this code to run the tests
 public class Test {
     public static void main(String[] args) {
 
-        new StructureTests();
+        StructureTests.main(args);
 
-        new GeneratorTests();
+        TempleGeneratorTest.main(args);
 
-        new EventTests();
+        RoomTest.main(args);
 
-        new RoomTests();
+        ItemsTest.main(args);
 
-        new ItemTests();
-
-        new InventoryTests();
-
-        new CorridorTests();
+        InventoryTest.main(args);
     }
 }
