@@ -5,8 +5,6 @@ import items.Score;
 import rooms.Room;
 import temple.Temple;
 
-import java.util.ArrayList;
-
 //represents the player object
 //Not a singleton, although there is never multiple players
 public class Player{
@@ -14,7 +12,7 @@ public class Player{
         inventory = new Inventory(10);
         Temple temple = Temple.getInstance();
         temple.tickEvent.listen((_void)->tick());
-    };
+    }
 
     int oxygenLeft = 30;
     public boolean end = false;
@@ -63,19 +61,12 @@ public class Player{
     }
 
     Room room;
-    Inventory inventory;
+    final Inventory inventory;
 
-
-    Room lastRoom = null;
-    Room secondLastRoom = null;
     public void enterRoom(Room room){
         this.room = room;
         Console console = Console.getInstance();
         console.displayText("Entering a " + room.getName());
-
-        Temple temple = Temple.getInstance();
-        secondLastRoom = lastRoom;
-        lastRoom = room;
 
         //trigger any room-specific effects
         room.enterRoom(this);

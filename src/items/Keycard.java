@@ -1,7 +1,5 @@
 package items;
 
-import java.security.Key;
-
 public class Keycard extends Item{
     public int level;
     public Keycard(int level){

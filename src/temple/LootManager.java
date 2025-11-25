@@ -4,7 +4,6 @@ import base.DifficultyManager;
 import items.*;
 import rooms.Room;
 
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
@@ -13,7 +12,7 @@ import java.util.Random;
 public class LootManager {
     public ArrayList<Item> rareItemsToAdd;
     public ArrayList<Item> itemsToAdd;
-    Random rand = new Random();
+    final Random rand = new Random();
 
     LootManager(){
         rareItemsToAdd = new ArrayList<>();
@@ -42,10 +41,10 @@ public class LootManager {
 
     /**
      * Generates all common items. If items cannot be added by the room, they are just placed on the floor.
-     * @param rooms
+     * @param rooms - list of all rooms in the map
      */
      void generateCommonItems(Room[] rooms){
-         //replaced with a indexed loop to properly adjust to length increases
+         //replaced with an indexed loop to properly adjust to length increases
          for (int i = 0; i < itemsToAdd.size(); i++) {
              Item common = itemsToAdd.get(i);
              Room randomRoom = rooms[rand.nextInt(rooms.length)];

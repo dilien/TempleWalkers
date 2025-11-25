@@ -9,7 +9,7 @@ Represents a container of items, and is used by the player and every room.
  */
 public class Inventory {
     public int maxSize;
-    public ArrayList<Item> items;
+    public final ArrayList<Item> items;
     public Inventory(int size){
         items = new ArrayList<>();
         maxSize = size;
@@ -26,12 +26,6 @@ public class Inventory {
 
     public boolean removeItem(Item item){
         return items.remove(item);
-    }
-
-    public void tick(){
-        for(Item item : items){
-            item.tick();
-        }
     }
 
     public Item[] getAll(){

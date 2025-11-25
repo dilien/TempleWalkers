@@ -18,8 +18,8 @@ public class Artifact extends Score{
             "has eyes that look right at you",
             "mutters strange incantations",
             "does not interest you in the slightest"};
-    String name;
-    String description;
+    final String name;
+    final String description;
     public Artifact(int score){
         Random random = new Random();
         this.score = score;

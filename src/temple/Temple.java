@@ -6,14 +6,11 @@ import items.*;
 import rooms.Room;
 import utility.Event;
 
-import javax.print.Doc;
-import java.util.ArrayList;
-
 //This holds all the rooms and is responsible for gameticks. It is a singleton.
 public class Temple {
 
-    public LootManager lootManager;
-    public static int size = DifficultyManager.getSize();
+    public final LootManager lootManager;
+    public final static int size = DifficultyManager.getSize();
 
     private Temple(){
         lootManager = new LootManager();
@@ -36,7 +33,7 @@ public class Temple {
         player.enterRoom(start);
     }
 
-    public Event<Void> tickEvent = new Event<>();
+    public final Event<Void> tickEvent = new Event<>();
 
     int timeUntilFlip = 25;
     public int totalTurns;

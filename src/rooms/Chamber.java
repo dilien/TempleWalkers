@@ -1,7 +1,5 @@
 package rooms;
 
-import base.Interactable;
-
 public class Chamber extends Room{
     public Chamber() {
         super(1, 1);

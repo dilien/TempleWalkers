@@ -11,9 +11,9 @@ import rooms.Room;
 This represents a corridor between to rooms, A and B.
  */
 public abstract class Corridor implements Interactable {
-    public PositionSide side;
-    Room roomA;
-    Room roomB;
+    public final PositionSide side;
+    final Room roomA;
+    final Room roomB;
     Corridor(Room roomA, Room roomB, PositionSide side){
         this.roomA = roomA;
         this.roomB = roomB;

@@ -1,7 +1,6 @@
 package testing;
 
 import base.Inventory;
-import items.Keycard;
 import items.OxygenCanister;
 
 public class InventoryTests {

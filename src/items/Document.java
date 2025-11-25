@@ -1,6 +1,5 @@
 package items;
 
-import javax.print.Doc;
 import java.util.Random;
 
 public class Document extends Item{
@@ -24,8 +23,8 @@ public class Document extends Item{
             "The secrets to the universe",
             "a minor success"};
 
-    public int score;
-    String description;
+    public final int score;
+    final String description;
     public Document(int score){
         Random random = new Random();
         this.score = score;

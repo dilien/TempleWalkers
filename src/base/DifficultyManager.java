@@ -11,20 +11,19 @@ public class DifficultyManager {
     public static void setDifficulty(){
         Console console = Console.getInstance();
         while(difficulty == null){
-            String answer = console.prompt("Please select a difficulty (e/easy) (m/medium) (h/hard)").strip() + " ";
-            if(answer.charAt(0) == 'e'){
+            String answer = console.prompt("Please select a difficulty (m/medium) (h/hard) (v/very hard)").strip() + " ";
+            if(answer.charAt(0) == 'm'){
                 difficulty = Difficulty.Easy;
             }
-            if(answer.charAt(0) == 'm'){
+            if(answer.charAt(0) == 'h'){
                 difficulty = Difficulty.Medium;
             }
-            if(answer.charAt(0) == 'h'){
+            if(answer.charAt(0) == 'v'){
                 difficulty = Difficulty.Hard;
             }
         }
     }
-    //TODO: implement difficulty with easy medium hard
-    //this should effect, the items that generate, the the room size, and which rooms are added
+
     public static Room[] getRooms(){
         switch(difficulty){
             case Easy:

@@ -1,11 +1,8 @@
 package testing;
 
-import com.sun.tools.javac.Main;
-import items.Keycard;
 import items.OxygenCanister;
 import rooms.MaintenanceTunnel;
 import rooms.Room;
-import rooms.Chamber;
 import base.Player;
 import items.Item;
 

@@ -1,7 +1,5 @@
 package rooms;
 
-import base.Inventory;
-import corridors.Corridor;
 import structures.Container;
 import structures.ContainerType;
 

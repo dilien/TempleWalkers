@@ -4,9 +4,6 @@ import base.Console;
 import base.Player;
 import items.Item;
 import items.Keycard;
-import rooms.Room;
-import temple.PositionSide;
-import temple.Temple;
 
 public class Elevator extends Structure{
     public int level = 0;

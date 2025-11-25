@@ -3,7 +3,7 @@ package items;
 import base.Console;
 import base.Player;
 
-public class Flashlight extends Item implements Rechargable{
+public class Flashlight extends Item{
     int charge;
     public int getMaxCharge() {
         return 29;

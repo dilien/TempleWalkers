@@ -33,8 +33,7 @@ public class Map {
             for(int x = startX; x<endX; x++){
                 for(int y = startY; y<endY; y++){
                     if(x == startX || y == startY || x == endX-1 || y == endY-1){
-                        //output[x][y] = '█';
-                        output[x][y] = String.valueOf(room.getAccessLevel()).charAt(0);
+                        output[x][y] = '█';
                     }else{
                         output[x][y] = '.';
                     }
@@ -64,11 +63,10 @@ public class Map {
     /**
      * Adds a corridor to the display map
      * note: each corridor has two rooms, and this means each corridor is drawn twice in the same place
-     * @param room - room that has teh corridor
      * @param corridor - the side to add the corridor to
      * @param output - the char grid to write to
      */
-    public void addCorridor(Room room, Corridor corridor, char[][] output){
+    public void addCorridor(Corridor corridor, char[][] output){
         PositionSide global = corridor.side;
         Vector2 v = global.pos();
         int x =  v.x();

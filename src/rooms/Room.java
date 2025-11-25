@@ -1,18 +1,14 @@
 package rooms;
 
 import structures.Container;
-import structures.ContainerType;
 import temple.PositionSide;
-import temple.Side;
 import base.*;
 import corridors.Corridor;
 import items.Item;
 import structures.Structure;
-import temple.Temple;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Random;
 
 
@@ -25,9 +21,9 @@ public abstract class Room implements Interactable {
     //represents position on the map grid
     public int x = -100;
     public int y = -100;
-    boolean flipped;
-    int sizeX;
-    int sizeY;
+    final boolean flipped;
+    final int sizeX;
+    final int sizeY;
     public int getSizeX(){
         return flipped ? sizeY : sizeX;
     }
@@ -35,19 +31,15 @@ public abstract class Room implements Interactable {
         return flipped ? sizeX : sizeY;
     }
 
-    int accessLevel = 0;
-    public int getAccessLevel(){return accessLevel;}
-    public void setAccessLevel(int accessLevel){this.accessLevel = accessLevel;}
-
-    public int xs = 4; //x size in characters
-    public int ys = 2; //y size in characters
+    public final int xs = 4; //x size in characters
+    public final int ys = 2; //y size in characters
 
     //corridors temp is used during generation, and is converted to an array after.
-    public Corridor[] corridors;
+    public final Corridor[] corridors;
 
-    public ArrayList<Structure> structs = new ArrayList<>();
+    public final ArrayList<Structure> structs = new ArrayList<>();
 
-    public Inventory inventory;
+    public final Inventory inventory;
 
     public Room(int sizeX, int sizeY){
         inventory = new Inventory(0);
@@ -205,8 +197,6 @@ public abstract class Room implements Interactable {
 
         Interactable[] items = inventory.getAll();
 
-        int length = 1 + corridors.length + structs.size() + items.length;
-
         int realCorridorIndex = 0; //for corridors that are not null
         for (Corridor corridor : corridors) {
             if (corridor != null && !dark) {
@@ -215,7 +205,7 @@ public abstract class Room implements Interactable {
         }
 
         int sectionLeft = this.getSizeX()*xs+6;
-        int rightHeight = items.length + realCorridorIndex + structs.size() + 1;
+        int rightHeight = items.length + structs.size() + 1;
 
         int leftHeight = 2 + this.getSizeY() * ys;
         int height = Math.max(rightHeight, leftHeight);
@@ -309,7 +299,7 @@ public abstract class Room implements Interactable {
 
     public void enterRoom(Player player){
 
-    };
+    }
     public boolean generateRareLoot(Item item){
         return false;
     }

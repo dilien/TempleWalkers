@@ -14,7 +14,7 @@ import java.util.Scanner;
  It is a singleton.
  */
 public class Console {
-    Scanner scanner;
+    final Scanner scanner;
     private Console(){
         scanner = new Scanner(System.in);
     }
@@ -111,7 +111,7 @@ public class Console {
             return;
         }
 
-        //number provided first, so we can assume it is a interact
+        //number provided first, so we can assume the action is interact
         if (parseIntOrZero(arr[0]) != 0) {
             String[] arr2 = new String[arr.length + 1];
             System.arraycopy(arr, 0, arr2, 1, arr.length);

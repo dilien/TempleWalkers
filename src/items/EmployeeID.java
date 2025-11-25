@@ -1,9 +1,9 @@
 package items;
 
 public class EmployeeID extends Item{
-    public String department;
-    public String name;
-    public String id;
+    public final String department;
+    public final String name;
+    public final String id;
 
     public EmployeeID(String id, String department){
         this.department = department;

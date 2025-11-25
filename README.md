@@ -39,6 +39,8 @@ Tip: You might want to make a map as you play. It should make the game a whole l
 
 Tip2: This game looks best with a line width of 1 or 0.99 (where the squares touch) and a monospace font.
 
+Tip3: We recommend you pick the easiest difficulty, and only move up once you get a excellent score on the previous.
+
 ## Story/Objectives
 You work at a super top secret facility. It is Friday and no one is in the office because everyone is working from home. 
 Suddenly, while you are in the cleanroom, A gas leak causes experimental poisonous gas to flood the facility. Thankfully, you are wearing a hazmat suit.

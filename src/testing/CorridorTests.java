@@ -2,8 +2,7 @@ package testing;
 
 import base.Vector2;
 import corridors.Corridor;
-import corridors.TempleFrame;
-import items.Keycard;
+import corridors.HiddenCorridor;
 import items.OxygenCanister;
 import rooms.Chamber;
 import temple.PositionSide;
@@ -23,7 +22,7 @@ public class CorridorTests {
         roomB.setPosition(0, 1);
 
         PositionSide side = new PositionSide(new Vector2(0, 0), false);
-        Corridor corridor = new TempleFrame(roomA, roomB, side);
+        Corridor corridor = new HiddenCorridor(roomA, roomB, side);
 
         System.out.println("Test 1: Corridor should link two rooms");
         total++;

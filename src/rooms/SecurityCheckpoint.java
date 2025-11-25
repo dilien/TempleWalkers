@@ -4,7 +4,6 @@ import items.Item;
 import structures.AdvancedContainer;
 import structures.Container;
 import structures.ContainerType;
-import structures.Elevator;
 
 public class SecurityCheckpoint extends Room{
     public SecurityCheckpoint() {

@@ -1,16 +1,11 @@
 package testing;
 
-import base.Console;
 import base.Inventory;
 import items.Battery;
 import items.Item;
 import base.Player;
-import items.Keycard;
-import items.OxygenCanister;
 import rooms.Room;
 import rooms.SupplyCloset;
-
-import java.security.Key;
 
 public class ItemTests {
     public ItemTests() {

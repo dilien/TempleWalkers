@@ -1,7 +1,5 @@
 package rooms;
 
-import structures.Container;
-import structures.ContainerType;
 import structures.Elevator;
 
 public class ElevatorShaft extends Room{
