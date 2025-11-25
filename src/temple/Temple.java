@@ -6,7 +6,10 @@ import items.*;
 import rooms.Room;
 import utility.Event;
 
-//This holds all the rooms and is responsible for gameticks. It is a singleton.
+/**
+ * This singleton holds a lot of other classes.
+ * it also manages game ticks.
+ */
 public class Temple {
 
     public final LootManager lootManager;
@@ -24,6 +27,11 @@ public class Temple {
     }
 
     public boolean dark;
+
+    /**
+     * Creates the temple, and makes the player enter it.
+     * @param player - player to add to the temple
+     */
     public void testInit(Player player){
         TempleGenerator generator = new TempleGenerator();
         Room start = generator.generateRooms();

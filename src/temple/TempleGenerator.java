@@ -15,6 +15,15 @@ It should really only be called once, but I haven't implemented it as a singleto
  */
 public class TempleGenerator {
 
+    /**
+     * Checks if a spot on the grid is free, making use of wrapping
+     * @param x - x top left
+     * @param y - y top left
+     * @param sizeX - width
+     * @param sizeY - height
+     * @param grid - to check for existing rooms
+     * @return - true if every spot is free
+     */
     public boolean checkFree(int x, int y, int sizeX, int sizeY, Room[][] grid){
         for(int x2 = x; x2 < x+sizeX; x2++){
             int x3 = x2 % Temple.size;
@@ -43,6 +52,13 @@ public class TempleGenerator {
         return  true;
     }
 
+    /**
+     * Returns one of the two rooms on the other side of a global position
+     * @param grid - to find rooms
+     * @param room - existing room
+     * @param side - global side
+     * @return - other room
+     */
     public Room getOtherRoom(Room[][] grid, Room room, PositionSide side){
         Vector2 forward = side.getForward();
         if(grid[forward.x()][forward.y()] != room){
@@ -53,7 +69,7 @@ public class TempleGenerator {
     }
 
     /**
-     * Generates a room. Duh.
+     * Generates the rooms, the corridors, the loot ect...
      * @return - the starting room
      */
     Room generateRooms(){
@@ -162,6 +178,12 @@ public class TempleGenerator {
         return rooms[0];
     }
 
+    /**
+     * Checks if a room connects to a target amount of rooms, via its corridors and their corridors.
+     * @param start - room to start with
+     * @param target - target rooms to reach
+     * @return - if the target was met
+     */
     public boolean checkConnectivity(Room start, int target){
         ArrayList<Room> checked = new ArrayList<>();
         ArrayList<Room> toCheck = new ArrayList<>();

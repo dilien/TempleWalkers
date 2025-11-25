@@ -2,14 +2,14 @@ package testing;
 
 //boilerplate code for writing tests
 public class Test {
-    //check if two things are equal and print the result
-    public static <T> boolean test(T result, T expected){
+    /**
+     * Tests if two things are equal
+     * @param result - A
+     * @param expected - B
+     * @param <T> - The type of A and B that are going to be checked.
+     */
+    public static <T> void test(T result, T expected){
         boolean pass = result.equals(expected);
-        testLog(pass);
-        return pass;
-    }
-    //print pass/fail
-    public static void testLog(boolean pass){
         if(pass){
             System.out.println("Test passed");
         }else{

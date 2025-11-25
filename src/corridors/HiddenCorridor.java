@@ -3,9 +3,17 @@ package corridors;
 import rooms.Room;
 import temple.PositionSide;
 
-//we want the hidden corridor to not be interactable in any way (other than using it as a corridor)
-//this way the player basically thinks it is not a 'thing' and the right bar is less cluttered.
+/**
+ * The hidden corridor has a name of NULL to prevent it displaying.
+ *
+ */
 public class HiddenCorridor extends Corridor{
+    /**
+     * Creates a new corridor. It handles telling the rooms about it.
+     * @param roomA - one of the rooms
+     * @param roomB - the other room
+     * @param side - the global position of the corridor
+     */
     public HiddenCorridor(Room roomA, Room roomB, PositionSide side) {
         super(roomA, roomB, side);
     }
@@ -15,6 +23,6 @@ public class HiddenCorridor extends Corridor{
     }
 
     public String describe() {
-        return null;
+        return "Its a door that you can go through. It serves its purpose faithfully. Can you believe it isn't even credited on the sidebar?";
     }
 }

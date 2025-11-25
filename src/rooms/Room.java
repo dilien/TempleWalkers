@@ -16,9 +16,9 @@ import java.util.Random;
  * The level is made up of rooms
  * Each room contains corridors, structures and items.
  * Rooms themselves can be interacted with, to drop/pickup items.
+ * I know this class is big, so I have tried to follow single responsibility, and split responsibility up to other classes (like an inventory)
  */
 public abstract class Room implements Interactable {
-    //represents position on the map grid
     public int x = -100;
     public int y = -100;
     final boolean flipped;
@@ -34,13 +34,17 @@ public abstract class Room implements Interactable {
     public final int xs = 4; //x size in characters
     public final int ys = 2; //y size in characters
 
-    //corridors temp is used during generation, and is converted to an array after.
     public final Corridor[] corridors;
 
     public final ArrayList<Structure> structs = new ArrayList<>();
 
     public final Inventory inventory;
 
+    /**
+     * Generates a new room with the following size
+     * @param sizeX - size in X coordinates
+     * @param sizeY - size in Y coordinates
+     */
     public Room(int sizeX, int sizeY){
         inventory = new Inventory(0);
         flipped = Math.random() > 0.5;
@@ -50,12 +54,21 @@ public abstract class Room implements Interactable {
         this.sizeY = sizeY;
     }
 
+    /**
+     * Sets the position, as well as generating the relative corridor positions from that data.
+     * @param x - x coordinate (top left)
+     * @param y - y coordinate (top left)
+     */
     public void setPosition(int x, int y){
         this.x = x;
         this.y = y;
         generateCorridors();
     }
 
+    public PositionSide[] globalDirections;
+    /**
+     * Used internally to create the local corridors -> global corridors array (and vise versa)
+     */
     void generateCorridors(){
         int p_h = getSizeX() + getSizeY(); //perimiter half
         int perimiter = p_h * 2;
@@ -74,18 +87,6 @@ public abstract class Room implements Interactable {
         }
     }
 
-    /**
-     * A utility function to write text in a string array
-     * @param output - string array to write to
-     * @param text - text to write
-     * @param start - index to start writing at
-     */
-    public static void write(char[] output, String text, int start){
-        System.arraycopy(text.toCharArray(), 0, output, start, text.length());
-    }
-
-    public PositionSide[] globalDirections;
-
     public int globalSideToLocal(PositionSide globalSide){
         for(int i = 0; i<globalDirections.length; i++){
             if(globalDirections[i].equals(globalSide)){
@@ -101,16 +102,63 @@ public abstract class Room implements Interactable {
 
     /**
      * Links a corridor to a room
+     * warning: If the corridor cannot be added because the positions do not line up, It will completely crash!
      * @param corridor - corridor to add
      * @return - true/false if failed, could fail if the side is already occupied.
      */
     public boolean addCorridor(Corridor corridor){
+        //TODO: find a way for invalid corridors to cause crashes somewhere more relevant in the program, or maybe just a warning.
         int localSide = globalSideToLocal(corridor.side);
         if(corridors[localSide] == null){
             corridors[localSide] = corridor;
             return true;
         }
         return false;
+    }
+
+    /**
+     * Generates a list of items that can be interacted with, which are all things in the room.
+     *
+     * @return - A list of items that can be interacted with.
+     */
+    public Interactable[] getAll(){
+        Interactable[] items = inventory.items.toArray(new Interactable[]{});
+
+        int length = 1 + corridors.length + structs.size() + items.length;
+        Interactable[] arr = new Interactable[length];
+        arr[0] = this;
+
+        int start = 1;
+        for (int i = 0; i < structs.size(); i++) {
+            Structure struct = structs.get(i);
+            arr[i+start] = struct;
+        }
+        start += structs.size();
+
+        for (int i = 0; i < items.length; i++) {
+            Interactable item = items[i];
+            arr[i+start] = item;
+        }
+        start += items.length;
+
+        for (int i = 0; i < corridors.length; i++) {
+            Corridor item = corridors[i];
+            arr[i+start] = item;
+        }
+        start += corridors.length;
+
+        return arr;
+    }
+
+
+    /**
+     * A utility function to write text in a string array
+     * @param output - string array to write to
+     * @param text - text to write
+     * @param start - index to start writing at
+     */
+    public static void write(char[] output, String text, int start){
+        System.arraycopy(text.toCharArray(), 0, output, start, text.length());
     }
 
     /**
@@ -152,40 +200,6 @@ public abstract class Room implements Interactable {
             }
         }
 
-    }
-
-    /**
-     * Generates a list of items that can be interacted with, which are all things in the room.
-     *
-     * @return - A list of items that can be interacted with.
-     */
-    public Interactable[] getAll(){
-        Interactable[] items = inventory.items.toArray(new Interactable[]{});
-
-        int length = 1 + corridors.length + structs.size() + items.length;
-        Interactable[] arr = new Interactable[length];
-        arr[0] = this;
-
-        int start = 1;
-        for (int i = 0; i < structs.size(); i++) {
-            Structure struct = structs.get(i);
-            arr[i+start] = struct;
-        }
-        start += structs.size();
-
-        for (int i = 0; i < items.length; i++) {
-            Interactable item = items[i];
-            arr[i+start] = item;
-        }
-        start += items.length;
-
-        for (int i = 0; i < corridors.length; i++) {
-            Corridor item = corridors[i];
-            arr[i+start] = item;
-        }
-        start += corridors.length;
-
-        return arr;
     }
 
     /**
@@ -297,12 +311,15 @@ public abstract class Room implements Interactable {
         return false;
     }
 
+    //Empty by default, other classes can add their own specific features
     public void enterRoom(Player player){
 
     }
+
     public boolean generateRareLoot(Item item){
         return false;
     }
+
     public boolean generateLoot(Item item){
         ArrayList<Container> containers = new ArrayList<>();
         for(Structure s : structs) {
@@ -317,8 +334,9 @@ public abstract class Room implements Interactable {
         return false;
     }
 
-    //really less of a target and more of a minimum
-    //Some rooms, especially bigger rooms with a lot of neighbours will typically have more.
+    /**
+     * @return - A MINIMUM amount of corridors to generate, wherever possible.
+     */
     public int getTargetCorridors(){
         return 2;
     }

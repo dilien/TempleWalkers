@@ -27,6 +27,10 @@ public class DifficultyManager {
         }
     }
 
+    /**
+     *
+     * @return - A list of rooms to generate, depending on difficulty
+     */
     public static Room[] getRooms(){
         switch(difficulty){
             case Easy:
@@ -109,6 +113,10 @@ public class DifficultyManager {
         return new Room[0];
     }
 
+    /**
+     *
+     * @return - size of each length of the temple. Depends on difficulty.
+     */
     public static int getSize(){
         return switch (difficulty) {
             case Easy -> 8;
@@ -117,6 +125,10 @@ public class DifficultyManager {
         };
     }
 
+    /**
+     *
+     * @return - A List of common items to be generated. List depends on difficulty.
+     */
     public static ArrayList<Item> getCommonItems(){
         ArrayList<Item> itemsToAdd = new ArrayList<>();
         switch (difficulty) {
@@ -191,6 +203,10 @@ public class DifficultyManager {
         return itemsToAdd;
     }
 
+    /**
+     *
+     * @return - A list of rare items to be generated. The items depend on the difficulty.
+     */
     public static ArrayList<Item> getRareItems(){
         ArrayList<Item> rareItemsToAdd = new ArrayList<>();
         switch (difficulty) {

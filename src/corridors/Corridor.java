@@ -7,13 +7,21 @@ import base.Player;
 import items.Item;
 import rooms.Room;
 
-/*
-This represents a corridor between to rooms, A and B.
+/**
+ * Represents a corridor between two rooms
+ * has an absolute position within the grid, as well as the two rooms it is connected to.
  */
 public abstract class Corridor implements Interactable {
     public final PositionSide side;
     final Room roomA;
     final Room roomB;
+
+    /**
+     * Creates a new corridor. It handles telling the rooms about it.
+     * @param roomA - one of the rooms
+     * @param roomB - the other room
+     * @param side - the global position of the corridor
+     */
     Corridor(Room roomA, Room roomB, PositionSide side){
         this.roomA = roomA;
         this.roomB = roomB;
@@ -23,6 +31,11 @@ public abstract class Corridor implements Interactable {
         roomB.addCorridor(this);
     }
 
+    /**
+     * will fail if parameter A is neither of the rooms
+     * @param a - one room
+     * @return - the other room connected
+     */
     public Room other(Room a){
         if(a == roomA){
             return roomB;

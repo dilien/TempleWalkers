@@ -1,5 +1,10 @@
 package structures;
 
+/**
+ * Represents the 'skin' or 'style' of a container/advanced container
+ * @param name - string returned on getName()
+ * @param description - string returned on getDescription()
+ */
 public record ContainerType(String name, String description) {
     public static final ContainerType cupboard = new ContainerType("Cupboard", "Its a cupboard. When you think of a office cupboard in your head, this exact model is what you think off. How strange.");
     public static final ContainerType toolbox = new ContainerType("Toolbox", "This bright red tool box really sticks out compared to the monotone rest of the facility. Did someone really bring their own toolbox to work?");

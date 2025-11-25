@@ -19,6 +19,10 @@ public class Player{
     public boolean alive = true;
 
     //todo: move to console class because it makes more sense there
+
+    /**
+     * Prints to the console a summary of the players score.
+     */
     public void summarise(){
         int score = 0;
         for(Item item : inventory.items){
@@ -63,6 +67,10 @@ public class Player{
     Room room;
     final Inventory inventory;
 
+    /**
+     * Cause the player to enter a new room
+     * @param room - new room
+     */
     public void enterRoom(Room room){
         this.room = room;
         Console console = Console.getInstance();

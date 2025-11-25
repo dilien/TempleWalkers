@@ -9,6 +9,9 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.Random;
 
+/**
+ * Keeps track of the loot that needs to be generated during generation.
+ */
 public class LootManager {
     public ArrayList<Item> rareItemsToAdd;
     public ArrayList<Item> itemsToAdd;
@@ -20,7 +23,7 @@ public class LootManager {
     }
 
     /**
-     * Generates all rare items. If a rare item cannot be generated, it is just created like a regular item.
+     * Generates all rare items. If a rare item cannot be generated, it is added to the list of regular items.
      * @param rooms - rooms to generate in.
      */
     void generateRareItems(Room[] rooms){
@@ -56,6 +59,10 @@ public class LootManager {
          }
     }
 
+    /**
+     * Generate all loot in the facility.
+     * @param rooms - a list of rooms
+     */
     public void generateLoot(Room[] rooms){
         itemsToAdd = DifficultyManager.getCommonItems();
         rareItemsToAdd = DifficultyManager.getRareItems();
