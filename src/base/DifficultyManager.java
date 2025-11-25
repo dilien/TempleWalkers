@@ -144,7 +144,7 @@ public class DifficultyManager {
                     itemsToAdd.add(new Battery());
                 }
                 for(int i : new int[]{10, 20, 30, 40, 50}){
-                    itemsToAdd.add(new Artifact(i));
+                    itemsToAdd.add(new Artefact(i));
                 }
                 break;
             case Medium:
@@ -167,7 +167,7 @@ public class DifficultyManager {
                     itemsToAdd.add(new Document(i));
                 }
                 for(int i : new int[]{10, 20, 30, 40, 50}){
-                    itemsToAdd.add(new Artifact(i));
+                    itemsToAdd.add(new Artefact(i));
                 }
                 break;
             case Hard:
@@ -215,7 +215,7 @@ public class DifficultyManager {
                     rareItemsToAdd.add(new Keycard(i));
                 }
                 for (int i : new int[]{125, 150, 200}) {
-                    rareItemsToAdd.add(new Artifact(i));
+                    rareItemsToAdd.add(new Artefact(i));
                 }
                 break;
             case Medium:
@@ -229,7 +229,7 @@ public class DifficultyManager {
                     rareItemsToAdd.add(new Document(i));
                 }
                 for (int i : new int[]{125, 150, 200}) {
-                    rareItemsToAdd.add(new Artifact(i));
+                    rareItemsToAdd.add(new Artefact(i));
                 }
                 break;
             case Hard:
@@ -243,7 +243,7 @@ public class DifficultyManager {
                     rareItemsToAdd.add(new Document(i));
                 }
                 for (int i : new int[]{50, 75, 75, 75, 100, 100}) {
-                    rareItemsToAdd.add(new Artifact(i));
+                    rareItemsToAdd.add(new Artefact(i));
                 }
                 break;
         }

@@ -1,7 +1,5 @@
 package testing;
 
-import base.Console;
-import base.Inventory;
 import base.Player;
 import items.*;
 
@@ -18,13 +16,13 @@ public class ItemsTest extends Test {
 
     private static void testArtifact() {
         System.out.println("Artifact tests:");
-        Artifact artifact = new Artifact(100);
+        Artefact artefact = new Artefact(100);
 
         // Test score incorporation
-        test(artifact.getName().endsWith("- 100"), true);
+        test(artefact.getName().endsWith("- 100"), true);
 
         // Test description format
-        String desc = artifact.describe();
+        String desc = artefact.describe();
         test(desc.startsWith("The "), true);
         test(desc.contains(" and "), true);
         test(desc.endsWith("Score: 100"), true);
