@@ -96,7 +96,7 @@ public class ItemsTest extends Test {
         test(flashlight.getCharge(), flashlight.getMaxCharge() - 1);
 
         //test auto turn off
-        while(flashlight.getCharge() > 0){
+        while (flashlight.getCharge() > 0) {
             flashlight.tick();
         }
         test(flashlight.active, false);

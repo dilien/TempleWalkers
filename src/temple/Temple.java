@@ -15,12 +15,14 @@ public class Temple {
     public final LootManager lootManager;
     public final static int size = DifficultyManager.getSize();
 
-    private Temple(){
+    private Temple() {
         lootManager = new LootManager();
     }
+
     private static Temple temple;
-    public static Temple getInstance(){
-        if(temple == null){
+
+    public static Temple getInstance() {
+        if (temple == null) {
             temple = new Temple();
         }
         return temple;
@@ -30,9 +32,10 @@ public class Temple {
 
     /**
      * Creates the temple, and makes the player enter it.
+     *
      * @param player - player to add to the temple
      */
-    public void testInit(Player player){
+    public void testInit(Player player) {
         TempleGenerator generator = new TempleGenerator();
         Room start = generator.generateRooms();
 
@@ -45,16 +48,18 @@ public class Temple {
 
     int timeUntilFlip = 25;
     public int totalTurns;
-    public void tick(){
+
+    public void tick() {
         totalTurns += 1;
         timeUntilFlip -= 1;
-        if(timeUntilFlip == 0){
+        if (timeUntilFlip == 0) {
             dark = true;
         }
         tickEvent.send(null);
     }
-    public void resetLights(){
+
+    public void resetLights() {
         dark = false;
-        timeUntilFlip = (int)(Math.random() * 10) + 20;
+        timeUntilFlip = (int) (Math.random() * 10) + 20;
     }
 }

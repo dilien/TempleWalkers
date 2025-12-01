@@ -2,7 +2,7 @@ package items;
 
 import java.util.Random;
 
-public class Artefact extends Score{
+public class Artefact extends Score {
     final static String[] names = new String[]{"Gizmo", "Invention", "Gadget", "Contraption"};
     final static String[] fact = new String[]{
             "has exactly two dials",
@@ -20,7 +20,8 @@ public class Artefact extends Score{
             "does not interest you in the slightest"};
     final String name;
     final String description;
-    public Artefact(int score){
+
+    public Artefact(int score) {
         Random random = new Random();
         this.score = score;
         name = names[random.nextInt(4)];

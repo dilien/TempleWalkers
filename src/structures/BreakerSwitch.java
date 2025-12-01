@@ -5,7 +5,7 @@ import base.Player;
 import items.Item;
 import temple.Temple;
 
-public class BreakerSwitch extends Structure{
+public class BreakerSwitch extends Structure {
     public String getName() {
         return "Breaker Switch";
     }
@@ -15,14 +15,14 @@ public class BreakerSwitch extends Structure{
     }
 
     public boolean interact(Player player, Item other) {
-        if(other != null){
+        if (other != null) {
             return false;
         }
         Temple temple = Temple.getInstance();
-        if(temple.dark){
+        if (temple.dark) {
             Console.getInstance().displayText("You pull the switch down and after a few seconds the lights turn back on again.");
             temple.resetLights();
-        }else{
+        } else {
             Console.getInstance().displayText("You pull the switch down but it does nothing. Maybe it will do more when the lights turn off.");
         }
         return true;

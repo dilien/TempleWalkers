@@ -2,7 +2,7 @@ package items;
 
 import java.util.Random;
 
-public class Document extends Item{
+public class Document extends Item {
 
     private static final String[] FullTitle = {
             "Quantum tunneling to bypass",
@@ -25,7 +25,8 @@ public class Document extends Item{
 
     public final int score;
     final String description;
-    public Document(int score){
+
+    public Document(int score) {
         Random random = new Random();
         this.score = score;
         int category = random.nextInt(5);

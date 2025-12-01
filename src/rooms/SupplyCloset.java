@@ -4,12 +4,12 @@ import structures.BreakerSwitch;
 import structures.Container;
 import structures.ContainerType;
 
-public class SupplyCloset extends Room{
+public class SupplyCloset extends Room {
     public SupplyCloset() {
         super(1, 1);
         //0-1 cupboards
         this.structs.add(new BreakerSwitch());
-        for(int i = 0; i<Math.random()*1; i++){
+        for (int i = 0; i < Math.random() * 1; i++) {
             this.structs.add(new Container(ContainerType.cupboard));
         }
     }

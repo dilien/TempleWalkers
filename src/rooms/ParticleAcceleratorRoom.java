@@ -8,7 +8,7 @@ public class ParticleAcceleratorRoom extends Room {
         super(4, 4);
 
         this.structs.add(new Container(ContainerType.cupboard));
-        for(int i = 0; i<Math.random()*2 + 1; i++){
+        for (int i = 0; i < Math.random() * 2 + 1; i++) {
             this.structs.add(new Container(ContainerType.hasmatlocker));
         }
     }

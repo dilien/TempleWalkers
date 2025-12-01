@@ -2,8 +2,9 @@ package rooms;
 
 import structures.Elevator;
 
-public class ElevatorShaft extends Room{
+public class ElevatorShaft extends Room {
     public static int currentElevator = 1; //used to make sure there is one of each.
+
     public ElevatorShaft() {
         super(1, 1);
 

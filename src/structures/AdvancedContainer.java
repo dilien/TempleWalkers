@@ -8,14 +8,15 @@ import temple.Temple;
 
 import java.util.Objects;
 
-public class AdvancedContainer extends Container{
+public class AdvancedContainer extends Container {
 
     final String id;
+
     public AdvancedContainer(ContainerType type, String department) {
         super(type);
 
-        String letters = "" + (char)(65 + Math.random() * 26) + (char)(65 + Math.random() * 26);
-        String numbers = "" + (int)(Math.random() * 10) + (int)(Math.random() * 10);
+        String letters = "" + (char) (65 + Math.random() * 26) + (char) (65 + Math.random() * 26);
+        String numbers = "" + (int) (Math.random() * 10) + (int) (Math.random() * 10);
         id = letters + "-" + numbers;
 
         //Make sure the correct ID is hidden in the facility somewhere.
@@ -34,29 +35,29 @@ public class AdvancedContainer extends Container{
 
     public boolean interact(Player player, Item other) {
         Console console = Console.getInstance();
-        if(looted){
+        if (looted) {
             console.displayText("This " + myType.name() + " has already been looted");
         } else if (other != null) {
-            if(! (other instanceof EmployeeID)){
-                return  false;
+            if (!(other instanceof EmployeeID)) {
+                return false;
             }
-            if(!Objects.equals(((EmployeeID) other).id, id)){
+            if (!Objects.equals(((EmployeeID) other).id, id)) {
                 Console.getInstance().displayText("The ID scans correctly, but is rejected. ACCESS DENIED.");
                 return true;
             }
-            if(item != null){
+            if (item != null) {
                 console.displayText("You search through the " + myType.name() + " and find a " + item.getName() + "!");
-                if(!player.getInventory().addItem(item)){
+                if (!player.getInventory().addItem(item)) {
                     console.displayText("You drop the item on the floor.");
                     player.getRoom().inventory.addItem(item);
                 }
-            }else{
+            } else {
                 //this should probably not print, as all advanced containers should have an item.
                 console.displayText("You search through the " + myType.name() + " but find nothing. What a waste of time.");
             }
             looted = true;
             Temple.getInstance().tick();
-        }else{
+        } else {
             Console.getInstance().displayText("You need an employee ID to open this " + this.getName() + ".");
         }
         return true;

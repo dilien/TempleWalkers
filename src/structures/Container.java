@@ -7,7 +7,8 @@ import temple.Temple;
 
 public class Container extends Structure {
     protected final ContainerType myType;
-    public  Container(ContainerType type){
+
+    public Container(ContainerType type) {
         myType = type;
     }
 
@@ -24,19 +25,19 @@ public class Container extends Structure {
 
     public boolean interact(Player player, Item other) {
         Console console = Console.getInstance();
-        if(looted){
+        if (looted) {
             console.displayText("This has already been looted");
             return true;
         } else if (other != null) {
             return false;
-        }else{
-            if(item != null){
+        } else {
+            if (item != null) {
                 console.displayText("You search through the " + myType.name() + " and find a " + item.getName() + "!");
-                if(!player.getInventory().addItem(item)){
+                if (!player.getInventory().addItem(item)) {
                     console.displayText("You drop the item on the floor.");
                     player.getRoom().inventory.addItem(item);
                 }
-            }else{
+            } else {
                 console.displayText("You search through the " + myType.name() + " but find nothing");
             }
             looted = true;

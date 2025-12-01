@@ -3,11 +3,11 @@ package rooms;
 import structures.Container;
 import structures.ContainerType;
 
-public class MaintenanceTunnel extends Room{
+public class MaintenanceTunnel extends Room {
     public MaintenanceTunnel() {
-        super (1, 4);
+        super(1, 4);
         //0-2 toolboxes
-        for(int i = 0; i<Math.random()*3; i++){
+        for (int i = 0; i < Math.random() * 3; i++) {
             this.structs.add(new Container(ContainerType.toolbox));
         }
     }

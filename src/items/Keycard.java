@@ -1,8 +1,9 @@
 package items;
 
-public class Keycard extends Item{
+public class Keycard extends Item {
     public int level;
-    public Keycard(int level){
+
+    public Keycard(int level) {
         this.level = level;
     }
 

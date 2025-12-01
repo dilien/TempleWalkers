@@ -24,10 +24,12 @@ public abstract class Room implements Interactable {
     final boolean flipped;
     final int sizeX;
     final int sizeY;
-    public int getSizeX(){
+
+    public int getSizeX() {
         return flipped ? sizeY : sizeX;
     }
-    public int getSizeY(){
+
+    public int getSizeY() {
         return flipped ? sizeX : sizeY;
     }
 
@@ -42,10 +44,11 @@ public abstract class Room implements Interactable {
 
     /**
      * Generates a new room with the following size
+     *
      * @param sizeX - size in X coordinates
      * @param sizeY - size in Y coordinates
      */
-    public Room(int sizeX, int sizeY){
+    public Room(int sizeX, int sizeY) {
         inventory = new Inventory(0);
         flipped = Math.random() > 0.5;
         int perimiter = (sizeX + sizeY) * 2;
@@ -56,60 +59,63 @@ public abstract class Room implements Interactable {
 
     /**
      * Sets the position, as well as generating the relative corridor positions from that data.
+     *
      * @param x - x coordinate (top left)
      * @param y - y coordinate (top left)
      */
-    public void setPosition(int x, int y){
+    public void setPosition(int x, int y) {
         this.x = x;
         this.y = y;
         generateCorridors();
     }
 
     public PositionSide[] globalDirections;
+
     /**
      * Used internally to create the local corridors -> global corridors array (and vise versa)
      */
-    void generateCorridors(){
+    void generateCorridors() {
         int p_h = getSizeX() + getSizeY(); //perimiter half
         int perimiter = p_h * 2;
         globalDirections = new PositionSide[perimiter];
-        for(int y = 0; y<getSizeY(); y++){
-            globalDirections[y] = new PositionSide(new Vector2(this.x-1 , y+this.y).wrap(), true);
+        for (int y = 0; y < getSizeY(); y++) {
+            globalDirections[y] = new PositionSide(new Vector2(this.x - 1, y + this.y).wrap(), true);
         }
-        for(int x = 0; x<getSizeX(); x++){
-            globalDirections[getSizeY()+x] = new PositionSide(new Vector2(x+this.x, this.y-1 + getSizeY()).wrap(), false);
+        for (int x = 0; x < getSizeX(); x++) {
+            globalDirections[getSizeY() + x] = new PositionSide(new Vector2(x + this.x, this.y - 1 + getSizeY()).wrap(), false);
         }
-        for(int y = 0; y<getSizeY(); y++){
-            globalDirections[p_h+(getSizeY()-y-1)] = new PositionSide(new Vector2((this.x-1) +getSizeX(), y+this.y).wrap(), true);
+        for (int y = 0; y < getSizeY(); y++) {
+            globalDirections[p_h + (getSizeY() - y - 1)] = new PositionSide(new Vector2((this.x - 1) + getSizeX(), y + this.y).wrap(), true);
         }
-        for(int x = 0; x<getSizeX(); x++){
-            globalDirections[p_h+getSizeY()+(getSizeX()-x-1)] = new PositionSide(new Vector2(x+this.x, this.y-1).wrap(), false);
+        for (int x = 0; x < getSizeX(); x++) {
+            globalDirections[p_h + getSizeY() + (getSizeX() - x - 1)] = new PositionSide(new Vector2(x + this.x, this.y - 1).wrap(), false);
         }
     }
 
-    public int globalSideToLocal(PositionSide globalSide){
-        for(int i = 0; i<globalDirections.length; i++){
-            if(globalDirections[i].equals(globalSide)){
-                return  i;
+    public int globalSideToLocal(PositionSide globalSide) {
+        for (int i = 0; i < globalDirections.length; i++) {
+            if (globalDirections[i].equals(globalSide)) {
+                return i;
             }
         }
         return -1;
     }
 
-    public PositionSide localSideToGlobal(int localSide){
+    public PositionSide localSideToGlobal(int localSide) {
         return globalDirections[localSide];
     }
 
     /**
      * Links a corridor to a room
      * warning: If the corridor cannot be added because the positions do not line up, It will completely crash!
+     *
      * @param corridor - corridor to add
      * @return - true/false if failed, could fail if the side is already occupied.
      */
-    public boolean addCorridor(Corridor corridor){
+    public boolean addCorridor(Corridor corridor) {
         //TODO: find a way for invalid corridors to cause crashes somewhere more relevant in the program, or maybe just a warning.
         int localSide = globalSideToLocal(corridor.side);
-        if(corridors[localSide] == null){
+        if (corridors[localSide] == null) {
             corridors[localSide] = corridor;
             return true;
         }
@@ -121,7 +127,7 @@ public abstract class Room implements Interactable {
      *
      * @return - A list of items that can be interacted with.
      */
-    public Interactable[] getAll(){
+    public Interactable[] getAll() {
         Interactable[] items = inventory.items.toArray(new Interactable[]{});
 
         int length = 1 + corridors.length + structs.size() + items.length;
@@ -131,19 +137,19 @@ public abstract class Room implements Interactable {
         int start = 1;
         for (int i = 0; i < structs.size(); i++) {
             Structure struct = structs.get(i);
-            arr[i+start] = struct;
+            arr[i + start] = struct;
         }
         start += structs.size();
 
         for (int i = 0; i < items.length; i++) {
             Interactable item = items[i];
-            arr[i+start] = item;
+            arr[i + start] = item;
         }
         start += items.length;
 
         for (int i = 0; i < corridors.length; i++) {
             Corridor item = corridors[i];
-            arr[i+start] = item;
+            arr[i + start] = item;
         }
         start += corridors.length;
 
@@ -153,50 +159,60 @@ public abstract class Room implements Interactable {
 
     /**
      * A utility function to write text in a string array
+     *
      * @param output - string array to write to
-     * @param text - text to write
-     * @param start - index to start writing at
+     * @param text   - text to write
+     * @param start  - index to start writing at
      */
-    public static void write(char[] output, String text, int start){
+    public static void write(char[] output, String text, int start) {
         System.arraycopy(text.toCharArray(), 0, output, start, text.length());
     }
 
     /**
      * A function to add all corridors to the top left display (the room top-down view)
+     *
      * @param output - grid of characters to write to
-     * @param dark - if all sides are displayed, or just the ones that lead somewhere.
+     * @param dark   - if all sides are displayed, or just the ones that lead somewhere.
      */
-    void addCorridorsToDisplay(char[][] output, boolean dark, int playerFrom, int indexOffset){
-        for(int y = 0; y<getSizeY(); y++){
+    void addCorridorsToDisplay(char[][] output, boolean dark, int playerFrom, int indexOffset) {
+        for (int y = 0; y < getSizeY(); y++) {
             int id = y;
-            if(!dark && this.corridors[id]==null){continue;}
-            write(output[1+y*ys], String.format("%-2d", id+1+indexOffset),0);
-            if(id == playerFrom){
-                write(output[1+y*ys], "@",2);
+            if (!dark && this.corridors[id] == null) {
+                continue;
+            }
+            write(output[1 + y * ys], String.format("%-2d", id + 1 + indexOffset), 0);
+            if (id == playerFrom) {
+                write(output[1 + y * ys], "@", 2);
             }
         }
-        for(int x = 0; x<getSizeX(); x++){
-            int id = x+getSizeY();
-            if(!dark && this.corridors[id]==null){continue;}
-            write(output[1+getSizeY()*ys], String.format("%-2d", id+1+indexOffset), 3+x*xs);
-            if(id == playerFrom){
-                write(output[getSizeY()*ys], "@",3+x*xs);
+        for (int x = 0; x < getSizeX(); x++) {
+            int id = x + getSizeY();
+            if (!dark && this.corridors[id] == null) {
+                continue;
+            }
+            write(output[1 + getSizeY() * ys], String.format("%-2d", id + 1 + indexOffset), 3 + x * xs);
+            if (id == playerFrom) {
+                write(output[getSizeY() * ys], "@", 3 + x * xs);
             }
         }
-        for(int y = 0; y<getSizeY(); y++){
-            int id = y+getSizeX()+getSizeY();
-            if(!dark && this.corridors[id]==null){continue;}
-            write(output[-1+(getSizeY()-y)*ys], String.format("%-2d", id+1+indexOffset), 2+this.getSizeX()*xs);
-            if(id == playerFrom){
-                write(output[-1+(getSizeY()-y)*ys], "@",1+this.getSizeX()*xs);
+        for (int y = 0; y < getSizeY(); y++) {
+            int id = y + getSizeX() + getSizeY();
+            if (!dark && this.corridors[id] == null) {
+                continue;
+            }
+            write(output[-1 + (getSizeY() - y) * ys], String.format("%-2d", id + 1 + indexOffset), 2 + this.getSizeX() * xs);
+            if (id == playerFrom) {
+                write(output[-1 + (getSizeY() - y) * ys], "@", 1 + this.getSizeX() * xs);
             }
         }
-        for(int x = 0; x<getSizeX(); x++){
-            int id = x+getSizeY()*ys+getSizeX();
-            if(!dark && this.corridors[id]==null){continue;}
-            write(output[0], String.format("%-2d", id+1+indexOffset),-1+(this.getSizeX()-x)*xs);
-            if(id == playerFrom){
-                write(output[1], "@",-1+(this.getSizeX()-x)*xs);
+        for (int x = 0; x < getSizeX(); x++) {
+            int id = x + getSizeY() * ys + getSizeX();
+            if (!dark && this.corridors[id] == null) {
+                continue;
+            }
+            write(output[0], String.format("%-2d", id + 1 + indexOffset), -1 + (this.getSizeX() - x) * xs);
+            if (id == playerFrom) {
+                write(output[1], "@", -1 + (this.getSizeX() - x) * xs);
             }
         }
 
@@ -207,7 +223,7 @@ public abstract class Room implements Interactable {
      *
      * @param start - index to start with when displaying the interactables
      */
-    public void render(int start, PositionSide playerPosition, boolean dark){
+    public void render(int start, PositionSide playerPosition, boolean dark) {
 
         Item[] items = inventory.items.toArray(new Item[]{});
 
@@ -218,7 +234,7 @@ public abstract class Room implements Interactable {
             }
         }
 
-        int sectionLeft = this.getSizeX()*xs+6;
+        int sectionLeft = this.getSizeX() * xs + 6;
         int rightHeight = items.length + structs.size() + 1;
 
         int leftHeight = 2 + this.getSizeY() * ys;
@@ -228,18 +244,18 @@ public abstract class Room implements Interactable {
         //not quite sure how this works but thanks internet:
         java.util.Arrays.stream(output).forEach(row -> Arrays.fill(row, ' '));
 
-        for(int x = 0; x<this.getSizeX()*xs+4; x++){
-            for(int y = 0; y<this.getSizeY()*ys+2; y++){
-                if(x == 0 || y == 0 || x == 1 || x == this.getSizeX()*xs +2 || x == this.getSizeX()*xs +3 || y == this.getSizeY()*ys + 1){
-                    output[y][x] = dark?'.':'█';
-                }else{
-                    output[y][x] = dark?' ':'.';
+        for (int x = 0; x < this.getSizeX() * xs + 4; x++) {
+            for (int y = 0; y < this.getSizeY() * ys + 2; y++) {
+                if (x == 0 || y == 0 || x == 1 || x == this.getSizeX() * xs + 2 || x == this.getSizeX() * xs + 3 || y == this.getSizeY() * ys + 1) {
+                    output[y][x] = dark ? '.' : '█';
+                } else {
+                    output[y][x] = dark ? ' ' : '.';
                 }
             }
         }
-        if(dark){
+        if (dark) {
             write(output[0], start + 1 + " : You are in a ????", sectionLeft);
-        }else{
+        } else {
             write(output[0], start + 1 + " : You are in a " + this.getName(), sectionLeft);
         }
         start += 1;
@@ -248,9 +264,9 @@ public abstract class Room implements Interactable {
             Interactable struct = structs.get(i);
 
             String text;
-            if(!dark){
+            if (!dark) {
                 text = i + start + 1 + " : " + struct.getName();
-            }else{
+            } else {
                 text = i + start + 1 + " : ????";
             }
             write(output[i + start], text, sectionLeft);
@@ -260,9 +276,9 @@ public abstract class Room implements Interactable {
         for (int i = 0; i < items.length; i++) {
             Interactable item = items[i];
             String text;
-            if(!dark){
+            if (!dark) {
                 text = i + start + 1 + " : A " + item.getName();
-            }else{
+            } else {
                 text = i + start + 1 + " : ????";
             }
             write(output[i + start], text, sectionLeft);
@@ -279,10 +295,10 @@ public abstract class Room implements Interactable {
             if (dark) {
                 continue;
             }
-            if(item == null){
+            if (item == null) {
                 continue;
             }
-            if(item.getName() == null){
+            if (item.getName() == null) {
                 continue;
             }
             text = plr_index + " : A " + item.getName() + " that leads to a " + item.other(this).getName();
@@ -294,14 +310,14 @@ public abstract class Room implements Interactable {
         start += realCorridorIndex;
 
 
-        for(char[] str : output){
+        for (char[] str : output) {
             System.out.println(str);
         }
     }
 
-    public boolean interact(Player player, Item other){
-        if(other != null){
-            if(player.getInventory().removeItem(other)){
+    public boolean interact(Player player, Item other) {
+        if (other != null) {
+            if (player.getInventory().removeItem(other)) {
                 inventory.addItem(other);
 
                 Console.getInstance().displayText("You drop the " + other.getName() + " on the ground.");
@@ -312,22 +328,22 @@ public abstract class Room implements Interactable {
     }
 
     //Empty by default, other classes can add their own specific features
-    public void enterRoom(Player player){
+    public void enterRoom(Player player) {
 
     }
 
-    public boolean generateRareLoot(Item item){
+    public boolean generateRareLoot(Item item) {
         return false;
     }
 
-    public boolean generateLoot(Item item){
+    public boolean generateLoot(Item item) {
         ArrayList<Container> containers = new ArrayList<>();
-        for(Structure s : structs) {
-            if(s instanceof Container && ((Container) s).item == null) {
-                containers.add((Container)s);
+        for (Structure s : structs) {
+            if (s instanceof Container && ((Container) s).item == null) {
+                containers.add((Container) s);
             }
         }
-        if(!containers.isEmpty()){
+        if (!containers.isEmpty()) {
             containers.get(new Random().nextInt(containers.size())).item = item;
             return true;
         }
@@ -337,7 +353,7 @@ public abstract class Room implements Interactable {
     /**
      * @return - A MINIMUM amount of corridors to generate, wherever possible.
      */
-    public int getTargetCorridors(){
+    public int getTargetCorridors() {
         return 2;
     }
 }

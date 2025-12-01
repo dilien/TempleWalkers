@@ -8,32 +8,37 @@ import temple.Temple;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class FluxRoom extends Room{
+public class FluxRoom extends Room {
     private static final ArrayList<FluxRoom> rooms = new ArrayList<>();
     private static int cooldown = 0;
 
-    public FluxRoom(){
+    public FluxRoom() {
         super(1, 1);
         rooms.add(this);
     }
 
     //the reason we have to do this is because returning false would only cause the item to generate on the floor.
-    public boolean generateLoot(Item item){
+    public boolean generateLoot(Item item) {
         Temple.getInstance().lootManager.itemsToAdd.add(item);
         return true;
     }
 
     public void enterRoom(Player player) {
         //If there is nowhere else to teleport then return before infinite loop.
-        if(rooms.size() == 1){return;}
+        if (rooms.size() == 1) {
+            return;
+        }
 
         //cooldown of one teleportation to prevent the player to be teleported in an infinite loop
-        if(cooldown>0){cooldown-=1; return;}
+        if (cooldown > 0) {
+            cooldown -= 1;
+            return;
+        }
         Console.getInstance().prompt("You suddenly feel disoriented and after a bright flash of light, you have no idea where you are.");
         cooldown = 1;
 
         Room other = this;
-        while(other == this){
+        while (other == this) {
             other = rooms.get(new Random().nextInt(rooms.size()));
         }
         player.enterRoom(other);

@@ -1,11 +1,11 @@
 package items;
 
-public class EmployeeID extends Item{
+public class EmployeeID extends Item {
     public final String department;
     public final String name;
     public final String id;
 
-    public EmployeeID(String id, String department){
+    public EmployeeID(String id, String department) {
         this.department = department;
         this.id = id;
         //TODO: implement random name generation

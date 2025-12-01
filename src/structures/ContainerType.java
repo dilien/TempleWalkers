@@ -2,7 +2,8 @@ package structures;
 
 /**
  * Represents the 'skin' or 'style' of a container/advanced container
- * @param name - string returned on getName()
+ *
+ * @param name        - string returned on getName()
  * @param description - string returned on getDescription()
  */
 public record ContainerType(String name, String description) {

@@ -13,7 +13,7 @@ public class Main {
         Temple temple = Temple.getInstance();
         temple.testInit(main);
 
-        while(!main.end){
+        while (!main.end) {
             Console.getInstance().dashboard(main);
             //temple.tick();
         }

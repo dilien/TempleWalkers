@@ -1,6 +1,6 @@
 package rooms;
 
-public class TestRoom extends Room{
+public class TestRoom extends Room {
     public TestRoom(int x, int y) {
         super(x, y);
     }

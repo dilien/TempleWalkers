@@ -3,7 +3,7 @@ package items;
 import base.Console;
 import base.Player;
 
-public class OxygenCanister extends Item{
+public class OxygenCanister extends Item {
     public String getName() {
         return "Oxygen Canister";
     }
@@ -13,8 +13,10 @@ public class OxygenCanister extends Item{
     }
 
     public boolean interact(Player player, Item other) {
-        if(tryPickup(player)){return true;}
-        if(other != null){
+        if (tryPickup(player)) {
+            return true;
+        }
+        if (other != null) {
             return false;
         }
         player.refillOxygen();

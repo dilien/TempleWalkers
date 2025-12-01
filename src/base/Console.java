@@ -10,30 +10,35 @@ import java.util.Objects;
 import java.util.Scanner;
 
 /**
- This class represents the console and handles taking user input, as well as directing the other classes to display information when needed.
- It is a singleton.
+ * This class represents the console and handles taking user input, as well as directing the other classes to display information when needed.
+ * It is a singleton.
  */
 public class Console {
     final Scanner scanner;
-    private Console(){
+
+    private Console() {
         scanner = new Scanner(System.in);
     }
+
     static Console self;
-    public static Console getInstance(){
-        if(self == null){
+
+    public static Console getInstance() {
+        if (self == null) {
             self = new Console();
         }
         return self;
     }
 
     String output = "";
+
     //Display text to the user on the next dashboard step
-    public void displayText(String text){
+    public void displayText(String text) {
         output += "\n" + text;
     }
 
     /**
      * This function prevents full on crashes when a non-int is parsed.
+     *
      * @param value - string to parse
      * @return integer or null
      */
@@ -45,7 +50,7 @@ public class Console {
         }
     }
 
-    public String prompt(String text){
+    public String prompt(String text) {
         System.out.println(text);
         return scanner.nextLine();
     }
@@ -55,18 +60,19 @@ public class Console {
     /**
      * This function prints out the 'view' of the player, including the room and their inventory
      * It yields until the player chooses an action
+     *
      * @param player - the player to generate the dashboard for
      */
-    public void dashboard(Player player){
-        for(int i = 0; i<50; i++){
+    public void dashboard(Player player) {
+        for (int i = 0; i < 50; i++) {
             System.out.println();
         }
 
         boolean dark = Temple.getInstance().dark;
-        for(Item item : player.getInventory().items){
-            if(item instanceof Flashlight flash){
-                if(flash.active){
-                    if(!dark){
+        for (Item item : player.getInventory().items) {
+            if (item instanceof Flashlight flash) {
+                if (flash.active) {
+                    if (!dark) {
                         Console.getInstance().displayText("Warning: you have a flashlight on when it is bright already, and this wastes battery.");
                     }
                     dark = false;
@@ -94,12 +100,12 @@ public class Console {
         System.arraycopy(array1, 0, interactables, array1Start, array1.length);
         System.arraycopy(array2, 0, interactables, array2Start, array2.length);
 
-        if(player.getOxygen() < 5){
+        if (player.getOxygen() < 5) {
             displayText("Oxygen Left: " + "\u001B[31m" + player.getOxygen() + "\u001B[0m");
-        }else{
+        } else {
             displayText("Oxygen Left: " + player.getOxygen());
         }
-        System.out.println(output );
+        System.out.println(output);
         output = "";
 
         //rest of the function is parsing user commands
@@ -107,7 +113,7 @@ public class Console {
         String input = scanner.nextLine().strip();
         String[] arr = input.split(" ");
 
-        if(arr.length < 1){
+        if (arr.length < 1) {
             displayText("No input received.");
             return;
         }
@@ -115,7 +121,7 @@ public class Console {
         //converts to first letter + lowercase
         arr[0] = String.valueOf(arr[0].toLowerCase().charAt(0));
 
-        if(Objects.equals(arr[0], "h")) {
+        if (Objects.equals(arr[0], "h")) {
             displayText("""
                     Commands:
                     help     : h , provides a list of commands
@@ -133,8 +139,8 @@ public class Console {
             arr = arr2;
         }
 
-        if(arr.length < 2){
-            if(arr[0].equals("d") || arr[0].equals("i")){
+        if (arr.length < 2) {
+            if (arr[0].equals("d") || arr[0].equals("i")) {
                 displayText("This command requires at least one index");
                 return;
             }
@@ -144,52 +150,52 @@ public class Console {
 
         int obj1index = parseIntOrZero(arr[1]);
         Interactable obj1;
-        if(obj1index < 1 || obj1index > interactables.length){
+        if (obj1index < 1 || obj1index > interactables.length) {
             displayText("'" + arr[1] + "' is not a valid index.");
             return;
-        }else{
-            obj1 = interactables[obj1index-1];
+        } else {
+            obj1 = interactables[obj1index - 1];
         }
 
-        if(player.getOxygen() == 0){
+        if (player.getOxygen() == 0) {
             String output = prompt("You have no oxygen left. Are you sure? (y/n)");
-            if(!Objects.equals(output.strip(), "y")){
+            if (!Objects.equals(output.strip(), "y")) {
                 return;
             }
         }
 
-        if(Objects.equals(arr[0], "d")){
+        if (Objects.equals(arr[0], "d")) {
             //possibly enforce only two arguments?
             displayText(obj1.describe());
         } else if (Objects.equals(arr[0], "i")) {
             Item obj2 = null;
 
-            if(arr.length > 2){
+            if (arr.length > 2) {
                 int obj2index = parseIntOrZero(arr[2]);
-                if(obj2index < 1 || obj2index > interactables.length){
+                if (obj2index < 1 || obj2index > interactables.length) {
                     displayText("'" + arr[2] + "' is not a valid index.");
                     return;
-                }else{
-                    Interactable inter = interactables[obj2index-1];
-                    if(inter instanceof Item){
+                } else {
+                    Interactable inter = interactables[obj2index - 1];
+                    if (inter instanceof Item) {
                         obj2 = (Item) inter;
-                    }else{
+                    } else {
                         displayText(inter.getName() + " cannot be used as a tool");
                         return;
                     }
                 }
             }
-            if(obj1 == null){
+            if (obj1 == null) {
                 displayText("You try to go through it, but bump your head into the wall. Oops.");
                 Temple.getInstance().tick();
                 return;
             }
 
             boolean success = obj1.interact(player, obj2);
-            if(!success){
+            if (!success) {
                 displayText("You cannot interact with " + obj1.getName() + " in this way.");
-            }else{
-                if(obj1 instanceof Corridor){
+            } else {
+                if (obj1 instanceof Corridor) {
                     lastCorridor = ((Corridor) obj1).side;
                 }
             }

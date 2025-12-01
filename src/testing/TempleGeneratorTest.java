@@ -55,8 +55,8 @@ public class TempleGeneratorTest extends Test {
         grid[1][1] = room1;
         grid[2][1] = room2;
 
-        room1.setPosition(1,1);
-        room2.setPosition(2,1);
+        room1.setPosition(1, 1);
+        room2.setPosition(2, 1);
 
         PositionSide side = new PositionSide(new Vector2(1, 1).wrap(), true);
         Room otherRoom = generator.getOtherRoom(grid, room1, side);
