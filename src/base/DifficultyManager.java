@@ -214,7 +214,7 @@ public class DifficultyManager {
                 for (int i = 1; i < 3; i++) {
                     rareItemsToAdd.add(new Keycard(i));
                 }
-                for (int i : new int[]{125, 150, 200}) {
+                for (int i : new int[]{100, 125, 150, 200, 275}) {
                     rareItemsToAdd.add(new Artefact(i));
                 }
                 break;
