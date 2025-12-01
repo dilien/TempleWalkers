@@ -112,6 +112,19 @@ public class Console {
             return;
         }
 
+        //converts to first letter + lowercase
+        arr[0] = String.valueOf(arr[0].toLowerCase().charAt(0));
+
+        if(Objects.equals(arr[0], "h")) {
+            displayText("""
+                    Commands:
+                    help     : h , provides a list of commands
+                    describe : d [index]- describes a thing
+                    interact : i [index]- interacts with a thing
+                             : i [index] [item] - interacts with thing using a item""");
+            return;
+        }
+
         //number provided first, so we can assume the action is interact
         if (parseIntOrZero(arr[0]) != 0) {
             String[] arr2 = new String[arr.length + 1];
@@ -121,6 +134,10 @@ public class Console {
         }
 
         if(arr.length < 2){
+            if(arr[0].equals("d") || arr[0].equals("i")){
+                displayText("This command requires at least one index");
+                return;
+            }
             displayText("'" + arr[0] + "' is not a valid command");
             return;
         }
