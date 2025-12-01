@@ -108,6 +108,7 @@ public class Console {
         String[] arr = input.split(" ");
 
         if(arr.length < 1){
+            displayText("No input received.");
             return;
         }
 
@@ -120,13 +121,14 @@ public class Console {
         }
 
         if(arr.length < 2){
+            displayText("'" + arr[0] + "' is not a valid command");
             return;
         }
 
         int obj1index = parseIntOrZero(arr[1]);
         Interactable obj1;
         if(obj1index < 1 || obj1index > interactables.length){
-            displayText("'" + obj1index + "' is not a valid index.");
+            displayText("'" + arr[1] + "' is not a valid index.");
             return;
         }else{
             obj1 = interactables[obj1index-1];
@@ -140,6 +142,7 @@ public class Console {
         }
 
         if(Objects.equals(arr[0], "d")){
+            //possibly enforce only two arguments?
             displayText(obj1.describe());
         } else if (Objects.equals(arr[0], "i")) {
             Item obj2 = null;
@@ -147,7 +150,7 @@ public class Console {
             if(arr.length > 2){
                 int obj2index = parseIntOrZero(arr[2]);
                 if(obj2index < 1 || obj2index > interactables.length){
-                    displayText("'" + obj2index + "' is not a valid index.");
+                    displayText("'" + arr[2] + "' is not a valid index.");
                     return;
                 }else{
                     Interactable inter = interactables[obj2index-1];
@@ -155,6 +158,7 @@ public class Console {
                         obj2 = (Item) inter;
                     }else{
                         displayText(inter.getName() + " cannot be used as a tool");
+                        return;
                     }
                 }
             }

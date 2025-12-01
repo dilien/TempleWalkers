@@ -12,6 +12,7 @@ public class DifficultyManager {
      * Takes user input and yields until a difficulty is selected
      */
     public static void setDifficulty(){
+        difficulty = null;
         Console console = Console.getInstance();
         while(difficulty == null){
             String answer = console.prompt("Please select a difficulty (m/medium) (h/hard) (v/very hard)").strip() + " ";
