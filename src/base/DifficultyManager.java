@@ -2,6 +2,7 @@ package base;
 
 import items.*;
 import rooms.*;
+import structures.Whiteboard;
 
 import java.util.ArrayList;
 
@@ -245,5 +246,21 @@ public class DifficultyManager {
                 break;
         }
         return rareItemsToAdd;
+    }
+
+    public static ArrayList<Whiteboard> getHints(){
+        ArrayList<Whiteboard> whiteboards = new ArrayList<>();
+        whiteboards.add(new Whiteboard("Notice: Experimental time space navigation has caused the facility to 'loop' for the time being. Please do not be alarmed if you enter a room you have previously left."));
+        whiteboards.add(new Whiteboard("Notice: Please keep important artifacts locked away in secure containers that require ID's to open. "));
+        if(difficulty == Difficulty.Medium){
+            whiteboards.add(new Whiteboard("As part of our less-walking initiative due to the growing size of the facility, use an experimental flux room to teleport to the other pair. There are exactly 2 in the facility while we test it out."));
+        }
+        if(difficulty == Difficulty.Medium || difficulty == Difficulty.Hard){
+            whiteboards.add(new Whiteboard("It has a diagram for a bottomless briefcase that can carry as many documents as you wish. It looks like there is only a few prototypes around the facility."));
+        }
+        if(difficulty == Difficulty.Hard){
+            whiteboards.add(new Whiteboard("It looks like someone in the flux department messed up. All 5 flux rooms are activated and are randomly teleporting to each-other. Yikes."));
+        }
+        return  whiteboards;
     }
 }
