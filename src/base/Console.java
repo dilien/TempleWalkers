@@ -118,8 +118,8 @@ public class Console {
             return;
         }
 
-        //converts to first letter + lowercase
-        arr[0] = String.valueOf(arr[0].toLowerCase().charAt(0));
+        //converts to lowercase
+        arr[0] = arr[0].toLowerCase();
 
         if (Objects.equals(arr[0], "h")) {
             displayText("""
