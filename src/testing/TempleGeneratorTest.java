@@ -26,12 +26,14 @@ public class TempleGeneratorTest extends Test {
         test(generator.checkFree(0, 0, 2, 2, grid), true);
 
         //test not free space
-        Room room = new TestRoom(2, 2);
+        Room room = new TestRoom(1, 1);
         grid[1][1] = room;
-        test(generator.checkFree(0, 0, 3, 3, grid), false);
+        test(generator.checkFree(0, 0, 2, 2, grid), false);
 
         //test at grid edge (should still pass due to map wrapping)
-        test(generator.checkFree(9, 9, 2, 2, grid), true);
+        test(generator.checkFree(7, 7, 2, 2, grid), true);
+        //test map wrapping also works for blocked space
+        test(generator.checkFree(7, 7, 3, 3, grid), false);
     }
 
     private static void testIsExistingCorridor() {
