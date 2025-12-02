@@ -5,7 +5,7 @@ import structures.ContainerType;
 
 public class ParticleAcceleratorRoom extends Room {
     public ParticleAcceleratorRoom() {
-        super(4, 4);
+        super(3, 3);
 
         this.structs.add(new Container(ContainerType.cupboard));
         for (int i = 0; i < Math.random() * 2 + 1; i++) {
