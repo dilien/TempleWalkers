@@ -250,7 +250,7 @@ public class DifficultyManager {
 
     public static ArrayList<Whiteboard> getHints(){
         ArrayList<Whiteboard> whiteboards = new ArrayList<>();
-        whiteboards.add(new Whiteboard("Notice: Experimental time space navigation has caused the facility to 'loop' for the time being. Please do not be alarmed if you enter a room you have previously left."));
+        whiteboards.add(new Whiteboard("Notice: Experimental time space navigation has caused the facility to 'mirror' for the time being. Please do not be alarmed if you enter a room you have previously left."));
         whiteboards.add(new Whiteboard("Notice: Please keep important artifacts locked away in secure containers that require ID's to open. "));
         if(difficulty == Difficulty.Medium){
             whiteboards.add(new Whiteboard("As part of our less-walking initiative due to the growing size of the facility, use an experimental flux room to teleport to the other pair. There are exactly 2 in the facility while we test it out."));

@@ -5,16 +5,18 @@ import com.sun.source.tree.WhileLoopTree;
 import items.Item;
 
 public class Whiteboard extends Structure{
+    boolean read = false;
     String content;
     public Whiteboard(String content){
         this.content = content;
     }
 
     public String getName() {
-        return "Whiteboard";
+        return (read ? "Read" : "Unread") + " Whiteboard";
     }
 
     public String describe() {
+        read = true;
         return this.content;
     }
 

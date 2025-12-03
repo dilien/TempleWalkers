@@ -3,7 +3,12 @@ package base;
 import items.Item;
 import items.Score;
 import rooms.Room;
+import structures.Whiteboard;
 import temple.Temple;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 //represents the player object
 //Not a singleton, although there is never multiple players
@@ -12,6 +17,7 @@ public class Player {
         inventory = new Inventory(10);
         Temple temple = Temple.getInstance();
         temple.tickEvent.listen((_void) -> tick());
+        Collections.shuffle(whiteboards);
     }
 
     int oxygenLeft = 30;
@@ -67,6 +73,8 @@ public class Player {
     Room room;
     final Inventory inventory;
 
+    ArrayList<Whiteboard> whiteboards = DifficultyManager.getHints();
+
     /**
      * Cause the player to enter a new room
      *
@@ -76,6 +84,14 @@ public class Player {
         this.room = room;
         Console console = Console.getInstance();
         console.displayText("Entering a " + room.getName());
+
+        if((Temple.getInstance().totalTurns+1) % 5 == 0){
+            if(!whiteboards.isEmpty()){
+                room.structs.add(whiteboards.getFirst());
+                whiteboards.removeFirst();
+                System.out.println("whiteboard added");
+            }
+        }
 
         //trigger any room-specific effects
         room.enterRoom(this);
