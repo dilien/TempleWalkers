@@ -82,6 +82,29 @@ public class Console {
 
         int index = 0;
 
+        //Document example, with lots of code cut out
+
+//        //User command as a string array
+//        String[] input = new String[]{"d", "12"};
+//
+//        //Get all objects within the room
+//        Interactable[] roomObjects = player.room.getAll();
+//        //Get all objects within the player inventory
+//        Interactable[] inventoryObjects = player.getInventory().items.toArray(new Interactable[]{});
+//        //Combine them into one big array
+//        Interactable[] interactables = new Interactable[roomObjects.length + inventoryObjects.length];
+//        System.arraycopy(roomObjects, 0, interactables, 0, roomObjects.length);
+//        System.arraycopy(inventoryObjects, 0, interactables, roomObjects.length, inventoryObjects.length);
+//
+//        //If first argument is d for describe
+//        if (input[0] == "d") {
+//            //find the object indicated by the user's next number
+//            int index1 = Integer.parseInt(input[1]);
+//            Interactable obj1 = interactables[index1];
+//            //describe that object, and print it to the console
+//            displayText(obj1.describe());
+//        }
+
         //could be made into a for loop
         int array1Start = index;
         player.room.render(index, lastCorridor, dark);

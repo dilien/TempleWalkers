@@ -194,9 +194,7 @@ public class TempleGenerator {
         ArrayList<Room> toCheck = new ArrayList<>();
         checked.add(start);
         toCheck.add(start);
-        int count = 0;
         while (!toCheck.isEmpty()) {
-            count++;
             Room room = toCheck.getFirst();
             toCheck.removeFirst();
 
@@ -211,6 +209,6 @@ public class TempleGenerator {
                 }
             }
         }
-        return count == target;
+        return checked.size() == target;
     }
 }
