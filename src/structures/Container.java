@@ -12,7 +12,7 @@ public class Container extends Structure {
         myType = type;
     }
 
-    protected boolean looted = false;
+    public boolean looted = false;
     public Item item;
 
     public String getName() {

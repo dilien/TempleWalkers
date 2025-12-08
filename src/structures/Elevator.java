@@ -22,7 +22,7 @@ public class Elevator extends Structure {
             return false;
         }
         if (other instanceof Keycard) {
-            if (((Keycard) other).level >= level) {
+            if (((Keycard) other).level == level) {
                 //win
                 Console.getInstance().displayText("\n You enter the elevator and head back up to the surface.");
                 player.end = true;

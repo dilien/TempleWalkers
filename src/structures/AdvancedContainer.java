@@ -10,7 +10,7 @@ import java.util.Objects;
 
 public class AdvancedContainer extends Container {
 
-    final String id;
+    public final String id;
 
     public AdvancedContainer(ContainerType type, String department) {
         super(type);
